@@ -62,7 +62,7 @@ The framework works on a set of clone files (output of a code clone detection to
 $python validateClones.py <Validation Threshold> <Input Directory> <Output Directory>
 ```
 
-Here,
+Where,
 - Validation Threshold : The preffered threshold value (e.g., prob. [0,1]) for deciding a potential clone pair to be true.
 - Input Directory: The directory of all detected clone files formatted as above (e.g., as shown in step 2). 
 - Output Directory: The destination directory to write the validation responses.
