@@ -37,20 +37,47 @@ On Cloning and setting up the required environment for this project, you need to
 $cd ML_CloneValidationFramework
 ```
 
-###### 2. Run the `validateClones.py` script as following:
+###### 2. Check the clone file format for validation
+The framework works on a set of clone files (output of a code clone detection tools) for validation. The used xml format for parsing the clone pairs are as follows. All the detected clone pairs - `clone`, should have to be children of the root tag - `clones`. A `clone` contains details information (e.g., in `source` tag) and codes (e.g., in `code` tag) for both of its clone fragments. Copy all such clone files in a directory for starting the validation (e.g., as next step).    
+```
+<clones>
+    <clone>
+        <source file= "selected/1966294.java" startline= "168" endline= "181" />
+        <code> 
+            //clone fragment 1
+        </code>
+        
+        <source file= "selected/1966294.java" startline= "58" endline= "65" />
+        <code> 
+            //clone fragment 2
+        </code>
+    </clone>
+    ...
+<clones>
+```
+
+
+###### 3. Run the `validateClones.py` script as following:
 ```
 $python validateClones.py <Validation Threshold> <Input Directory> <Output Directory>
 ```
 
 Here,
 - Validation Threshold : The preffered threshold value (e.g., prob. [0,1]) for deciding a potential clone pair to be true.
-- Input Directory: The directory of all detected clone files. 
+- Input Directory: The directory of all detected clone files formatted as above (e.g., as shown in step 2). 
 - Output Directory: The destination directory to write the validation responses.
 
 So, an example usage would be:
 ```
 $python validateClones.py 0.6 DetectedSystemClonesDir/ ML_ValidationResponse/
 ```
+
+# Hello World
+For testing if everything has been set up accordingly, you can run the validation on a provided clone file with this framework. The sample clone pairs are available in `input_clone_pairs` directory. So, you can run the following command to test the successfull installation of the framework. If evererythin works fine, you should get validation statistics (e.g, precision, TP clones and so on) on your console. The validation statistics will also be available in `__CLONE_VALIDATION_STATS.txt` file in `Out/` directory.
+```
+$python validateClones.py 0.5 input_clone_pairs/ out/
+```
+
 
 
 # References
