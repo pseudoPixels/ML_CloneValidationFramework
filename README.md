@@ -18,8 +18,39 @@ existing code clone detection tools for valdiation prediction responses using RE
 additional details of the framework [1].
 
 
+# Installation
+Please make sure you have the following environment setups:
+
+1. Python 2.7 (This framework has been developed using Python 2.7.6).
+
+2. Pybrain (This project used Pybrain (http://pybrain.org/) for building the neural network model).
+
+3. Pickle (For loading the pickled neural network model from Pybrain)
 
 
+
+# Usage Instructions
+On Cloning and setting up the required environment for this project, you need to follow the speps below:
+
+###### 1. Make sure in the project directory
+```
+$cd ML_CloneValidationFramework
+```
+
+###### 2. Run the `validateClones.py` script as following:
+```
+$python validateClones.py <Validation Threshold> <Input Directory> <Output Directory>
+```
+
+Here,
+- Validation Threshold : The preffered threshold value (e.g., prob. [0,1]) for deciding a potential clone pair to be true.
+- Input Directory: The directory of all detected clone files. 
+- Output Directory: The destination directory to write the validation responses.
+
+So, an example usage would be:
+```
+$python validateClones.py 0.6 DetectedSystemClonesDir/ ML_ValidationResponse/
+```
 
 
 # References
