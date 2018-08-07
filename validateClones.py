@@ -271,7 +271,7 @@ def main():
 	with open(outDir+'/'+'__CLONE_VALIDATION_STATS.txt', "a") as cloneValidationStats:
 		cloneValidationStats.write('Total Clone Pairs Validated: ' + str(OVERALL_CLONE_PAIRS) + '\n')
 		cloneValidationStats.write('Predicted True Positive Clones: ' + str(OVERALL_TRUE_CLONES) + '\n')
-		cloneValidationStats.write('Predicted False Positive Clones: ' + str(OVERALL_TRUE_CLONES - OVERALL_TRUE_CLONES) + '\n')
+		cloneValidationStats.write('Predicted False Positive Clones: ' + str(OVERALL_CLONE_PAIRS - OVERALL_TRUE_CLONES) + '\n')
 		cloneValidationStats.write('Predicted Precision: ' + str(OVERALL_TRUE_CLONES/OVERALL_CLONE_PAIRS) + '\n')
 
 
