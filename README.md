@@ -31,7 +31,7 @@ Please make sure you have the following environment setups:
 
 1. Python 2.7 (This framework has been developed using Python 2.7.6).
 
-2. Pybrain (This project used Pybrain (http://pybrain.org/) for building the neural network model).
+2. Pybrain (This project used <a href='http://pybrain.org/'> Pybrain </a> for building the neural network model).
 
 3. Pickle (For loading the pickled neural network model from Pybrain)
 
