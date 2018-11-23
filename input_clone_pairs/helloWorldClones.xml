@@ -19,13 +19,19 @@
 </code>
 <source file= "/home/khaledkucse/bigclonebench2.0/ijadataset/bcb_reduced/30/selected/2143514.java" startline= "58" endline= "65" />
 <code>
-    public static void copyStream(InputStream in, OutputStream out) throws IOException {
-        byte[] chunk = new byte[1024];
-        int count;
-        while ((count = in.read(chunk)) = 0) {
-            out.write(chunk, 0, count);
-            out.flush();
+public static void copyWithRewrite(File srcFile, File destFile) throws IOException {
+        if (destFile.exists()) {
+            destFile.delete();
         }
+        FileInputStream fileInputStream = new FileInputStream(srcFile);
+        FileOutputStream fileOutputStream = new FileOutputStream(destFile);
+        byte[] buffer = new byte[BUFFER_SIZE];
+        int byteCount;
+        while ((byteCount = fileInputStream.read(buffer))  0) {
+            fileOutputStream.write(buffer, 0, byteCount);
+        }
+        fileOutputStream.close();
+        fileInputStream.close();
     }
 </code>
 </clone>
