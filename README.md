@@ -18,7 +18,7 @@ existing code clone detection tools for valdiation prediction responses using RE
 additional details of the framework [1].
 
 <p align="center">
-  <img src="images/systemArchitectureOverview.png" width="70%" title="hover text">
+  <img src="images/systemArchitectureOverview.png" width="55%" title="hover text">
 </p>
 
 
