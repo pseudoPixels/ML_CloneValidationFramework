@@ -9,7 +9,9 @@ manually validated prior to any analysis in order to filter out the true positiv
 user-specific considerations. This manual clone validation effort is very time-consuming and often error-prone, 
 in particular for large-scale clone detection.
 
-![Alt text](images/systemArchitectureOverview.png?raw=true "Title")
+<p align="center">
+  <img src="images/systemArchitectureOverview.png" width="350" title="hover text">
+</p>
 
 This is a machine learning based framework for automatic code clone validation - developed based on our recent 
 research study [1]. The method learns to predict tasks or user-specific code clone validation patterns. The current 
