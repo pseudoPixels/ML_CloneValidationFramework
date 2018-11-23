@@ -10,7 +10,7 @@ user-specific considerations. This manual clone validation effort is very time-c
 in particular for large-scale clone detection.
 
 This is a machine learning based framework for automatic code clone validation - developed based on our recent 
-research study [1]. The method learns to predict tasks or user-specific code clone validation patterns. Following is the high-level architecture of the clone validation framework.
+research study [1]. The method learns to predict tasks or user-specific code clone validation patterns. Following is the high-level architecture of the clone validation framework (Please refer to our <a href='https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8530729&tag=1'>original paper</a> for details on the architecture).
 
 <p align="center">
   <img src="images/systemArchitectureOverview.png" width="60%" title="System Architecture of the Clone Validation Framework">
