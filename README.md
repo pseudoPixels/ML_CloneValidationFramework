@@ -11,7 +11,7 @@ in particular for large-scale clone detection.
 
 
 <p align="center">
-  <img src="images/systemArchitectureOverview.png" width="60%" title="hover text">
+  <img src="images/systemArchitectureOverview.png" width="70%" title="hover text">
 </p>
 
 This is a machine learning based framework for automatic code clone validation - developed based on our recent 
