@@ -10,7 +10,7 @@ user-specific considerations. This manual clone validation effort is very time-c
 in particular for large-scale clone detection.
 
 <p align="center">
-  <img src="images/systemArchitectureOverview.png" width="80%" title="hover text">
+  <img src="images/systemArchitectureOverview.png" width="60%" title="hover text">
 </p>
 
 This is a machine learning based framework for automatic code clone validation - developed based on our recent 
