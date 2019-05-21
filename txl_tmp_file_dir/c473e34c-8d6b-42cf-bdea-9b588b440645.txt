@@ -1,0 +1,15 @@
+
+    public static void copyWithRewrite(File srcFile, File destFile) throws IOException {
+        if (destFile.exists()) {
+            destFile.delete();
+        }
+        FileInputStream fileInputStream = new FileInputStream(srcFile);
+        FileOutputStream fileOutputStream = new FileOutputStream(destFile);
+        byte[] buffer = new byte[BUFFER_SIZE];
+        int byteCount;
+        while ((byteCount = fileInputStream.read(buffer))  0) {
+            fileOutputStream.write(buffer, 0, byteCount);
+        }
+        fileOutputStream.close();
+        fileInputStream.close();
+    }
