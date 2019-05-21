@@ -1,4 +1,4 @@
-# Machine Learning Based Code Clone Validation Framework
+## 1.0 Machine Learning Based Code Clone Validation Framework
 A code clone is a pair of code fragments, within or between software systems that are similar. 
 Since code clones often negatively impact the maintainability of a software system, a great many 
 numbers of code clone detection techniques and tools have been proposed and studied over the last 
@@ -26,7 +26,7 @@ additional details of the framework [1].
 
 
 
-# Installation
+## 2.0 Installation
 * Clone the project from git. And `cd` to the project root:
 ```buildoutcfg
 $ git clone https://github.com/pseudoPixels/ML_CloneValidationFramework.git
@@ -43,7 +43,7 @@ $ pip install -r requirements.txt
 
 
 
-# Usage Instructions
+## 3.0 Usage Instructions
 On Cloning and setting up the required environment for this project, you need to follow the speps below:
 
 ###### 1. Make sure in the project directory
@@ -94,17 +94,17 @@ validation_response,fragment_1_path,fragment_1_startline,fragment_1_endline,frag
 ```
 
 
-# Example: Hello World Validation
+## 4.0 Example: Hello World Validation
 For testing if everything has been set up accordingly, you can run the validation on a provided clone file with this framework. The sample clone pairs are available in `input_clone_pairs` directory. So, you can run the following command to test the successfull installation of the framework. If evererythin works fine, you should get validation statistics (e.g, precision, TP clones and so on) on your console. The validation statistics will also be available in `__CLONE_VALIDATION_STATS.txt` file in `Out/` directory.
 ```
 $python validateClones.py 0.5 input_clone_pairs/ out/
 ```
 
-# Bugs/Issues?
+## 5.0 Bugs/Issues?
 Please add your issues or bug reports to this git repository. We track the issues for further improvement of the framework. 
 
 
-# References
+## 6.0 References
 [1] Mostaeen, G., Svajlenko, J., Roy, B., Roy, C. K., & Schneider, K. (2018, September). On the Use of Machine Learning Techniques Towards the Design of Cloud Based Automatic Code Clone Validation Tools. In Source Code Analysis and Manipulation (SCAM), 2018 IEEE 18th International Working Conference on. IEEE. 
 
 [2] Roy, C. K., & Cordy, J. R. (2008, June). NICAD: Accurate detection of near-miss intentional clones using flexible pretty-printing and code normalization. In Program Comprehension, 2008. ICPC 2008. The 16th IEEE International Conference on (pp. 172-181). IEEE. 
