@@ -17,6 +17,7 @@ import os
 import uuid
 import glob
 import xml.etree.ElementTree as ET
+import shutil
 
 def app_code_clone_getValidationScore(sourceCode1,sourceCode2,lang='java' ):
 
@@ -213,6 +214,16 @@ def main():
 
 	print 'Starting Validation...'
 	progress = 0
+
+
+
+	if os.path.isdir(outDir):
+		shutil.rmtree(outDir)
+	os.mkdir(outDir)
+
+
+
+
 
 
 
