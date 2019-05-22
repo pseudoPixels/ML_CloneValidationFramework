@@ -97,8 +97,22 @@ validation_response,fragment_1_path,fragment_1_startline,fragment_1_endline,frag
 ## 4.0 Example: Hello World Validation
 For testing if everything has been set up accordingly, you can run the validation on a provided clone file with this framework. The sample clone pairs are available in `input_clone_pairs` directory. So, you can run the following command to test the successfull installation of the framework. If evererythin works fine, you should get validation statistics (e.g, precision, TP clones and so on) on your console. The validation statistics will also be available in `__CLONE_VALIDATION_STATS.txt` file in `Out/` directory.
 ```
-$python validateClones.py 0.5 input_clone_pairs/ out/
+$python validateClones.py -i 'input_clone_pairs/' -o 'out/' -t 0.5
 ```
+The options:
+```buildoutcfg
+Usage: validateClones.py [options] arg
+
+Options:
+  -h, --help            show this help message and exit
+  -i INPUTDIR, --input=INPUTDIR
+                        input directory of detected code clones
+  -o OUTDIR, --output=OUTDIR
+  -t CLONETHRESHOLD, --threshold=CLONETHRESHOLD
+
+```
+
+
 
 ## 5.0 Bugs/Issues?
 Please add your issues or bug reports to this git repository. We track the issues for further improvement of the framework. 

@@ -18,6 +18,7 @@ import uuid
 import glob
 import xml.etree.ElementTree as ET
 import shutil
+from optparse import OptionParser
 
 def app_code_clone_getValidationScore(sourceCode1,sourceCode2,lang='java' ):
 
@@ -201,9 +202,28 @@ def get_next_clone_pair_for_validation(cloneFile, theValidationFile, validationF
 
 
 def main():
-	validationThreshold = float(sys.argv[1])
-	inputCloneDir = sys.argv[2]
-	outDir = sys.argv[3]
+	usage = "usage: %prog [options] arg"
+	parser = OptionParser(usage)
+	parser.add_option("-i", "--input", dest="inputDir",
+					  help="input directory of detected code clones")
+	parser.add_option("-o", "--output",
+					   dest="outDir")
+	parser.add_option("-t", "--threshold",
+					  dest="cloneThreshold")
+
+	(options, args) = parser.parse_args()
+
+	validationThreshold = float(options.cloneThreshold)
+	inputCloneDir = options.inputDir
+	outDir = options.outDir
+
+	print validationThreshold
+	print inputCloneDir
+	print outDir
+
+	# validationThreshold = float(sys.argv[1])
+	# inputCloneDir = sys.argv[2]
+	# outDir = sys.argv[3]
 
 
 	list_of_file_for_validation = [x for x in glob.glob(inputCloneDir + '/' + '*.xml')]
