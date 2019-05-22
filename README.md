@@ -27,13 +27,19 @@ additional details of the framework [1].
 
 
 ## 2.0 Installation
-* Clone the project from git. And `cd` to the project root:
+
+#### 2.1 Install TXL
+Install TXL from [here](https://www.txl.ca/txl-download.html), according to your OS and make sure
+the TXL resides in `/usr/local/bin/txl`
+#### 2.2 Git Clone
+ Clone the project from git. And `cd` to the project root:
 ```buildoutcfg
 $ git clone https://github.com/pseudoPixels/ML_CloneValidationFramework.git
 $ cd ML_CloneValidationFramework
 ```
 
-* Create a new virtual environment with `Python 2.7`. Activate the newly created
+#### 2.3 Create virtual Env.
+Create a new virtual environment with `Python 2.7`. Activate the newly created
 environment and install the requirments from the `ML_CloneValidationFramework` project root: 
 ```buildoutcfg
 $ conda create -n cloneVal python=2.7
