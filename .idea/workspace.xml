@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f3379ac3-02ce-4be2-8890-ff9a4c210414" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/validateClones.py" beforeDir="false" afterPath="$PROJECT_DIR$/validateClones.py" afterDir="false" />
     </list>
     <ignored path="ML_CloneValidationFramework.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -51,8 +50,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="376">
-                <caret line="102" column="14" lean-forward="true" selection-start-line="102" selection-start-column="14" selection-end-line="102" selection-end-column="14" />
+              <first_editor relative-caret-position="281">
+                <caret line="103" lean-forward="true" selection-start-line="103" selection-end-line="103" />
               </first_editor>
               <second_editor />
             </state>
@@ -300,8 +299,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="376">
-            <caret line="102" column="14" lean-forward="true" selection-start-line="102" selection-start-column="14" selection-end-line="102" selection-end-column="14" />
+          <first_editor relative-caret-position="281">
+            <caret line="103" lean-forward="true" selection-start-line="103" selection-end-line="103" />
           </first_editor>
           <second_editor />
         </state>

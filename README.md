@@ -74,30 +74,7 @@ The framework works on a set of clone files (output of a code clone detection to
 
 ###### 3. Run the `validateClones.py` script as following:
 ```
-$python validateClones.py <Validation Threshold> <Input Directory> <Output Directory>
-```
-
-Where,
-- Validation Threshold : The preffered threshold value (e.g., prob. [0,1]) for deciding a potential clone pair to be true.
-- Input Directory: The directory of all detected clone files formatted as above (e.g., as shown in step 2). 
-- Output Directory: The destination directory to write the validation responses.
-
-So, an example usage would be:
-```
-$python validateClones.py 0.6 DetectedSystemClonesDir/ ML_ValidationResponse/
-```
-
-###### 4. Outputs
-The framework creats output file containing validation information for each of the clone files. The extensions of the output files are - `.mlValidated`, which can be loaded as csv formats for further analysis of the validation results. The validation response (e.g., true/false) for each of the clone pairs are as follows. You will get overall validation statistics (e.g., precision and so on) in your console and will also be written in `__CLONE_VALIDATION_STATS.txt` file in your specified output directory (e.g., in <Output Directory> ).
-```
-validation_response,fragment_1_path,fragment_1_startline,fragment_1_endline,fragment_2_path,fragment_2_startline,fragment_2_endline
-```
-
-
-## 4.0 Example: Hello World Validation
-For testing if everything has been set up accordingly, you can run the validation on a provided clone file with this framework. The sample clone pairs are available in `input_clone_pairs` directory. So, you can run the following command to test the successfull installation of the framework. If evererythin works fine, you should get validation statistics (e.g, precision, TP clones and so on) on your console. The validation statistics will also be available in `__CLONE_VALIDATION_STATS.txt` file in `Out/` directory.
-```
-$python validateClones.py -i 'input_clone_pairs/' -o 'out/' -t 0.5
+$python validateClones.py -i 'input_clone_directory/' -o 'validated_clone_out_dir/' -t 0.5
 ```
 The options:
 ```buildoutcfg
@@ -110,6 +87,18 @@ Options:
   -o OUTDIR, --output=OUTDIR
   -t CLONETHRESHOLD, --threshold=CLONETHRESHOLD
 
+```
+###### 4. Outputs
+The framework creats output file containing validation information for each of the clone files. The extensions of the output files are - `.mlValidated`, which can be loaded as csv formats for further analysis of the validation results. The validation response (e.g., true/false) for each of the clone pairs are as follows. You will get overall validation statistics (e.g., precision and so on) in your console and will also be written in `__CLONE_VALIDATION_STATS.txt` file in your specified output directory (e.g., in <Output Directory> ).
+```
+validation_response,fragment_1_path,fragment_1_startline,fragment_1_endline,fragment_2_path,fragment_2_startline,fragment_2_endline
+```
+
+
+## 4.0 Example: Hello World Validation
+For testing if everything has been set up accordingly, you can run the validation on a provided clone file with this framework. The sample clone pairs are available in `input_clone_pairs` directory. So, you can run the following command to test the successfull installation of the framework. If evererythin works fine, you should get validation statistics (e.g, precision, TP clones and so on) on your console. The validation statistics will also be available in `__CLONE_VALIDATION_STATS.txt` file in `Out/` directory.
+```
+$python validateClones.py -i 'input_clone_pairs/' -o 'out/' -t 0.5
 ```
 
 
