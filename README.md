@@ -46,12 +46,12 @@ $ pip install -r requirements.txt
 ## 3.0 Usage Instructions
 On Cloning and setting up the required environment for this project, you need to follow the speps below:
 
-###### 1. Make sure in the project directory
+#### 3.1 Make sure in the project directory
 ```
 $cd ML_CloneValidationFramework
 ```
 
-###### 2. Check the clone file format for validation
+#### 3.2 Check the clone file format for validation
 The framework works on a set of clone files (output of a code clone detection tools) for validation. The used xml format for parsing the clone pairs are as follows. All the detected clone pairs - `clone`, should have to be children of the root tag - `clones`. A `clone` contains details information (e.g., in `source` tag) and codes (e.g., in `code` tag) for both of its clone fragments. Copy all such clone files in a directory for starting the validation (e.g., as next step).    
 ```
 <clones>
@@ -72,7 +72,7 @@ The framework works on a set of clone files (output of a code clone detection to
 ```
 
 
-###### 3. Run the `validateClones.py` script as following:
+#### 3.3 Run the `validateClones.py` script as following:
 ```
 $python validateClones.py -i 'input_clone_directory/' -o 'validated_clone_out_dir/' -t 0.5
 ```
@@ -88,7 +88,7 @@ Options:
   -t CLONETHRESHOLD, --threshold=CLONETHRESHOLD
 
 ```
-###### 4. Outputs
+#### 3.4 Outputs
 The framework creats output file containing validation information for each of the clone files. The extensions of the output files are - `.mlValidated`, which can be loaded as csv formats for further analysis of the validation results. The validation response (e.g., true/false) for each of the clone pairs are as follows. You will get overall validation statistics (e.g., precision and so on) in your console and will also be written in `__CLONE_VALIDATION_STATS.txt` file in your specified output directory (e.g., in <Output Directory> ).
 ```
 validation_response,fragment_1_path,fragment_1_startline,fragment_1_endline,fragment_2_path,fragment_2_startline,fragment_2_endline
