@@ -12,9 +12,8 @@ in particular for large-scale clone detection.
 This is a machine learning based framework for automatic code clone validation - developed based on our recent 
 research study [1]. The method learns to predict tasks or user-specific code clone validation patterns. Following is the high-level architecture of the clone validation framework (Please refer to our <a href='https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8530729&tag=1' target="_blank">original paper</a> for details on the architecture).
 
-<p align="center">
-  <img src="images/systemArchitectureOverview.png" width="60%" title="System Architecture of the Clone Validation Framework">
-</p>
+
+![System Architecture of the Clone Validation Framework](images/systemArchitectureOverview.png)
 
 The current  machine learning model has been build based on BigCloneBench [5] - a collection of eight million validated clones within 
 IJaDataset-2.0, a big data software repository containing 25,000 open-source Java systems. In addition to the useability of 
@@ -30,7 +29,8 @@ additional details of the framework [1].
 
 #### 2.1 Install TXL
 Install TXL from [here](https://www.txl.ca/txl-download.html), according to your OS and make sure
-the TXL resides in `/usr/local/bin/txl`
+the TXL resides in `/usr/local/bin/txl`. You can use `whereis txl` command from terminal to double check
+the installation location.
 #### 2.2 Git Clone
  Clone the project from git. And `cd` to the project root:
 ```buildoutcfg
