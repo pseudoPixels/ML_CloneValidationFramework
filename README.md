@@ -14,7 +14,7 @@ research study [1]. The method learns to predict tasks or user-specific code clo
 
 
 <p align="center">
-  <img src="images/systemArchitectureOverview.png" width="50%" title="System Architecture of the Clone Validation Framework">
+  <img src="docs/images/systemArchitectureOverview.png" width="50%" title="System Architecture of the Clone Validation Framework">
 </p>
 The current  machine learning model has been build based on BigCloneBench [5] - a collection of eight million validated clones within 
 IJaDataset-2.0, a big data software repository containing 25,000 open-source Java systems. In addition to the useability of 
