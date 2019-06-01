@@ -3,49 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f3379ac3-02ce-4be2-8890-ff9a4c210414" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/systemArchitectureOverview.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/images/systemArchitectureOverview.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/__CLONE_VALIDATION_STATS.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ml_validated_clone_pairs/__CLONE_VALIDATION_STATS.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/helloWorldClones.xml.mlValidated" beforeDir="false" afterPath="$PROJECT_DIR$/ml_validated_clone_pairs/helloWorldClones.xml.mlValidated" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_inputs/pair70000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs/__CLONE_VALIDATION_STATS.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs/pair70000.xml.mlValidated" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair170000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair180000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair200000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2000000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2010000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2020000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2030000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2140000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2150000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2160000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2350000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2690000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2700000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2710000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2720000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2730000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2740000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2760000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2770000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2780000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2790000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2800000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2810000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2820000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2830000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2840000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2850000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2860000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2870000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2880000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2890000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair2900000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair310000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair780000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_outputs2/pair90000.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/validateClones.py" beforeDir="false" afterPath="$PROJECT_DIR$/validateClones.py" afterDir="false" />
     </list>
     <ignored path="ML_CloneValidationFramework.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -66,11 +23,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/validateClones.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="31" column="27" lean-forward="true" selection-start-line="31" selection-start-column="27" selection-end-line="31" selection-end-column="27" />
+            <state relative-caret-position="665">
+              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="152">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
             </state>
           </provider>
         </entry>
@@ -87,11 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mlCCV/Utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+            <state relative-caret-position="171">
+              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
               <folding>
                 <element signature="e#1#10#0" expanded="true" />
               </folding>
@@ -112,15 +78,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/input_clone_pairs/JHotDraw54b1_clones.xml">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/input_clone_pairs/helloWorldClones.xml">
+        <entry file="file://$PROJECT_DIR$/input_clone_pairs/JHotDraw54b1_clones.xml2">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="24" column="9" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+            <state relative-caret-position="304">
+              <caret line="16" column="21" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -160,6 +121,7 @@
         <option value="$PROJECT_DIR$/mlCCV/TXLHelper.py" />
         <option value="$PROJECT_DIR$/validateClones.py" />
         <option value="$PROJECT_DIR$/mlCCV/Utils.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -189,11 +151,6 @@
               <item name="ML_CloneValidationFramework" type="b2602c69:ProjectViewProjectNode" />
               <item name="ML_CloneValidationFramework" type="462c0819:PsiDirectoryNode" />
               <item name="mlCCV" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ML_CloneValidationFramework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ML_CloneValidationFramework" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -419,16 +376,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/input_clone_pairs/helloWorldClones.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="24" column="9" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/input_clone_pairs/JHotDraw54b1_clones.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/mlCCV/TXLHelper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
@@ -452,23 +399,44 @@
     <entry file="file://$PROJECT_DIR$/out/JHotDraw54b1_clones.xml.mlValidated">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/mlCCV/Utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#1#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/input_clone_pairs/helloWorldClones.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="24" column="9" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/input_clone_pairs/JHotDraw54b1_clones.xml2">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="16" column="21" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/validateClones.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="31" column="27" lean-forward="true" selection-start-line="31" selection-start-column="27" selection-end-line="31" selection-end-column="27" />
+        <state relative-caret-position="665">
+          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mlCCV/Utils.py">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
-          <folding>
-            <element signature="e#1#10#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="152">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>
