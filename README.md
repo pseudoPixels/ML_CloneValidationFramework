@@ -44,15 +44,17 @@ $ git clone https://github.com/pseudoPixels/ML_CloneValidationFramework.git
 $ cd ML_CloneValidationFramework
 ```
 
-#### 2.3 Create virtual Env.
+#### 2.3 Create virtual Env. & Install
 Create a new virtual environment with `Python 2.7`. Activate the newly created
 environment and install the requirments from the `ML_CloneValidationFramework` project root: 
 ```buildoutcfg
 $ conda create -n cloneVal python=2.7
 $ conda activate cloneVal
 $ pip install -r requirements.txt
+$ pip install .
 ```
 
+Done! Use `$ pip freeze` command from the terminal to check for `mlCVF` with its corresponding version. 
 
 
 ## 3.0 Usage Instructions
@@ -90,15 +92,19 @@ $python validateClones.py -i 'input_clone_directory/' -o 'validated_clone_out_di
 ```
 The options:
 ```buildoutcfg
-Usage: validateClones.py [options] arg
+usage: validateClones.py [-h] -in INPUT_DIR -out OUTPUT_DIR [-t VAL_THRESHOLD]
 
-Options:
-  -h, --help            show this help message and exit
-  -i INPUTDIR, --input=INPUTDIR
-                        input directory of detected code clones
-  -o OUTDIR, --output=OUTDIR
-  -t CLONETHRESHOLD, --threshold=CLONETHRESHOLD
+This is a machine learning based framework for automatic code clone
+validation.
 
+optional arguments:
+  -h, --help        show this help message and exit
+  -in INPUT_DIR     (required) input directory of detected code clones (i.e.,
+                    outputs from NICAD)
+  -out OUTPUT_DIR   (required) target output directory of machine learning
+                    validated clones
+  -t VAL_THRESHOLD  (optional) the threshold for automatic clone validation.
+                    Default=0.5
 ```
 #### 3.4 Outputs
 The framework creats output file containing validation information for each of the clone files. The extensions of the output files are - `.mlValidated`, which can be loaded as csv formats for further analysis of the validation results. The validation response (e.g., true/false) for each of the clone pairs are as follows. You will get overall validation statistics (e.g., precision and so on) in your console and will also be written in `__CLONE_VALIDATION_STATS.txt` file in your specified output directory (e.g., in <Output Directory> ).
