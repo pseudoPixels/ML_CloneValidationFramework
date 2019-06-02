@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f3379ac3-02ce-4be2-8890-ff9a4c210414" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/input_clone_pairs/JHotDraw54b1_clones.xml2" beforeDir="false" afterPath="$PROJECT_DIR$/input_clone_pairs/JHotDraw54b1_clones.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mlCCV/MLHelper.py" beforeDir="false" afterPath="$PROJECT_DIR$/mlCVF/MLHelper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mlCCV/TXLHelper.py" beforeDir="false" afterPath="$PROJECT_DIR$/mlCVF/TXLHelper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mlCCV/Utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/mlCVF/Utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mlCCV/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/mlCVF/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/__CLONE_VALIDATION_STATS.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/__CLONE_VALIDATION_STATS.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/helloWorldClones.xml.mlValidated" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/validateClones.py" beforeDir="false" afterPath="$PROJECT_DIR$/validateClones.py" afterDir="false" />
     </list>
     <ignored path="ML_CloneValidationFramework.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -20,11 +29,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/validateClones.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="665">
-              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+            <state relative-caret-position="270">
+              <caret line="97" column="103" selection-start-line="97" selection-start-column="103" selection-end-line="97" selection-end-column="103" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/input_clone_pairs/JHotDraw54b1_clones.xml.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-7200">
+              <caret line="55" column="27" lean-forward="true" selection-start-line="55" selection-start-column="27" selection-end-line="55" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/input_clone_pairs/helloWorldClones.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="703">
+              <caret line="37" column="7" lean-forward="true" selection-start-line="37" selection-start-column="7" selection-end-line="37" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mlCVF/MLHelper.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="152">
+              <caret line="11" selection-start-line="11" selection-end-line="11" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -32,44 +71,44 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="782">
-              <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mlCCV/MLHelper.py">
+        <entry file="file://$PROJECT_DIR$/mlCVF/Utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="22" selection-start-line="22" selection-end-line="22" />
+            <state relative-caret-position="560">
+              <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
               <folding>
-                <element signature="e#0#13#0" expanded="true" />
+                <element signature="e#1#30#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mlCCV/Utils.py">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="218">
+                <caret line="12" column="104" selection-start-line="12" selection-start-column="104" selection-end-line="12" selection-end-column="104" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/setup.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="171">
-              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-              <folding>
-                <element signature="e#1#10#0" expanded="true" />
-              </folding>
+              <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mlCCV/TXLHelper.py">
+        <entry file="file://$PROJECT_DIR$/mlCVF/TXLHelper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
+            <state relative-caret-position="114">
+              <caret line="6" selection-start-line="6" selection-end-line="6" />
               <folding>
                 <element signature="e#1#18#0" expanded="true" />
               </folding>
@@ -78,10 +117,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/input_clone_pairs/JHotDraw54b1_clones.xml2">
+        <entry file="file://$PROJECT_DIR$/input_clone_pairs/JHotDraw54b1_clones.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="16" column="21" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
+            <state relative-caret-position="114">
+              <caret line="6" column="95" selection-start-line="6" selection-start-column="88" selection-end-line="6" selection-end-column="95" />
             </state>
           </provider>
         </entry>
@@ -114,14 +153,17 @@
         <option value="$PROJECT_DIR$/tmp_outputs/__CLONE_VALIDATION_STATS.txt" />
         <option value="$PROJECT_DIR$/input_clone_pairs/helloWorldClones.xml" />
         <option value="$PROJECT_DIR$/mlCCV/__init__.py" />
-        <option value="$PROJECT_DIR$/setup.py" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/mlCCV/TxlHelper.py" />
         <option value="$PROJECT_DIR$/mlCCV/MLHelper.py" />
         <option value="$PROJECT_DIR$/mlCCV/TXLHelper.py" />
-        <option value="$PROJECT_DIR$/validateClones.py" />
-        <option value="$PROJECT_DIR$/mlCCV/Utils.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/mlCCV/Utils.py" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/setup.py" />
+        <option value="$PROJECT_DIR$/mlCVF/MLHelper.py" />
+        <option value="$PROJECT_DIR$/input_clone_pairs/JHotDraw54b1_clones.xml.xml" />
+        <option value="$PROJECT_DIR$/mlCVF/Utils.py" />
+        <option value="$PROJECT_DIR$/validateClones.py" />
       </list>
     </option>
   </component>
@@ -150,7 +192,17 @@
             <path>
               <item name="ML_CloneValidationFramework" type="b2602c69:ProjectViewProjectNode" />
               <item name="ML_CloneValidationFramework" type="462c0819:PsiDirectoryNode" />
-              <item name="mlCCV" type="462c0819:PsiDirectoryNode" />
+              <item name="input_clone_pairs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ML_CloneValidationFramework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ML_CloneValidationFramework" type="462c0819:PsiDirectoryNode" />
+              <item name="mlCVF" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ML_CloneValidationFramework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ML_CloneValidationFramework" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -251,12 +303,12 @@
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20437159" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2103825" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32937366" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32937366" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.23326133" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -332,20 +384,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mlCCV/__init__.py">
+    <entry file="file://$PROJECT_DIR$/mlCVF/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
           <caret line="1" column="5" selection-start-line="1" selection-end-line="1" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="19" lean-forward="true" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -366,77 +411,94 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/out/JHotDraw54b1_clones.xml.mlValidated">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="27" column="5" lean-forward="true" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="180">
-            <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <first_editor relative-caret-position="218">
+            <caret line="12" column="104" selection-start-line="12" selection-start-column="104" selection-end-line="12" selection-end-column="104" />
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mlCCV/TXLHelper.py">
+    <entry file="file://$PROJECT_DIR$/mlCVF/TXLHelper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
+        <state relative-caret-position="114">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
           <folding>
             <element signature="e#1#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mlCCV/MLHelper.py">
+    <entry file="file://$PROJECT_DIR$/mlCVF/MLHelper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        <state relative-caret-position="152">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/out/JHotDraw54b1_clones.xml.mlValidated">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mlCCV/Utils.py">
+    <entry file="file://$PROJECT_DIR$/input_clone_pairs/JHotDraw54b1_clones.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-          <folding>
-            <element signature="e#1#10#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="114">
+          <caret line="6" column="95" selection-start-line="6" selection-start-column="88" selection-end-line="6" selection-end-column="95" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/input_clone_pairs/helloWorldClones.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="24" column="9" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+        <state relative-caret-position="703">
+          <caret line="37" column="7" lean-forward="true" selection-start-line="37" selection-start-column="7" selection-end-line="37" selection-end-column="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/input_clone_pairs/JHotDraw54b1_clones.xml2">
+    <entry file="file://$PROJECT_DIR$/input_clone_pairs/JHotDraw54b1_clones.xml.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" column="21" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
+        <state relative-caret-position="-7200">
+          <caret line="55" column="27" lean-forward="true" selection-start-line="55" selection-start-column="27" selection-end-line="55" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/validateClones.py">
+    <entry file="file://$PROJECT_DIR$/mlCVF/Utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
-          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+        <state relative-caret-position="560">
+          <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#1#30#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/out/JHotDraw54b1_clones.xml.xml.mlValidated">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/validateClones.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
+        <state relative-caret-position="270">
+          <caret line="97" column="103" selection-start-line="97" selection-start-column="103" selection-end-line="97" selection-end-column="103" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

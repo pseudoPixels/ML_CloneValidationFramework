@@ -10,12 +10,7 @@ user-specific considerations. This manual clone validation effort is very time-c
 in particular for large-scale clone detection.
 
 This is a machine learning based framework for automatic code clone validation - developed based on our recent 
-research study [1]. The method learns to predict tasks or user-specific code clone validation patterns. Following is the high-level architecture of the clone validation framework (Please refer to our <a href='https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8530729&tag=1' target="_blank">original paper</a> for details on the architecture).
-
-
-<p align="center">
-  <img src="docs/images/systemArchitectureOverview.png" width="50%" title="System Architecture of the Clone Validation Framework">
-</p>
+research study [1]. The method learns to predict tasks or user-specific code clone validation patterns. 
 The current  machine learning model has been build based on BigCloneBench [5] - a collection of eight million validated clones within 
 IJaDataset-2.0, a big data software repository containing 25,000 open-source Java systems. In addition to the useability of 
 the trained model locally for code clone classification, this cloud based framework also supports the communication with any 

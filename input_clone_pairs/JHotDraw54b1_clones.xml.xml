@@ -1,0 +1,3510 @@
+<clones>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java" startline= "417" endline= "470" />
+<code>
+		Component[] allFrames = getAllFrames();
+		// do nothing if no frames to work with
+		if (allFrames.length == 0) {
+			return;
+		}
+
+		manager.setNormalSize();
+
+		int vertFrames = (int)Math.floor(Math.sqrt(allFrames.length));
+		int horFrames = (int)Math.ceil(Math.sqrt(allFrames.length));
+
+		// first arrange the windows that have equal size
+		int frameWidth = getBounds().width / horFrames;
+		int frameHeight = getBounds().height / vertFrames;
+		int x = 0;
+		int y = 0;
+		int frameIdx = 0;
+		for (int horCnt = 0; horCnt < horFrames-1; horCnt++) {
+			y = 0;
+			for (int vertCnt = 0; vertCnt < vertFrames; vertCnt++) {
+				try {
+					((JInternalFrame)allFrames[frameIdx]).setMaximum(false);
+				}
+				catch (PropertyVetoException e) {
+					e.printStackTrace();
+				}
+
+				allFrames[frameIdx].setBounds(x, y, frameWidth, frameHeight);
+				frameIdx++;
+				y = y + frameHeight;
+			}
+			x = x + frameWidth;
+		}
+
+		// the rest of the frames are tiled down on the last column with equal
+		// height
+		frameHeight = getBounds().height / (allFrames.length - frameIdx);
+		y = 0;
+		for (; frameIdx < allFrames.length; frameIdx++)
+		{
+			try {
+				((JInternalFrame)allFrames[frameIdx]).setMaximum(false);
+			}
+			catch (PropertyVetoException e) {
+				e.printStackTrace();
+			}
+
+			allFrames[frameIdx].setBounds(x, y, frameWidth, frameHeight);
+			y = y + frameHeight;
+		}
+
+		checkDesktopSize();
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java" startline= "477" endline= "529" />
+<code>
+		Component[] allFrames = getAllFrames();
+		// do nothing if no frames to work with
+		if (allFrames.length == 0) {
+			return;
+		}
+
+		manager.setNormalSize();
+
+		int vertFrames = (int)Math.ceil(Math.sqrt(allFrames.length));
+		int horFrames = (int)Math.floor(Math.sqrt(allFrames.length));
+
+		// first arrange the windows that have equal size
+		int frameWidth = getBounds().width / horFrames;
+		int frameHeight = getBounds().height / vertFrames;
+		int x = 0;
+		int y = 0;
+		int frameIdx = 0;
+		for (int vertCnt = 0; vertCnt < vertFrames-1; vertCnt++) {
+			x = 0;
+			for (int horCnt = 0; horCnt < horFrames; horCnt++) {
+				try {
+					((JInternalFrame)allFrames[frameIdx]).setMaximum(false);
+				}
+				catch (PropertyVetoException e) {
+					e.printStackTrace();
+				}
+
+				allFrames[frameIdx].setBounds(x, y, frameWidth, frameHeight);
+				frameIdx++;
+				x = x + frameWidth;
+			}
+			y = y + frameHeight;
+		}
+
+		// the rest of the frames are tiled down on the last column with equal
+		// height
+		frameWidth = getBounds().width / (allFrames.length - frameIdx);
+		x = 0;
+		for (; frameIdx < allFrames.length; frameIdx++) {
+			try {
+				((JInternalFrame)allFrames[frameIdx]).setMaximum(false);
+			}
+			catch (PropertyVetoException e) {
+				e.printStackTrace();
+			}
+
+			allFrames[frameIdx].setBounds(x, y, frameWidth, frameHeight);
+			x = x + frameWidth;
+		}
+
+		checkDesktopSize();
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/WindowMenu.java" startline= "68" endline= "98" />
+<code>
+		ChildMenuItem menu;
+		JInternalFrame[] array = desktop.getAllFrames();
+
+		add(new CommandMenuItem(cascadeCommand));
+		add(new CommandMenuItem(tileCommand));
+		if (array.length > 0) {
+			addSeparator();
+		}
+//		cascade.setEnabled(array.length > 0);
+//		tile.setEnabled(array.length > 0);
+
+		for (int i = 0; i < array.length; i++) {
+			menu = new ChildMenuItem(array[i]);
+			menu.setState(i == 0);
+			menu.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent ae) {
+					JInternalFrame frame = ((ChildMenuItem)ae.getSource()).getFrame();
+					frame.moveToFront();
+					try {
+						frame.setSelected(true);
+					}
+					catch (PropertyVetoException e) {
+						e.printStackTrace();
+					}
+				}
+			});
+			menu.setIcon(array[i].getFrameIcon());
+			add(menu);
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/CTXWindowMenu.java" startline= "138" endline= "173" />
+<code>
+		JInternalFrame[] array = desktop.getAllFrames();
+
+		// update window organization commands
+		cascadeCommand.setEnabled(array.length > 0);
+		tileHCommand.setEnabled(array.length > 0);
+		tileVCommand.setEnabled(array.length > 0);
+		arrangeHCommand.setEnabled(array.length > 0);
+		arrangeVCommand.setEnabled(array.length > 0);
+
+		if (array.length == 0) {
+			return;
+		}
+
+		addSeparator();
+
+		for (int i = 0; i < array.length; i++) {
+			ChildMenuItem menu = new ChildMenuItem(array[i]);
+			menu.setState(i == 0);
+			menu.addActionListener(
+				new ActionListener() {
+					public void actionPerformed(ActionEvent ae) {
+						JInternalFrame frame = ((ChildMenuItem)ae.getSource()).getFrame();
+						frame.moveToFront();
+						try {
+							frame.setSelected(true);
+						}
+						catch (PropertyVetoException e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			menu.setIcon(array[i].getFrameIcon());
+			add(menu);
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/TextFigure.java" startline= "188" endline= "212" />
+<code>
+		Font font = getFont();
+		if (attributeConstant.equals(FigureAttributeConstant.FONT_SIZE)) {
+			Integer s = (Integer)value;
+			setFont(new Font(font.getName(), font.getStyle(), s.intValue()) );
+		}
+		else if (attributeConstant.equals(FigureAttributeConstant.FONT_STYLE)) {
+			Integer s = (Integer)value;
+			int style = font.getStyle();
+			if (s.intValue() == Font.PLAIN) {
+				style = font.PLAIN;
+			}
+			else {
+				style = style ^ s.intValue();
+			}
+			setFont(new Font(font.getName(), style, font.getSize()) );
+		}
+		else if (attributeConstant.equals(FigureAttributeConstant.FONT_NAME)) {
+			String n = (String)value;
+			setFont(new Font(n, font.getStyle(), font.getSize()) );
+		}
+		else {
+			super.setAttribute(attributeConstant, value);
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/TextAreaFigure.java" startline= "652" endline= "684" />
+<code>
+		// we need to create a new font if one of the font attributes
+		Font font = getFont();
+		if (name.equals("FontSize")) {
+			Integer s = (Integer)value;
+			setFont(new Font(font.getName(), font.getStyle(), s.intValue()));
+			// store the attribute
+			super.setAttribute(name, value);
+		}
+		else if (name.equals("FontStyle")) {
+			Integer s = (Integer)value;
+			int style = font.getStyle();
+			if (s.intValue() == Font.PLAIN) {
+				style = font.PLAIN;
+			}
+			else {
+				style = style ^ s.intValue();
+			}
+			setFont(new Font(font.getName(), style, font.getSize()));
+			// store the attribute
+			super.setAttribute(name, new Integer(style));
+		}
+		else if (name.equals("FontName")) {
+			String n = (String)value;
+			setFont(new Font(n, font.getStyle(), font.getSize()));
+			// store the attribute
+			super.setAttribute(name, value);
+		}
+		else {
+			// store the attribute
+			super.setAttribute(name, value);
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/TextAreaTool.java" startline= "322" endline= "348" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			getDrawingView().clearSelection();
+
+			if (!isValidText(getOriginalText())) {
+				FigureEnumeration fe = getAffectedFigures();
+				while (fe.hasNextFigure()) {
+					getDrawingView().drawing().orphan(fe.nextFigure());
+				}
+			}
+			// add text figure if it has been removed (no backup text)
+			else if (!isValidText(getBackupText())) {
+				FigureEnumeration fe = getAffectedFigures();
+				while (fe.hasNextFigure()) {
+					getDrawingView().add(fe.nextFigure());
+				}
+				setText(getOriginalText());
+			}
+			else {
+				setText(getOriginalText());
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/TextAreaTool.java" startline= "359" endline= "386" />
+<code>
+			if (!super.redo()) {
+				return false;
+			}
+
+			getDrawingView().clearSelection();
+
+			// the text figure did exist but was remove
+			if (!isValidText(getBackupText())) {
+				FigureEnumeration fe = getAffectedFigures();
+				while (fe.hasNextFigure()) {
+					getDrawingView().drawing().orphan(fe.nextFigure());
+				}
+			}
+			// the text figure didn't exist before
+			else if (!isValidText(getOriginalText())) {
+				FigureEnumeration fe = getAffectedFigures();
+				while (fe.hasNextFigure()) {
+					getDrawingView().drawing().add(fe.nextFigure());
+					setText(getBackupText());
+				}
+			}
+			else {
+				setText(getBackupText());
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ElbowHandle.java" startline= "86" endline= "109" />
+<code>
+		LineConnection line = ownerConnection();
+		Figure startFigure = line.getStartConnector().owner();
+		Figure endFigure = line.getEndConnector().owner();
+		Rectangle start = startFigure.displayBox();
+		Rectangle end = endFigure.displayBox();
+		Insets i1 = startFigure.connectionInsets();
+		Insets i2 = endFigure.connectionInsets();
+
+		int r1x, r1width, r2x, r2width;
+		r1x = start.x + i1.left;
+		r1width = start.width - i1.left - i1.right-1;
+
+		r2x = end.x + i2.left;
+		r2width = end.width - i2.left - i2.right-1;
+
+		if (fSegment == 0) {
+			x = Geom.range(r1x, r1x + r1width, x);
+		}
+		if (fSegment == line.pointCount()-2) {
+			x = Geom.range(r2x, r2x + r2width, x);
+		}
+		return x;
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ElbowHandle.java" startline= "111" endline= "133" />
+<code>
+		LineConnection line = ownerConnection();
+		Figure startFigure = line.getStartConnector().owner();
+		Figure endFigure = line.getEndConnector().owner();
+		Rectangle start = startFigure.displayBox();
+		Rectangle end = endFigure.displayBox();
+		Insets i1 = startFigure.connectionInsets();
+		Insets i2 = endFigure.connectionInsets();
+
+		int r1y, r1height, r2y, r2height;
+		r1y = start.y + i1.top;
+		r1height = start.height - i1.top - i1.bottom-1;
+		r2y = end.y + i2.top;
+		r2height = end.height - i2.top - i2.bottom-1;
+
+		if (fSegment == 0) {
+			y = Geom.range(r1y, r1y + r1height, y);
+		}
+		if (fSegment == line.pointCount()-2) {
+			y = Geom.range(r2y, r2y + r2height, y);
+		}
+		return y;
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java" startline= "359" endline= "384" />
+<code>
+		Component[] allFrames = getAllFrames();
+
+		// do nothing if no frames to work with
+		if (allFrames.length == 0) {
+			return;
+		}
+
+		manager.setNormalSize();
+
+		int frameHeight = getBounds().height/allFrames.length;
+		int y = 0;
+		for (int i = 0; i < allFrames.length; i++) {
+			try {
+				((JInternalFrame)allFrames[i]).setMaximum(false);
+			}
+			catch (PropertyVetoException e) {
+				e.printStackTrace();
+			}
+
+			allFrames[i].setBounds(0, y, getBounds().width,frameHeight);
+			y = y + frameHeight;
+		}
+
+		checkDesktopSize();
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java" startline= "386" endline= "410" />
+<code>
+		Component[] allFrames = getAllFrames();
+
+		// do nothing if no frames to work with
+		if (allFrames.length == 0) {
+			return;
+		}
+		manager.setNormalSize();
+
+		int frameWidth = getBounds().width/allFrames.length;
+		int x = 0;
+		for (int i = 0; i < allFrames.length; i++) {
+			try {
+				((JInternalFrame)allFrames[i]).setMaximum(false);
+			}
+			catch (PropertyVetoException e) {
+				e.printStackTrace();
+			}
+
+			allFrames[i].setBounds(x, 0, frameWidth, getBounds().height);
+			x = x + frameWidth;
+		}
+
+		checkDesktopSize();
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java" startline= "201" endline= "223" />
+<code>
+		if (hasZoomSupport()) {
+			Dimension viewportSize = getViewportSize();
+			// "de"-scale with old scale
+			Dimension userSize = getUserSize();
+			this.scale = getScale() / getZoomSpeed();
+			int xScreen = (int) (x * getScale());
+			int yScreen = (int) (y * getScale());
+			int xOrigin = xScreen - viewportSize.width / 2;
+			int yOrigin = yScreen - viewportSize.height / 2;
+			if (xOrigin < 0) xOrigin = 0;
+			if (yOrigin < 0) yOrigin = 0;
+			// re-scale with new scale
+			setUserSize(userSize);
+			revalidate();
+			setViewPosition(new Point(xOrigin, yOrigin));
+			forceRedraw();
+		}
+		else {
+			throw new RuntimeException
+					("zooming only works if this view is contained in a ScrollPane");
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java" startline= "230" endline= "251" />
+<code>
+		if (hasZoomSupport()) {
+			JViewport viewport = (JViewport) getParent();
+			Dimension viewportSize = viewport.getSize();
+			Dimension userSize = getUserSize();
+			this.scale = getScale() * getZoomSpeed();
+			int xScreen = (int) (x * getScale());
+			int yScreen = (int) (y * getScale());
+			int xOrigin = xScreen - viewportSize.width / 2;
+			int yOrigin = yScreen - viewportSize.height / 2;
+			if (xOrigin < 0) xOrigin = 0;
+			if (yOrigin < 0) yOrigin = 0;
+			setUserSize(userSize);
+			revalidate();
+			viewport.setViewPosition(new Point(xOrigin, yOrigin));
+			forceRedraw();
+		}
+		else {
+			throw new RuntimeException
+					("zooming only works if this view is contained in a ScrollPane");
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java" startline= "230" endline= "251" />
+<code>
+		if (hasZoomSupport()) {
+			JViewport viewport = (JViewport) getParent();
+			Dimension viewportSize = viewport.getSize();
+			Dimension userSize = getUserSize();
+			this.scale = getScale() * getZoomSpeed();
+			int xScreen = (int) (x * getScale());
+			int yScreen = (int) (y * getScale());
+			int xOrigin = xScreen - viewportSize.width / 2;
+			int yOrigin = yScreen - viewportSize.height / 2;
+			if (xOrigin < 0) xOrigin = 0;
+			if (yOrigin < 0) yOrigin = 0;
+			setUserSize(userSize);
+			revalidate();
+			viewport.setViewPosition(new Point(xOrigin, yOrigin));
+			forceRedraw();
+		}
+		else {
+			throw new RuntimeException
+					("zooming only works if this view is contained in a ScrollPane");
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java" startline= "257" endline= "276" />
+<code>
+		if (hasZoomSupport()) {
+			Dimension viewportSize = getViewportSize();
+			Dimension userSize = getUserSize();
+			int xOrigin = x - viewportSize.width / 2;
+			int yOrigin = y - viewportSize.height / 2;
+			if (xOrigin < 0) xOrigin = 0;
+			if (yOrigin < 0) yOrigin = 0;
+			this.scale = 1.0;
+			setUserSize(userSize);
+			revalidate();
+			setViewPosition(new Point((int) (xOrigin),
+					(int) (yOrigin)));
+			forceRedraw();
+		}
+		else {
+			throw new RuntimeException
+					("zooming only works if this view is contained in a ScrollPane");
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/samples/javadraw/JavaDrawApp.java" startline= "158" endline= "174" />
+<code>
+		CommandMenu menu = new CommandMenu("Animation");
+		Command cmd = new AbstractCommand("Start Animation", this) {
+			public void execute() {
+				startAnimation();
+			}
+		};
+		menu.add(cmd);
+
+		cmd = new AbstractCommand("Stop Animation", this) {
+			public void execute() {
+				endAnimation();
+			}
+		};
+		menu.add(cmd);
+		return menu;
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/samples/javadraw/JavaDrawApp.java" startline= "176" endline= "195" />
+<code>
+		CommandMenu menu = new CommandMenu("Window");
+		Command cmd = new AbstractCommand("New View", this) {
+			public void execute() {
+				newView();
+			}
+		};
+		menu.add(cmd);
+
+		cmd = new AbstractCommand("New Window", this, false) {
+			public void execute() {
+				newWindow(createDrawing());
+			}
+		};
+		menu.add(cmd);
+
+		menu.addSeparator();
+		menu.add(new WindowMenu("Window List", (MDIDesktopPane)getDesktop(), this));
+		return menu;
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java" startline= "201" endline= "223" />
+<code>
+		if (hasZoomSupport()) {
+			Dimension viewportSize = getViewportSize();
+			// "de"-scale with old scale
+			Dimension userSize = getUserSize();
+			this.scale = getScale() / getZoomSpeed();
+			int xScreen = (int) (x * getScale());
+			int yScreen = (int) (y * getScale());
+			int xOrigin = xScreen - viewportSize.width / 2;
+			int yOrigin = yScreen - viewportSize.height / 2;
+			if (xOrigin < 0) xOrigin = 0;
+			if (yOrigin < 0) yOrigin = 0;
+			// re-scale with new scale
+			setUserSize(userSize);
+			revalidate();
+			setViewPosition(new Point(xOrigin, yOrigin));
+			forceRedraw();
+		}
+		else {
+			throw new RuntimeException
+					("zooming only works if this view is contained in a ScrollPane");
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java" startline= "257" endline= "276" />
+<code>
+		if (hasZoomSupport()) {
+			Dimension viewportSize = getViewportSize();
+			Dimension userSize = getUserSize();
+			int xOrigin = x - viewportSize.width / 2;
+			int yOrigin = y - viewportSize.height / 2;
+			if (xOrigin < 0) xOrigin = 0;
+			if (yOrigin < 0) yOrigin = 0;
+			this.scale = 1.0;
+			setUserSize(userSize);
+			revalidate();
+			setViewPosition(new Point((int) (xOrigin),
+					(int) (yOrigin)));
+			forceRedraw();
+		}
+		else {
+			throw new RuntimeException
+					("zooming only works if this view is contained in a ScrollPane");
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/samples/nothing/NothingApp.java" startline= "37" endline= "63" />
+<code>
+		super.createTools(palette);
+
+		Tool tool = new TextTool(this, new TextFigure());
+		palette.add(createToolButton(IMAGES+"TEXT", "Text Tool", tool));
+
+		tool = new CreationTool(this, new RectangleFigure());
+		palette.add(createToolButton(IMAGES+"RECT", "Rectangle Tool", tool));
+
+		tool = new CreationTool(this, new RoundRectangleFigure());
+		palette.add(createToolButton(IMAGES+"RRECT", "Round Rectangle Tool", tool));
+
+		tool = new CreationTool(this, new EllipseFigure());
+		palette.add(createToolButton(IMAGES+"ELLIPSE", "Ellipse Tool", tool));
+
+		tool = new CreationTool(this, new LineFigure());
+		palette.add(createToolButton(IMAGES+"LINE", "Line Tool", tool));
+
+		tool = new PolygonTool(this);
+		palette.add(createToolButton(IMAGES+"POLYGON", "Polygon Tool", tool));
+
+		tool = new ConnectionTool(this, new LineConnection());
+		palette.add(createToolButton(IMAGES+"CONN", "Connection Tool", tool));
+
+		tool = new ConnectionTool(this, new ElbowConnection());
+		palette.add(createToolButton(IMAGES+"OCONN", "Elbow Connection Tool", tool));
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/samples/nothing/NothingApplet.java" startline= "28" endline= "54" />
+<code>
+		super.createTools(palette);
+
+		Tool tool = new TextTool(this, new TextFigure());
+		palette.add(createToolButton(IMAGES + "TEXT", "Text Tool", tool));
+
+		tool = new CreationTool(this, new RectangleFigure());
+		palette.add(createToolButton(IMAGES + "RECT", "Rectangle Tool", tool));
+
+		tool = new CreationTool(this, new RoundRectangleFigure());
+		palette.add(createToolButton(IMAGES + "RRECT", "Round Rectangle Tool", tool));
+
+		tool = new CreationTool(this, new EllipseFigure());
+		palette.add(createToolButton(IMAGES + "ELLIPSE", "Ellipse Tool", tool));
+
+		tool = new CreationTool(this, new LineFigure());
+		palette.add(createToolButton(IMAGES + "LINE", "Line Tool", tool));
+
+		tool = new PolygonTool(this);
+		palette.add(createToolButton(IMAGES + "POLYGON", "Polygon Tool", tool));
+
+		tool = new ConnectionTool(this, new LineConnection());
+		palette.add(createToolButton(IMAGES + "CONN", "Connection Tool", tool));
+
+		tool = new ConnectionTool(this, new ElbowConnection());
+		palette.add(createToolButton(IMAGES + "OCONN", "Elbow Connection Tool", tool));
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionHandle.java" startline= "74" endline= "93" />
+<code>
+		Point p = new Point(x,y);
+		Figure f = findConnectableFigure(x, y, view.drawing());
+		// track the figure containing the mouse
+		if (f != getTargetFigure()) {
+			if (getTargetFigure() != null) {
+				getTargetFigure().connectorVisibility(false, null);
+			}
+			setTargetFigure(f);
+			if (getTargetFigure() != null) {
+				getTargetFigure().connectorVisibility(true, getConnection());
+			}
+		}
+
+		Connector target = findConnectionTarget(p.x, p.y, view.drawing());
+		if (target != null) {
+			p = Geom.center(target.displayBox());
+		}
+		getConnection().endPoint(p.x, p.y);
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ChangeConnectionHandle.java" startline= "92" endline= "111" />
+<code>
+		Point p = new Point(x, y);
+		Figure f = findConnectableFigure(x, y, view.drawing());
+		// track the figure containing the mouse
+		if (f != getTargetFigure()) {
+			if (getTargetFigure() != null) {
+				getTargetFigure().connectorVisibility(false, null);
+			}
+			setTargetFigure(f);
+			if (getTargetFigure() != null) {
+				getTargetFigure().connectorVisibility(true, getConnection());
+			}
+		}
+
+		Connector target = findConnectionTarget(p.x, p.y, view.drawing());
+		if (target != null) {
+			p = Geom.center(target.displayBox());
+		}
+		setPoint(p.x, p.y);
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/samples/javadraw/JavaDrawApp.java" startline= "158" endline= "174" />
+<code>
+		CommandMenu menu = new CommandMenu("Animation");
+		Command cmd = new AbstractCommand("Start Animation", this) {
+			public void execute() {
+				startAnimation();
+			}
+		};
+		menu.add(cmd);
+
+		cmd = new AbstractCommand("Stop Animation", this) {
+			public void execute() {
+				endAnimation();
+			}
+		};
+		menu.add(cmd);
+		return menu;
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java" startline= "364" endline= "381" />
+<code>
+		CommandMenu menu = new CommandMenu("Debug");
+
+		Command cmd = new AbstractCommand("Simple Update", this) {
+			public void execute() {
+				this.view().setDisplayUpdate(new SimpleUpdateStrategy());
+			}
+		};
+		menu.add(cmd);
+
+		cmd = new AbstractCommand("Buffered Update", this) {
+			public void execute() {
+				this.view().setDisplayUpdate(new BufferedUpdateStrategy());
+			}
+		};
+		menu.add(cmd);
+		return menu;
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java" startline= "173" endline= "191" />
+<code>
+		JScrollPane sp = new JScrollPane((Component) dv);
+		sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		sp.setAlignmentX(LEFT_ALIGNMENT);
+
+		String applicationTitle;
+		if (dv.drawing().getTitle() == null) {
+			applicationTitle = getDrawApplication().getApplicationName() + " - " + getDrawApplication().getDefaultDrawingTitle();
+		}
+		else {
+			applicationTitle = getDrawApplication().getApplicationName() + " - " + dv.drawing().getTitle();
+		}
+		JInternalFrame internalFrame = new JInternalFrame(applicationTitle, true, true, true, true);
+		internalFrame.setName(applicationTitle);
+		internalFrame.getContentPane().add(sp);
+		internalFrame.setSize(200,200);
+		return internalFrame;
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/JPanelDesktop.java" startline= "35" endline= "51" />
+<code>
+		JScrollPane sp = new JScrollPane((Component)dv);
+		sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		sp.setAlignmentX(LEFT_ALIGNMENT);
+		String applicationTitle;
+		if (dv.drawing().getTitle() == null) {
+			applicationTitle = getDrawApplication().getApplicationName()
+					+ " - " + getDrawApplication().getDefaultDrawingTitle();
+		}
+		else {
+			applicationTitle = getDrawApplication().getApplicationName() + " - " + dv.drawing().getTitle();
+		}
+		// should be setTitle but a JPanelDesktop has no own title bar
+		sp.setName(applicationTitle);
+		return sp;
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "102" endline= "124" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+
+				if (currentFigure.getTextHolder() != null) {
+					// the text figure didn't exist before
+					if (!isValidText(getOriginalText())) {
+						currentFigure.getTextHolder().disconnect(getConnectedFigure());
+					}
+					// the text figure did exist but was remove
+					else if (!isValidText(getBackupText())) {
+						currentFigure.getTextHolder().connect(getConnectedFigure());
+					}
+				}
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "130" endline= "151" />
+<code>
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					// the text figure did exist but was remove
+					if (!isValidText(getBackupText())) {
+						currentFigure.getTextHolder().disconnect(getConnectedFigure());
+					}
+					// the text figure didn't exist before
+					else if (!isValidText(getOriginalText())) {
+						currentFigure.getTextHolder().connect(getConnectedFigure());
+					}
+				}
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "130" endline= "151" />
+<code>
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					// the text figure did exist but was remove
+					if (!isValidText(getBackupText())) {
+						currentFigure.getTextHolder().disconnect(getConnectedFigure());
+					}
+					// the text figure didn't exist before
+					else if (!isValidText(getOriginalText())) {
+						currentFigure.getTextHolder().connect(getConnectedFigure());
+					}
+				}
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "189" endline= "203" />
+<code>
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().disconnect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "130" endline= "151" />
+<code>
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					// the text figure did exist but was remove
+					if (!isValidText(getBackupText())) {
+						currentFigure.getTextHolder().disconnect(getConnectedFigure());
+					}
+					// the text figure didn't exist before
+					else if (!isValidText(getOriginalText())) {
+						currentFigure.getTextHolder().connect(getConnectedFigure());
+					}
+				}
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "173" endline= "187" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().connect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "102" endline= "124" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+
+				if (currentFigure.getTextHolder() != null) {
+					// the text figure didn't exist before
+					if (!isValidText(getOriginalText())) {
+						currentFigure.getTextHolder().disconnect(getConnectedFigure());
+					}
+					// the text figure did exist but was remove
+					else if (!isValidText(getBackupText())) {
+						currentFigure.getTextHolder().connect(getConnectedFigure());
+					}
+				}
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "189" endline= "203" />
+<code>
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().disconnect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "102" endline= "124" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+
+				if (currentFigure.getTextHolder() != null) {
+					// the text figure didn't exist before
+					if (!isValidText(getOriginalText())) {
+						currentFigure.getTextHolder().disconnect(getConnectedFigure());
+					}
+					// the text figure did exist but was remove
+					else if (!isValidText(getBackupText())) {
+						currentFigure.getTextHolder().connect(getConnectedFigure());
+					}
+				}
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "173" endline= "187" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().connect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/NestedCreationTool.java" startline= "32" endline= "47" />
+<code>
+		Figure figure = drawing().findFigure(e.getX(), e.getY());
+		if (figure != null) {
+			figure = figure.getDecoratedFigure();
+			if (figure instanceof CompositeFigure) {
+				setContainerFigure((CompositeFigure)figure);
+				super.mouseDown(e, x, y);
+			}
+			else {
+				toolDone();
+			}
+		}
+		else {
+			toolDone();
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/CompositeFigureCreationTool.java" startline= "34" endline= "52" />
+<code>
+		setView((DrawingView)e.getSource());
+		Figure figure = drawing().findFigure(e.getX(), e.getY());
+		if (figure != null) {
+			figure = figure.getDecoratedFigure();
+			if (figure instanceof CompositeFigure) {
+				setContainerFigure((CompositeFigure)figure);
+				setCreatedFigure(createFigure());
+				setAddedFigure((getContainerFigure().add(getCreatedFigure())));
+				getAddedFigure().displayBox(new Point(x, y), new Point(x, y));
+			}
+			else {
+				toolDone();
+			}
+		}
+		else {
+			toolDone();
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/applet/DrawApplet.java" startline= "461" endline= "475" />
+<code>
+		try {
+			URL url = new URL(getCodeBase(), filename);
+			InputStream stream = url.openStream();
+			StorableInput input = new StorableInput(stream);
+			fDrawing.release();
+
+			fDrawing = (Drawing)input.readStorable();
+			view().setDrawing(fDrawing);
+		}
+		catch (IOException e) {
+			initDrawing();
+			showStatus("Error:" + e);
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/applet/DrawApplet.java" startline= "477" endline= "494" />
+<code>
+		try {
+			URL url = new URL(getCodeBase(), filename);
+			InputStream stream = url.openStream();
+			ObjectInput input = new ObjectInputStream(stream);
+			fDrawing.release();
+			fDrawing = (Drawing)input.readObject();
+			view().setDrawing(fDrawing);
+		}
+		catch (IOException e) {
+			initDrawing();
+			showStatus("Error: " + e);
+		}
+		catch (ClassNotFoundException e) {
+			initDrawing();
+			showStatus("Class not found: " + e);
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java" startline= "913" endline= "926" />
+<code>
+		toolDone();
+		JFileChooser openDialog = createOpenFileChooser();
+		getStorageFormatManager().registerFileFilters(openDialog);
+		if (openDialog.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+			StorageFormat foundFormat = getStorageFormatManager().findStorageFormat(openDialog.getFileFilter());
+			if (foundFormat != null) {
+				loadDrawing(foundFormat, openDialog.getSelectedFile().getAbsolutePath());
+			}
+			else {
+				showStatus("Not a valid file format: " + openDialog.getFileFilter().getDescription());
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java" startline= "931" endline= "947" />
+<code>
+		if (view() != null) {
+			toolDone();
+			JFileChooser saveDialog = createSaveFileChooser();
+			getStorageFormatManager().registerFileFilters(saveDialog);
+
+			if (saveDialog.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+				StorageFormat foundFormat = getStorageFormatManager().findStorageFormat(saveDialog.getFileFilter());
+				if (foundFormat != null) {
+					saveDrawing(foundFormat, saveDialog.getSelectedFile().getAbsolutePath());
+				}
+				else {
+					showStatus("Not a valid file format: " + saveDialog.getFileFilter().getDescription());
+				}
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java" startline= "122" endline= "135" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = null;
+		for (int i = listeners.length-2; i >= 0; i -= 2) {
+			if (listeners[i] == DesktopListener.class) {
+				if (dpe == null) {
+					dpe = new DesktopEvent(MDIDesktopPane.this, dv);
+				}
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewAdded(dpe);
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java" startline= "152" endline= "165" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = null;
+		for (int i = listeners.length-2; i >= 0; i -= 2) {
+			if (listeners[i] == DesktopListener.class) {
+				if (dpe == null) {
+					dpe = new DesktopEvent(MDIDesktopPane.this, dv);
+				}
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewSelected(dpe);
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java" startline= "137" endline= "150" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe= null;
+		for (int i = listeners.length-2; i >= 0; i -= 2) {
+			if (listeners[i] == DesktopListener.class) {
+				if (dpe == null) {
+					dpe = new DesktopEvent(MDIDesktopPane.this, dv);
+				}
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewRemoved(dpe);
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java" startline= "152" endline= "165" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = null;
+		for (int i = listeners.length-2; i >= 0; i -= 2) {
+			if (listeners[i] == DesktopListener.class) {
+				if (dpe == null) {
+					dpe = new DesktopEvent(MDIDesktopPane.this, dv);
+				}
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewSelected(dpe);
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java" startline= "122" endline= "135" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = null;
+		for (int i = listeners.length-2; i >= 0; i -= 2) {
+			if (listeners[i] == DesktopListener.class) {
+				if (dpe == null) {
+					dpe = new DesktopEvent(MDIDesktopPane.this, dv);
+				}
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewAdded(dpe);
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java" startline= "137" endline= "150" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe= null;
+		for (int i = listeners.length-2; i >= 0; i -= 2) {
+			if (listeners[i] == DesktopListener.class) {
+				if (dpe == null) {
+					dpe = new DesktopEvent(MDIDesktopPane.this, dv);
+				}
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewRemoved(dpe);
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/PolygonScaleHandle.java" startline= "87" endline= "109" />
+<code>
+		// find a nice place to put handle
+		// Need to pick a place that will not overlap with point handle
+		// and is internal to polygon
+	
+		// Try for one HANDLESIZE step away from outermost toward center
+	
+		Point outer = ((PolygonFigure)(owner())).outermostPoint();
+		Point ctr = ((PolygonFigure)(owner())).center();
+		double len = Geom.length(outer.x, outer.y, ctr.x, ctr.y);
+		if (len == 0) { // best we can do?
+			return new Point(outer.x - HANDLESIZE/2, outer.y + HANDLESIZE/2);
+		}
+	
+		double u = HANDLESIZE / len;
+		if (u > 1.0) { // best we can do?
+			return new Point((outer.x * 3 + ctr.x)/4, (outer.y * 3 + ctr.y)/4);
+		}
+		else {
+			return new Point((int)(outer.x * (1.0 - u) + ctr.x * u),
+			(int)(outer.y * (1.0 - u) + ctr.y * u));
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/TriangleRotationHandle.java" startline= "79" endline= "98" />
+<code>
+		// find a nice place to put handle
+		// almost same code as PolygonScaleHandle
+		Polygon p = ((TriangleFigure)(owner())).getPolygon();
+		Point first = new Point(p.xpoints[0], p.ypoints[0]);
+		Point ctr = owner().center();
+		double len = Geom.length(first.x, first.y, ctr.x, ctr.y);
+		if (len == 0) { // best we can do?
+			return new Point(first.x - HANDLESIZE/2, first.y + HANDLESIZE/2);
+		}
+
+		double u = HANDLESIZE / len;
+		if (u > 1.0) { // best we can do?
+			return new Point((first.x * 3 + ctr.x)/4, (first.y * 3 + ctr.y)/4);
+		}
+		else {
+			return new Point((int)(first.x * (1.0 - u) + ctr.x * u),
+							(int)(first.y * (1.0 - u) + ctr.y * u));
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/util/UndoCommand.java" startline= "39" endline= "58" />
+<code>
+		super.execute();
+		UndoManager um = getDrawingEditor().getUndoManager();
+
+		if ((um == null) || !um.isUndoable()) {
+			return;
+		}
+		
+		Undoable lastUndoable = um.popUndo();
+		// Execute undo
+		boolean hasBeenUndone = lastUndoable.undo();
+
+		// Add to redo stack
+		if (hasBeenUndone && lastUndoable.isRedoable()) {
+			um.pushRedo(lastUndoable);
+		}
+		lastUndoable.getDrawingView().checkDamage();
+		
+		getDrawingEditor().figureSelectionChanged(lastUndoable.getDrawingView());
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/util/RedoCommand.java" startline= "33" endline= "51" />
+<code>
+		super.execute();
+		UndoManager um = getDrawingEditor().getUndoManager();
+		if ((um == null) || !um.isRedoable()) {
+			return;
+		}
+		
+		Undoable lastRedoable = um.popRedo();
+		// Execute redo
+		boolean hasBeenUndone = lastRedoable.redo();
+		// Add to undo stack
+		if (hasBeenUndone && lastRedoable.isUndoable()) {
+			um.pushUndo(lastRedoable);
+		}
+			
+		lastRedoable.getDrawingView().checkDamage();
+
+		getDrawingEditor().figureSelectionChanged(lastRedoable.getDrawingView());
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/html/URLContentProducer.java" startline= "66" endline= "83" />
+<code>
+		try {
+			// if we have our own URL then use it
+			// otherwise use the one supplied
+			URL url = (fURL != null) ? new URL(fURL.toExternalForm()) : new URL(((URL)ctxAttrValue).toExternalForm());
+
+			InputStream reader = url.openStream();
+			int available = reader.available();
+			byte contents[] = new byte[available];
+			reader.read(contents, 0, available);
+			reader.close();
+			return new String(contents);
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			return ex.toString();
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/html/ResourceContentProducer.java" startline= "62" endline= "79" />
+<code>
+		try {
+			// if we have our own resource then use it
+			// otherwise use the one supplied
+			String resourceName = (fResourceName != null) ? fResourceName : (String)ctxAttrValue;
+
+			InputStream reader = this.getClass().getResourceAsStream(resourceName);
+			int available = reader.available();
+			byte contents[] = new byte[available];
+			reader.read(contents, 0, available);
+			reader.close();
+			return new String(contents);
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			return ex.toString();
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/UngroupCommand.java" startline= "77" endline= "94" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+			getDrawingView().clearSelection();
+
+			FigureEnumeration groupFigures = getAffectedFigures();
+			while (groupFigures.hasNextFigure()) {
+				Figure groupFigure = groupFigures.nextFigure();
+				// orphan individual figures from the group
+				getDrawingView().drawing().orphanAll(groupFigure.figures());
+
+				Figure figure = getDrawingView().drawing().add(groupFigure);
+				getDrawingView().addToSelection(figure);
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionTool.java" startline= "396" endline= "412" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			getConnection().disconnectStart();
+			getConnection().disconnectEnd();
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				getDrawingView().drawing().orphan(fe.nextFigure());
+			}
+
+			getDrawingView().clearSelection();
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java" startline= "79" endline= "93" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				if (getOriginalValue(f) != null) {
+					f.setAttribute(getAttribute(), getOriginalValue(f));
+				}
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/UngroupCommand.java" startline= "77" endline= "94" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+			getDrawingView().clearSelection();
+
+			FigureEnumeration groupFigures = getAffectedFigures();
+			while (groupFigures.hasNextFigure()) {
+				Figure groupFigure = groupFigures.nextFigure();
+				// orphan individual figures from the group
+				getDrawingView().drawing().orphanAll(groupFigure.figures());
+
+				Figure figure = getDrawingView().drawing().add(groupFigure);
+				getDrawingView().addToSelection(figure);
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/UngroupCommand.java" startline= "77" endline= "94" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+			getDrawingView().clearSelection();
+
+			FigureEnumeration groupFigures = getAffectedFigures();
+			while (groupFigures.hasNextFigure()) {
+				Figure groupFigure = groupFigures.nextFigure();
+				// orphan individual figures from the group
+				getDrawingView().drawing().orphanAll(groupFigure.figures());
+
+				Figure figure = getDrawingView().drawing().add(groupFigure);
+				getDrawingView().addToSelection(figure);
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "189" endline= "203" />
+<code>
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().disconnect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/UngroupCommand.java" startline= "77" endline= "94" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+			getDrawingView().clearSelection();
+
+			FigureEnumeration groupFigures = getAffectedFigures();
+			while (groupFigures.hasNextFigure()) {
+				Figure groupFigure = groupFigures.nextFigure();
+				// orphan individual figures from the group
+				getDrawingView().drawing().orphanAll(groupFigure.figures());
+
+				Figure figure = getDrawingView().drawing().add(groupFigure);
+				getDrawingView().addToSelection(figure);
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "173" endline= "187" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().connect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/UngroupCommand.java" startline= "77" endline= "94" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+			getDrawingView().clearSelection();
+
+			FigureEnumeration groupFigures = getAffectedFigures();
+			while (groupFigures.hasNextFigure()) {
+				Figure groupFigure = groupFigures.nextFigure();
+				// orphan individual figures from the group
+				getDrawingView().drawing().orphanAll(groupFigure.figures());
+
+				Figure figure = getDrawingView().drawing().add(groupFigure);
+				getDrawingView().addToSelection(figure);
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/AlignCommand.java" startline= "161" endline= "177" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				Point originalPoint = getOriginalPoint(f);
+				Point currentPoint = f.displayBox().getLocation();
+				// substract current lcoation to get to 0,0 and then move to original location
+				f.moveBy(-currentPoint.x + originalPoint.x,
+						 -currentPoint.y + originalPoint.y);
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/UngroupCommand.java" startline= "77" endline= "94" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+			getDrawingView().clearSelection();
+
+			FigureEnumeration groupFigures = getAffectedFigures();
+			while (groupFigures.hasNextFigure()) {
+				Figure groupFigure = groupFigures.nextFigure();
+				// orphan individual figures from the group
+				getDrawingView().drawing().orphanAll(groupFigure.figures());
+
+				Figure figure = getDrawingView().drawing().add(groupFigure);
+				getDrawingView().addToSelection(figure);
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/SendToBackCommand.java" startline= "64" endline= "77" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				int currentFigureLayer = getOriginalLayer(currentFigure);
+				getDrawingView().drawing().sendToLayer(currentFigure, currentFigureLayer);
+			}
+			
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java" startline= "277" endline= "289" />
+<code>
+		Component[] comps = getComponents();
+		java.util.ArrayList al = new java.util.ArrayList();
+		for (int x=0; x<comps.length; x++) {
+			DrawingView dv = Helper.getDrawingView(comps[x]);
+			if (dv != null) {
+				al.add(dv);
+			}
+		}
+		DrawingView[] dvs = new DrawingView[al.size()];
+		al.toArray(dvs);
+		return dvs;
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java" startline= "130" endline= "141" />
+<code>
+		List al = CollectionsFactory.current().createList();
+		for (int x = 0; x < comps.length; x++) {
+			DrawingView dv = Helper.getDrawingView(comps[x]);
+			if (dv != null) {
+				al.add(dv);
+			}
+		}
+		DrawingView[] dvs = new DrawingView[al.size()];
+		al.toArray(dvs);
+		return dvs;
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/StandardDrawingView.java" startline= "673" endline= "686" />
+<code>
+		boolean isPrinting = g instanceof PrintGraphics;
+		drawBackground(g);
+		if ((fBackgrounds != null) && !isPrinting) {
+			drawPainters(g, fBackgrounds);
+		}
+		drawDrawing(g);
+		if ((fForegrounds != null) && !isPrinting) {
+			drawPainters(g, fForegrounds);
+		}
+		if (!isPrinting) {
+			drawHandles(g);
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/StandardDrawingView.java" startline= "694" endline= "707" />
+<code>
+		boolean isPrinting = g instanceof PrintGraphics;
+		//drawBackground(g);
+		if ((fBackgrounds != null) && !isPrinting) {
+			drawPainters(g, fBackgrounds);
+		}
+		drawing().draw(g, fe);
+		if ((fForegrounds != null) && !isPrinting) {
+			drawPainters(g, fForegrounds);
+		}
+		if (!isPrinting) {
+			drawHandles(g);
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/CompositeFigure.java" startline= "469" endline= "482" />
+<code>
+		if (without == null) {
+			return findFigure(x, y);
+		}
+
+		FigureEnumeration fe = figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (figure.containsPoint(x, y) && !figure.includes(without)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/CompositeFigure.java" startline= "490" endline= "504" />
+<code>
+		if (without == null) {
+			return findFigure(r);
+		}
+
+		FigureEnumeration fe = figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			Rectangle fr = figure.displayBox();
+			if (r.intersects(fr) && !figure.includes(without)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/PolygonScaleHandle.java" startline= "164" endline= "176" />
+<code>
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			PolygonFigure figure = (PolygonFigure)fe.nextFigure();
+			Polygon backupPolygon = figure.getPolygon();
+			figure.willChange();
+			figure.setInternalPolygon(getPolygon());
+			figure.changed();
+			setPolygon(backupPolygon);
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/TriangleRotationHandle.java" startline= "143" endline= "155" />
+<code>
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			TriangleFigure figure = (TriangleFigure)fe.nextFigure();
+			double backupAngle = figure.getRotationAngle();
+			figure.willChange();
+			figure.rotate(getRotationAngle());
+			figure.changed();
+			setRotationAngle(backupAngle);
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/TriangleRotationHandle.java" startline= "143" endline= "155" />
+<code>
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			TriangleFigure figure = (TriangleFigure)fe.nextFigure();
+			double backupAngle = figure.getRotationAngle();
+			figure.willChange();
+			figure.rotate(getRotationAngle());
+			figure.changed();
+			setRotationAngle(backupAngle);
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/PolygonHandle.java" startline= "83" endline= "96" />
+<code>
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+
+			PolygonFigure figure = (PolygonFigure)fe.nextFigure();
+			Point backupPoint = figure.pointAt(getPointIndex());
+			figure.setPointAt(getOldPoint(), getPointIndex());
+			figure.smoothPoints();
+			setOldPoint(backupPoint);
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/PasteCommand.java" startline= "88" endline= "102" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			DeleteFromDrawingVisitor deleteVisitor = new DeleteFromDrawingVisitor(getDrawingView().drawing());
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+	    		fe.nextFigure().visit(deleteVisitor);
+			}
+
+			getDrawingView().clearSelection();
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionTool.java" startline= "396" endline= "412" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			getConnection().disconnectStart();
+			getConnection().disconnectEnd();
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				getDrawingView().drawing().orphan(fe.nextFigure());
+			}
+
+			getDrawingView().clearSelection();
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java" startline= "79" endline= "93" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				if (getOriginalValue(f) != null) {
+					f.setAttribute(getAttribute(), getOriginalValue(f));
+				}
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java" startline= "95" endline= "109" />
+<code>
+			if (!isRedoable()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				if (getBackupValue() != null) {
+					f.setAttribute(getAttribute(), getBackupValue());
+				}
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java" startline= "79" endline= "93" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				if (getOriginalValue(f) != null) {
+					f.setAttribute(getAttribute(), getOriginalValue(f));
+				}
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "189" endline= "203" />
+<code>
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().disconnect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java" startline= "79" endline= "93" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				if (getOriginalValue(f) != null) {
+					f.setAttribute(getAttribute(), getOriginalValue(f));
+				}
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "173" endline= "187" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().connect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java" startline= "79" endline= "93" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				if (getOriginalValue(f) != null) {
+					f.setAttribute(getAttribute(), getOriginalValue(f));
+				}
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/AlignCommand.java" startline= "161" endline= "177" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				Point originalPoint = getOriginalPoint(f);
+				Point currentPoint = f.displayBox().getLocation();
+				// substract current lcoation to get to 0,0 and then move to original location
+				f.moveBy(-currentPoint.x + originalPoint.x,
+						 -currentPoint.y + originalPoint.y);
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java" startline= "79" endline= "93" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				if (getOriginalValue(f) != null) {
+					f.setAttribute(getAttribute(), getOriginalValue(f));
+				}
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/SendToBackCommand.java" startline= "64" endline= "77" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				int currentFigureLayer = getOriginalLayer(currentFigure);
+				getDrawingView().drawing().sendToLayer(currentFigure, currentFigureLayer);
+			}
+			
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java" startline= "95" endline= "109" />
+<code>
+			if (!isRedoable()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				if (getBackupValue() != null) {
+					f.setAttribute(getAttribute(), getBackupValue());
+				}
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "189" endline= "203" />
+<code>
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().disconnect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java" startline= "95" endline= "109" />
+<code>
+			if (!isRedoable()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				if (getBackupValue() != null) {
+					f.setAttribute(getAttribute(), getBackupValue());
+				}
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "173" endline= "187" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().connect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "173" endline= "187" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().connect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "189" endline= "203" />
+<code>
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().disconnect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/AlignCommand.java" startline= "161" endline= "177" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				Point originalPoint = getOriginalPoint(f);
+				Point currentPoint = f.displayBox().getLocation();
+				// substract current lcoation to get to 0,0 and then move to original location
+				f.moveBy(-currentPoint.x + originalPoint.x,
+						 -currentPoint.y + originalPoint.y);
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "189" endline= "203" />
+<code>
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().disconnect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/SendToBackCommand.java" startline= "64" endline= "77" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				int currentFigureLayer = getOriginalLayer(currentFigure);
+				getDrawingView().drawing().sendToLayer(currentFigure, currentFigureLayer);
+			}
+			
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "189" endline= "203" />
+<code>
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().disconnect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/AlignCommand.java" startline= "161" endline= "177" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				Point originalPoint = getOriginalPoint(f);
+				Point currentPoint = f.displayBox().getLocation();
+				// substract current lcoation to get to 0,0 and then move to original location
+				f.moveBy(-currentPoint.x + originalPoint.x,
+						 -currentPoint.y + originalPoint.y);
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "173" endline= "187" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().connect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/SendToBackCommand.java" startline= "64" endline= "77" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				int currentFigureLayer = getOriginalLayer(currentFigure);
+				getDrawingView().drawing().sendToLayer(currentFigure, currentFigureLayer);
+			}
+			
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java" startline= "173" endline= "187" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().connect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/PolygonScaleHandle.java" startline= "164" endline= "176" />
+<code>
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			PolygonFigure figure = (PolygonFigure)fe.nextFigure();
+			Polygon backupPolygon = figure.getPolygon();
+			figure.willChange();
+			figure.setInternalPolygon(getPolygon());
+			figure.changed();
+			setPolygon(backupPolygon);
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/PolygonHandle.java" startline= "83" endline= "96" />
+<code>
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+
+			PolygonFigure figure = (PolygonFigure)fe.nextFigure();
+			Point backupPoint = figure.pointAt(getPointIndex());
+			figure.setPointAt(getOldPoint(), getPointIndex());
+			figure.smoothPoints();
+			setOldPoint(backupPoint);
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/RadiusHandle.java" startline= "111" endline= "121" />
+<code>
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			RoundRectangleFigure currentFigure = (RoundRectangleFigure)fe.nextFigure();
+			Point figureRadius = currentFigure.getArc();
+			currentFigure.setArc(getOldRadius().x, getOldRadius().y);
+			setOldRadius(figureRadius);
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/PolygonScaleHandle.java" startline= "164" endline= "176" />
+<code>
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			PolygonFigure figure = (PolygonFigure)fe.nextFigure();
+			Polygon backupPolygon = figure.getPolygon();
+			figure.willChange();
+			figure.setInternalPolygon(getPolygon());
+			figure.changed();
+			setPolygon(backupPolygon);
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/AlignCommand.java" startline= "161" endline= "177" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				Point originalPoint = getOriginalPoint(f);
+				Point currentPoint = f.displayBox().getLocation();
+				// substract current lcoation to get to 0,0 and then move to original location
+				f.moveBy(-currentPoint.x + originalPoint.x,
+						 -currentPoint.y + originalPoint.y);
+			}
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/SendToBackCommand.java" startline= "64" endline= "77" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				int currentFigureLayer = getOriginalLayer(currentFigure);
+				getDrawingView().drawing().sendToLayer(currentFigure, currentFigureLayer);
+			}
+			
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/PasteCommand.java" startline= "88" endline= "102" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			DeleteFromDrawingVisitor deleteVisitor = new DeleteFromDrawingVisitor(getDrawingView().drawing());
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+	    		fe.nextFigure().visit(deleteVisitor);
+			}
+
+			getDrawingView().clearSelection();
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/SendToBackCommand.java" startline= "64" endline= "77" />
+<code>
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				int currentFigureLayer = getOriginalLayer(currentFigure);
+				getDrawingView().drawing().sendToLayer(currentFigure, currentFigureLayer);
+			}
+			
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionHandle.java" startline= "142" endline= "152" />
+<code>
+		FigureEnumeration fe = drawing.figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (!figure.includes(getConnection()) && figure.canConnect() 
+				&& figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ChangeConnectionHandle.java" startline= "174" endline= "185" />
+<code>
+		FigureEnumeration fe = drawing.figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (!figure.includes(getConnection()) && figure.canConnect()) {
+				if (figure.containsPoint(x, y)) {
+					return figure;
+				}
+			}
+		}
+		return null;
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/AbstractTool.java" startline= "212" endline= "223" />
+<code>
+		// perform notification only if the usable state of the tool has changed
+		if (isUsable() != newIsUsable) {
+			myIsUsable = newIsUsable;
+			if (isUsable()) {
+				getEventDispatcher().fireToolUsableEvent();
+			}
+			else {
+				getEventDispatcher().fireToolUnusableEvent();
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/AbstractTool.java" startline= "225" endline= "238" />
+<code>
+		// perform notification only if the usable state of the tool has changed
+		if (isEnabled() != newIsEnabled) {
+			myIsEnabled = newIsEnabled;
+			if (isEnabled()) {
+				getEventDispatcher().fireToolEnabledEvent();
+			}
+			else {
+				getEventDispatcher().fireToolDisabledEvent();
+				setUsable(false);
+				deactivate();
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java" startline= "96" endline= "106" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(getActiveDrawingView(), dv);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewRemoved(dpe);
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java" startline= "111" endline= "121" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(oldView, newView);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewSelected(dpe);
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java" startline= "84" endline= "94" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(getActiveDrawingView(), dv);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewAdded(dpe);
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java" startline= "111" endline= "121" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(oldView, newView);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewSelected(dpe);
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java" startline= "830" endline= "839" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewDestroying( view );
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java" startline= "111" endline= "121" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(oldView, newView);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewSelected(dpe);
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java" startline= "819" endline= "828" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewCreated(view);
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java" startline= "111" endline= "121" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(oldView, newView);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewSelected(dpe);
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java" startline= "84" endline= "94" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(getActiveDrawingView(), dv);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewAdded(dpe);
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java" startline= "96" endline= "106" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(getActiveDrawingView(), dv);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewRemoved(dpe);
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java" startline= "830" endline= "839" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewDestroying( view );
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java" startline= "96" endline= "106" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(getActiveDrawingView(), dv);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewRemoved(dpe);
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java" startline= "819" endline= "828" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewCreated(view);
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java" startline= "96" endline= "106" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(getActiveDrawingView(), dv);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewRemoved(dpe);
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java" startline= "830" endline= "839" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewDestroying( view );
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java" startline= "84" endline= "94" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(getActiveDrawingView(), dv);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewAdded(dpe);
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java" startline= "819" endline= "828" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewCreated(view);
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java" startline= "84" endline= "94" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(getActiveDrawingView(), dv);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewAdded(dpe);
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/PolygonHandle.java" startline= "83" endline= "96" />
+<code>
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+
+			PolygonFigure figure = (PolygonFigure)fe.nextFigure();
+			Point backupPoint = figure.pointAt(getPointIndex());
+			figure.setPointAt(getOldPoint(), getPointIndex());
+			figure.smoothPoints();
+			setOldPoint(backupPoint);
+
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/PolyLineHandle.java" startline= "97" endline= "108" />
+<code>
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+
+			PolyLineFigure figure = (PolyLineFigure)fe.nextFigure();
+			Point backupPoint = figure.pointAt(getPointIndex());
+			figure.setPointAt(getOldPoint(), getPointIndex());
+			setOldPoint(backupPoint);
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/RadiusHandle.java" startline= "111" endline= "121" />
+<code>
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			RoundRectangleFigure currentFigure = (RoundRectangleFigure)fe.nextFigure();
+			Point figureRadius = currentFigure.getArc();
+			currentFigure.setArc(getOldRadius().x, getOldRadius().y);
+			setOldRadius(figureRadius);
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/PolygonHandle.java" startline= "83" endline= "96" />
+<code>
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+
+			PolygonFigure figure = (PolygonFigure)fe.nextFigure();
+			Point backupPoint = figure.pointAt(getPointIndex());
+			figure.setPointAt(getOldPoint(), getPointIndex());
+			figure.smoothPoints();
+			setOldPoint(backupPoint);
+
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/RadiusHandle.java" startline= "111" endline= "121" />
+<code>
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			RoundRectangleFigure currentFigure = (RoundRectangleFigure)fe.nextFigure();
+			Point figureRadius = currentFigure.getArc();
+			currentFigure.setArc(getOldRadius().x, getOldRadius().y);
+			setOldRadius(figureRadius);
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/PolyLineHandle.java" startline= "97" endline= "108" />
+<code>
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+
+			PolyLineFigure figure = (PolyLineFigure)fe.nextFigure();
+			Point backupPoint = figure.pointAt(getPointIndex());
+			figure.setPointAt(getOldPoint(), getPointIndex());
+			setOldPoint(backupPoint);
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/samples/pert/PertApplication.java" startline= "31" endline= "49" />
+<code>
+		super.createTools(palette);
+
+		Tool tool = new TextTool(this, new TextFigure());
+		palette.add(createToolButton(IMAGES + "TEXT", "Text Tool", tool));
+
+		// the generic but slower version
+		//tool = new CreationTool(new PertFigure());
+		//palette.add(createToolButton(PERTIMAGES + "PERT", "Task Tool", tool));
+
+		tool = new PertFigureCreationTool(this);
+		palette.add(createToolButton(PERTIMAGES + "PERT", "Task Tool", tool));
+
+		tool = new ConnectionTool(this, new PertDependency());
+		palette.add(createToolButton(IMAGES + "CONN", "Dependency Tool", tool));
+
+		tool = new CreationTool(this, new LineFigure());
+		palette.add(createToolButton(IMAGES + "Line", "Line Tool", tool));
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/samples/pert/PertApplet.java" startline= "27" endline= "41" />
+<code>
+		super.createTools(palette);
+
+		Tool tool = new TextTool(this, new TextFigure());
+		palette.add(createToolButton(IMAGES+"TEXT", "Text Tool", tool));
+
+		tool = new PertFigureCreationTool(this);
+		palette.add(createToolButton(PERTIMAGES+"PERT", "Task Tool", tool));
+
+		tool = new ConnectionTool(this, new PertDependency());
+		palette.add(createToolButton(IMAGES+"CONN", "Dependency Tool", tool));
+
+		tool = new CreationTool(this, new LineFigure());
+		palette.add(createToolButton(IMAGES+"LINE", "Line Tool", tool));
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java" startline= "259" endline= "268" />
+<code>
+		Component[] comps = getComponents();
+		for (int x=0; x<comps.length; x++) {
+			if (dv == Helper.getDrawingView(comps[x])) {
+				((JInternalFrame)comps[x]).dispose();
+			    break;
+			}
+		}
+		checkDesktopSize();
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/SplitPaneDesktop.java" startline= "105" endline= "113" />
+<code>
+		Component[] comps = getContainer().getComponents();
+		for (int x = 0; x < comps.length; x++) {
+			if (dv == Helper.getDrawingView(comps[x])) {
+				getContainer().remove(comps[x]);
+			    break;
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/CompositeFigure.java" startline= "277" endline= "289" />
+<code>
+		// cannot shift figures to a lower layer if the lower bound is
+		// already the first layer.
+		if (upperBound >= fFigures.size()) {
+			upperBound = fFigures.size() - 1;
+		}
+
+		for (int i = upperBound; i >= lowerBound; i--) {
+			Figure currentFigure = (Figure)fFigures.get(i);
+			Figure predecessorFigure = (Figure)fFigures.get(i - 1);
+			currentFigure.setZValue(predecessorFigure.getZValue());
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/CompositeFigure.java" startline= "291" endline= "301" />
+<code>
+		if (upperBound >= fFigures.size()) {
+			upperBound = fFigures.size() - 1;
+		}
+
+		for (int i = upperBound; i >= lowerBound; i--) {
+			Figure currentFigure = (Figure)fFigures.get(i);
+			Figure successorFigure = (Figure)fFigures.get(i + 1);
+			currentFigure.setZValue(successorFigure.getZValue());
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/CompositeFigure.java" startline= "434" endline= "443" />
+<code>
+		FigureEnumeration fe = figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/CompositeFigure.java" startline= "448" endline= "458" />
+<code>
+		FigureEnumeration fe = figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			Rectangle fr = figure.displayBox();
+			if (r.intersects(fr)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ChopBoxConnector.java" startline= "41" endline= "54" />
+<code>
+		Figure startFigure = connection.getStartConnector().owner();
+		Rectangle r2 = connection.getEndConnector().displayBox();
+		Point r2c = null;
+
+		if (connection.pointCount() == 2) {
+			r2c = new Point(r2.x + r2.width/2, r2.y + r2.height/2);
+		 }
+		 else {
+			r2c = connection.pointAt(1);
+		}
+
+		return chop(startFigure, r2c);
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ChopBoxConnector.java" startline= "56" endline= "69" />
+<code>
+		Figure endFigure = connection.getEndConnector().owner();
+		Rectangle r1 = connection.getStartConnector().displayBox();
+		Point r1c = null;
+
+		if (connection.pointCount() == 2) {
+			r1c = new Point(r1.x + r1.width/2, r1.y + r1.height/2);
+		}
+		else {
+			r1c = connection.pointAt(connection.pointCount()-2);
+		}
+
+		return chop(endFigure, r1c);
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/PolygonTool.java" startline= "61" endline= "73" />
+<code>
+		if (fPolygon == null) {
+			fPolygon = new PolygonFigure(x, y);
+			setAddedFigure(view().add(fPolygon));
+			fPolygon.addPoint(x, y);
+		}
+		else if (fLastX != x || fLastY != y) {
+			fPolygon.addPoint(x, y);
+		}
+
+		fLastX = x;
+		fLastY = y;
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/ScribbleTool.java" startline= "57" endline= "68" />
+<code>
+		if (fScribble == null) {
+			fScribble = new PolyLineFigure(x, y);
+			setAddedFigure(view().add(fScribble));
+		}
+		else if (fLastX != x || fLastY != y) {
+			fScribble.addPoint(x, y);
+		}
+
+		fLastX = x;
+		fLastY = y;
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/StandardDrawingView.java" startline= "533" endline= "544" />
+<code>
+		Handle handle;
+
+		HandleEnumeration he = selectionHandles();
+		while (he.hasNextHandle()) {
+			handle = he.nextHandle();
+			if (handle.containsPoint(x, y)) {
+				return handle;
+			}
+		}
+		return null;
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/CompositeFigure.java" startline= "434" endline= "443" />
+<code>
+		FigureEnumeration fe = figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/BoxHandleKit.java" startline= "141" endline= "152" />
+<code>
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			Figure currentFigure = fe.nextFigure();
+
+			Rectangle figureDisplayBox = currentFigure.displayBox();
+			currentFigure.displayBox(getOldDisplayBox());
+			setOldDisplayBox(figureDisplayBox);
+			return true;
+		}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/figures/RadiusHandle.java" startline= "111" endline= "121" />
+<code>
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			RoundRectangleFigure currentFigure = (RoundRectangleFigure)fe.nextFigure();
+			Point figureRadius = currentFigure.getArc();
+			currentFigure.setArc(getOldRadius().x, getOldRadius().y);
+			setOldRadius(figureRadius);
+			return true;
+		}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java" startline= "819" endline= "828" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewCreated(view);
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java" startline= "830" endline= "839" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewDestroying( view );
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java" startline= "808" endline= "817" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewSelectionChanged(oldView, newView);
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java" startline= "830" endline= "839" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewDestroying( view );
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java" startline= "808" endline= "817" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewSelectionChanged(oldView, newView);
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java" startline= "819" endline= "828" />
+<code>
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewCreated(view);
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java" startline= "414" endline= "423" />
+<code>
+		return new StandardDrawingView.DrawingViewMouseListener() {
+			public void mousePressed(MouseEvent e) {
+				super.mousePressed(createScaledEvent(e));
+			}
+			public void mouseReleased(MouseEvent e) {
+				super.mouseReleased(createScaledEvent(e));
+			}
+		};
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java" startline= "425" endline= "434" />
+<code>
+		return new StandardDrawingView.DrawingViewMouseMotionListener() {
+			public void mouseDragged(MouseEvent e) {
+				super.mouseDragged(createScaledEvent(e));
+			}
+			public void mouseMoved(MouseEvent e) {
+				super.mouseMoved(createScaledEvent(e));
+			}
+		};
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionTool.java" startline= "223" endline= "233" />
+<code>
+		FigureEnumeration fe = drawing.figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			figure = figure.findFigureInside(x, y);
+			if (figure != null && (figure instanceof ConnectionFigure)) {
+				return (ConnectionFigure)figure;
+			}
+		}
+		return null;
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionTool.java" startline= "314" endline= "324" />
+<code>
+		FigureEnumeration fe = drawing.figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (!figure.includes(getConnection()) && figure.canConnect()
+				&& figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/util/CommandMenu.java" startline= "82" endline= "90" />
+<code>
+		for (int i = 0; i < getItemCount(); i++) {
+			JMenuItem item = getItem(i);
+			if (name.equals(item.getLabel())) {
+				item.setEnabled(state);
+				return;
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/CTXCommandMenu.java" startline= "116" endline= "124" />
+<code>
+		for (int i = 0; i < getItemCount(); i++) {
+			JMenuItem item = getItem(i);
+			if (name.equals(item.getLabel())) {
+				item.setEnabled(state);
+				return;
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/SplitPaneDesktop.java" startline= "105" endline= "113" />
+<code>
+		Component[] comps = getContainer().getComponents();
+		for (int x = 0; x < comps.length; x++) {
+			if (dv == Helper.getDrawingView(comps[x])) {
+				getContainer().remove(comps[x]);
+			    break;
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java" startline= "62" endline= "70" />
+<code>
+		Component[] comps = getContainer().getComponents();
+		for (int x=0; x < comps.length; x++) {
+			if (dv == Helper.getDrawingView(comps[x])) {
+				getContainer().remove(comps[x]);
+			    break;
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java" startline= "766" endline= "775" />
+<code>
+		JMenuBar mb = getJMenuBar();
+
+		for (int x = 0; x < mb.getMenuCount(); x++) {
+		    JMenu jm = mb.getMenu(x);
+			if (CommandMenu.class.isInstance(jm)) {
+				checkCommandMenu((CommandMenu)jm);
+			}
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java" startline= "777" endline= "785" />
+<code>
+		cm.checkEnabled();
+		for (int y = 0; y < cm.getItemCount();y++) {
+			JMenuItem jmi = cm.getItem(y);
+			if (CommandMenu.class.isInstance(jmi)) {
+				checkCommandMenu((CommandMenu)jmi);
+			}
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ScalingGraphics.java" startline= "243" endline= "252" />
+<code>
+							 int nPoints) {
+		int[] realXPoints = new int[nPoints];
+		int[] realYPoints = new int[nPoints];
+		for (int i = 0; i < nPoints; i++) {
+			realXPoints[i] = (int) (xPoints[i] * scale);
+			realYPoints[i] = (int) (yPoints[i] * scale);
+		}
+		real.drawPolyline(realXPoints, realYPoints, nPoints);
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ScalingGraphics.java" startline= "254" endline= "263" />
+<code>
+							int nPoints) {
+		int[] realXPoints = new int[nPoints];
+		int[] realYPoints = new int[nPoints];
+		for (int i = 0; i < nPoints; i++) {
+			realXPoints[i] = (int) (xPoints[i] * scale);
+			realYPoints[i] = (int) (yPoints[i] * scale);
+		}
+		real.drawPolygon(realXPoints, realYPoints, nPoints);
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ScalingGraphics.java" startline= "243" endline= "252" />
+<code>
+							 int nPoints) {
+		int[] realXPoints = new int[nPoints];
+		int[] realYPoints = new int[nPoints];
+		for (int i = 0; i < nPoints; i++) {
+			realXPoints[i] = (int) (xPoints[i] * scale);
+			realYPoints[i] = (int) (yPoints[i] * scale);
+		}
+		real.drawPolyline(realXPoints, realYPoints, nPoints);
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ScalingGraphics.java" startline= "265" endline= "274" />
+<code>
+							int nPoints) {
+		int[] realXPoints = new int[nPoints];
+		int[] realYPoints = new int[nPoints];
+		for (int i = 0; i < nPoints; i++) {
+			realXPoints[i] = (int) (xPoints[i] * scale);
+			realYPoints[i] = (int) (yPoints[i] * scale);
+		}
+		real.fillPolygon(realXPoints, realYPoints, nPoints);
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ScalingGraphics.java" startline= "254" endline= "263" />
+<code>
+							int nPoints) {
+		int[] realXPoints = new int[nPoints];
+		int[] realYPoints = new int[nPoints];
+		for (int i = 0; i < nPoints; i++) {
+			realXPoints[i] = (int) (xPoints[i] * scale);
+			realYPoints[i] = (int) (yPoints[i] * scale);
+		}
+		real.drawPolygon(realXPoints, realYPoints, nPoints);
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ScalingGraphics.java" startline= "265" endline= "274" />
+<code>
+							int nPoints) {
+		int[] realXPoints = new int[nPoints];
+		int[] realYPoints = new int[nPoints];
+		for (int i = 0; i < nPoints; i++) {
+			realXPoints[i] = (int) (xPoints[i] * scale);
+			realYPoints[i] = (int) (yPoints[i] * scale);
+		}
+		real.fillPolygon(realXPoints, realYPoints, nPoints);
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java" startline= "43" endline= "52" />
+<code>
+		super.execute();
+		setUndoActivity(createUndoActivity());
+		getUndoActivity().setAffectedFigures(view().selection());
+		FigureEnumeration fe = getUndoActivity().getAffectedFigures();
+		while (fe.hasNextFigure()) {
+			fe.nextFigure().setAttribute(fAttribute, fValue);
+		}
+		view().checkDamage();
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/SendToBackCommand.java" startline= "35" endline= "44" />
+<code>
+		super.execute();
+		setUndoActivity(createUndoActivity());
+		getUndoActivity().setAffectedFigures(view().selectionZOrdered());
+		FigureEnumeration fe = getUndoActivity().getAffectedFigures();
+		while (fe.hasNextFigure()) {
+			view().drawing().sendToBack(fe.nextFigure());
+		}
+		view().checkDamage();
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/SendToBackCommand.java" startline= "35" endline= "44" />
+<code>
+		super.execute();
+		setUndoActivity(createUndoActivity());
+		getUndoActivity().setAffectedFigures(view().selectionZOrdered());
+		FigureEnumeration fe = getUndoActivity().getAffectedFigures();
+		while (fe.hasNextFigure()) {
+			view().drawing().sendToBack(fe.nextFigure());
+		}
+		view().checkDamage();
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/BringToFrontCommand.java" startline= "35" endline= "44" />
+<code>
+		super.execute();
+		setUndoActivity(createUndoActivity());
+		getUndoActivity().setAffectedFigures(view().selection());
+		FigureEnumeration fe = getUndoActivity().getAffectedFigures();
+		while (fe.hasNextFigure()) {
+			view().drawing().bringToFront(fe.nextFigure());
+		}
+		view().checkDamage();
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java" startline= "43" endline= "52" />
+<code>
+		super.execute();
+		setUndoActivity(createUndoActivity());
+		getUndoActivity().setAffectedFigures(view().selection());
+		FigureEnumeration fe = getUndoActivity().getAffectedFigures();
+		while (fe.hasNextFigure()) {
+			fe.nextFigure().setAttribute(fAttribute, fValue);
+		}
+		view().checkDamage();
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/BringToFrontCommand.java" startline= "35" endline= "44" />
+<code>
+		super.execute();
+		setUndoActivity(createUndoActivity());
+		getUndoActivity().setAffectedFigures(view().selection());
+		FigureEnumeration fe = getUndoActivity().getAffectedFigures();
+		while (fe.hasNextFigure()) {
+			view().drawing().bringToFront(fe.nextFigure());
+		}
+		view().checkDamage();
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionTool.java" startline= "314" endline= "324" />
+<code>
+		FigureEnumeration fe = drawing.figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (!figure.includes(getConnection()) && figure.canConnect()
+				&& figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/CompositeFigure.java" startline= "434" endline= "443" />
+<code>
+		FigureEnumeration fe = figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionHandle.java" startline= "142" endline= "152" />
+<code>
+		FigureEnumeration fe = drawing.figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (!figure.includes(getConnection()) && figure.canConnect() 
+				&& figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionTool.java" startline= "314" endline= "324" />
+<code>
+		FigureEnumeration fe = drawing.figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (!figure.includes(getConnection()) && figure.canConnect()
+				&& figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java" startline= "385" endline= "396" />
+<code>
+		Rectangle r = e.getInvalidatedRectangle();
+		if (getDamage() == null) {
+			setDamage(r);
+		}
+		else {
+			Rectangle damagedArea = getDamage();
+			damagedArea.add(r);
+			// the returned rectange may be a clone so we better set it again
+			setDamage(damagedArea);
+		}
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/StandardDrawingView.java" startline= "638" endline= "650" />
+<code>
+		Rectangle r = e.getInvalidatedRectangle();
+		if (getDamage() == null) {
+			setDamage(r);
+		}
+		else {
+			// don't manipulate rectangle returned by getDamage() directly
+			// because it could be a cloned rectangle.
+			Rectangle damagedR = getDamage();
+			damagedR.add(r);
+			setDamage(damagedR);
+		}
+	}
+</code>
+</clone>
+<clone>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionHandle.java" startline= "142" endline= "152" />
+<code>
+		FigureEnumeration fe = drawing.figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (!figure.includes(getConnection()) && figure.canConnect() 
+				&& figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+</code>
+<source file="JHotDraw54b1/src/CH/ifa/draw/standard/CompositeFigure.java" startline= "434" endline= "443" />
+<code>
+		FigureEnumeration fe = figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+</code>
+</clone>
+</clones>
