@@ -1,4 +1,14 @@
+<p align="center">
+  <img src="https://github.com/pseudoPixels/CloneCognition/blob/master/docs/images/cloneCognitionLogo.png" width="15%" title="CloneCognition">
+</p>
+
 ## 1.0 Machine Learning Based Code Clone Validation Framework
+[![Sponsors on Open Collective](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](#sponsors)
+[![Backers on Open Collective](https://img.shields.io/badge/python-2.7-orange.svg?style=flat-square)](#backers)
+[![Sponsors on Open Collective](https://img.shields.io/badge/ubuntu-14.0%2B-yellow.svg?style=flat-square)](#sponsors)
+[![Sponsors on Open Collective](https://img.shields.io/badge/ANN-pyBrain-blue.svg?style=flat-square)](#sponsors)
+[![Sponsors on Open Collective](https://img.shields.io/badge/debian-10+-blue.svg?style=flat-square)](#sponsors)
+
 A code clone is a pair of code fragments, within or between software systems that are similar. 
 Since code clones often negatively impact the maintainability of a software system, a great many 
 numbers of code clone detection techniques and tools have been proposed and studied over the last 
