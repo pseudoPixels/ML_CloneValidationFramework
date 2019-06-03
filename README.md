@@ -41,7 +41,9 @@ $ cd ML_CloneValidationFramework
 
 #### 2.3 Create virtual Env. & Install
 Create a new virtual environment with `Python 2.7`. Activate the newly created
-environment and install the requirments from the `ML_CloneValidationFramework` project root: 
+environment. Using Anaconda is recommended for creating an independent installation setup. 
+[Download & Setup Anaconda](https://www.anaconda.com/distribution/) as per your OS. Finally, install the requirments from the `ML_CloneValidationFramework` 
+project root as the following commands: 
 ```buildoutcfg
 $ conda create -n cloneVal python=2.7
 $ conda activate cloneVal
@@ -49,71 +51,105 @@ $ pip install -r requirements.txt
 $ pip install .
 ```
 
-Done! Use `$ pip freeze` command from the terminal to check for `mlCVF` with its corresponding version. 
+Done! Use `$ pip freeze` command from the terminal to double check for `mlCVF` as a test of the successful installation. 
 
 
-## 3.0 Usage Instructions
-On Cloning and setting up the required environment for this project, you need to follow the speps below:
-
-#### 3.1 Make sure in the project directory
-```
-$cd ML_CloneValidationFramework
-```
-
-#### 3.2 Check the clone file format for validation
-The framework works on a set of clone files (output of a code clone detection tools) for validation. The used xml format for parsing the clone pairs are as follows. All the detected clone pairs - `clone`, should have to be children of the root tag - `clones`. A `clone` contains details information (e.g., in `source` tag) and codes (e.g., in `code` tag) for both of its clone fragments. Copy all such clone files in a directory for starting the validation (e.g., as next step).    
-```
-<clones>
-    <clone>
-        <source file= "selected/1966294.java" startline= "168" endline= "181" />
-        <code> 
-            //clone fragment 1
-        </code>
-        
-        <source file= "selected/1966294.java" startline= "58" endline= "65" />
-        <code> 
-            //clone fragment 2
-        </code>
-    </clone>
-    ...
-    ...
-<clones>
-```
-
-
-#### 3.3 Run the `validateClones.py` script as following:
-```
-$python validateClones.py -i 'input_clone_directory/' -o 'validated_clone_out_dir/' -t 0.5
-```
-The options:
+## 3.0 Auto ML Validation (Usage Instructions)
+#### 3.1 Example
+On installation, run the following command from the terminal to
+start automatic validation of `JHotDraw54b1` software project located
+at `input_clone_pairs/` directory. `JHotDraw54b1_clones.xml` is the output clone
+report file obtained from the NICAD [2] clone detection tool. In addition to showing the validation
+status in the terminal, the report is saved in `out/` directory.
 ```buildoutcfg
-usage: validateClones.py [-h] -in INPUT_DIR -out OUTPUT_DIR [-t VAL_THRESHOLD]
+$ python autoValidateClones.py  -in 'JHotDraw54b1_clones.xml' -out 'out/'
+```
+
+
+
+#### 3.2 Validation Options
+For validation options and help run `python autoValidateClones.py  -h` from the terminal.
+It should present the options for validation from this framework, such as:
+
+```buildoutcfg
+$ python autoValidateClones.py  -h
+
+usage: autoValidateClones.py [-h] -in INPUT_CLONE_FILE -out OUTPUT_DIR
+                             [-t VAL_THRESHOLD]
 
 This is a machine learning based framework for automatic code clone
 validation.
 
 optional arguments:
-  -h, --help        show this help message and exit
-  -in INPUT_DIR     (required) input directory of detected code clones (i.e.,
-                    outputs from NICAD)
-  -out OUTPUT_DIR   (required) target output directory of machine learning
-                    validated clones
-  -t VAL_THRESHOLD  (optional) the threshold for automatic clone validation.
-                    Default=0.5
+  -h, --help            show this help message and exit
+  -in INPUT_CLONE_FILE  (required) input clone file (i.e., output from NICAD)
+  -out OUTPUT_DIR       (required) target output directory of machine learning
+                        validated clones
+  -t VAL_THRESHOLD      (optional) the threshold for automatic clone
+                        validation. Default=0.7
 ```
+
+#### 3.3 Validating Clones of new Software Systems
+Let's say we have a software system `NewSoft` for clone validation. We first detect
+clones of it using NICAD. NICAD will generate a clone report `NewSoft_clones.xml` for the corresponding 
+software system. For validation of the detected clones using machine learning copy and paste both `New_Soft` and
+`NewSoft_clones.xml` in `input_clone_pairs/` directory of the project and run the following command:
+
+```buildoutcfg
+$ python autoValidateClones.py  -in 'NewSoft_clones.xml' -out 'out/' -t 0.85
+```
+It will start the automatic validation of the clones and write the reports in `out/` directory.
+Besides, the validation progress is also presented in the terminal.
+
+**Important:** Please make sure that the `file` attribute of the clone file `NewSoft_clones.xml` 
+is in relative path (i.e., starting with `NewSoft/and/so/on`). This is important as the automatic
+validation process requires to extract source codes for the corresponding reported clone pairs. For clarification,
+please look into the `file` attributes of example `JHotDraw54b1_clones.xml` clone file from `input_clone_pairs/` directory.
+
+
 #### 3.4 Outputs
-The framework creats output file containing validation information for each of the clone files. The extensions of the output files are - `.mlValidated`, which can be loaded as csv formats for further analysis of the validation results. The validation response (e.g., true/false) for each of the clone pairs are as follows. You will get overall validation statistics (e.g., precision and so on) in your console and will also be written in `__CLONE_VALIDATION_STATS.txt` file in your specified output directory (e.g., in <Output Directory> ).
+The framework creats output file containing validation information for each of the clone files in `out/` directory. 
+The extensions of the output files are - `.mlValidated`, which can be loaded as csv formats for 
+further analysis of the validation results. The validation response (e.g., true/false) for each 
+of the clone pairs are as follows. You will get overall validation statistics (e.g., precision 
+and so on) in your console and will also be written in `__CLONE_VALIDATION_STATS.txt` file in 
+your specified output directory (e.g., in <Output Directory> ).
 ```
 validation_response,fragment_1_path,fragment_1_startline,fragment_1_endline,fragment_2_path,fragment_2_startline,fragment_2_endline
 ```
 
 
-## 4.0 Example: Hello World Validation
-For testing if everything has been set up accordingly, you can run the validation on a provided clone file with this framework. The sample clone pairs are available in `input_clone_pairs` directory. So, you can run the following command to test the successfull installation of the framework. If evererythin works fine, you should get validation statistics (e.g, precision, TP clones and so on) on your console. The validation statistics will also be available in `__CLONE_VALIDATION_STATS.txt` file in `Out/` directory.
-```
-$python validateClones.py -i 'input_clone_pairs/' -o 'out/' -t 0.5
-```
+## 4.0 Manual Validation (Usage Instruction)
+As reported above, the reported clones from a clone detection tools can be
+manually validated using the project for building the further training set. The
+training set can later be used for improving the machine learning model. For the manual
+validation, please `cd` to `manual_validator` directory of the project, such as:
+```buildoutcfg
+$ cd manual_validator
+``` 
+Copy and paste the software project such as `JHotDraw54b1` and its detected clone file
+`JHotDraw54b1_clones.xml` (i.e., from NICAD) in `manual_validator/input_clone_pairs` directory.
+And then run the following command from terminal for starting the manual validation process.
 
+```buildoutcfg
+$ python manualValidate.py -in 'JHotDraw54b1_clones.xml'
+```
+The command will pop-up a window as the following (this validation program was developed by **Jeff Svajlenko**). 
+Browse to you the clone file such as `JHotDraw54b1_clones.xml.clones`
+from the window (**Note:** Please note the file name, its a `.clones` file NOT the earlier pasted clone file `JHotDraw54b1_clones.xml`. 
+The `.clones` file is generated by this system with suitable format for the validation. So, please browse and select the
+corresponding `.clones` file as input). After browsing and selecting the clone file, the window will also further ask for selecting
+a file for writing the manual validation responses. You can create and select any file (such as, `myManualCloneValReport.csv`) for writing the output.
+![Browse](docs/images/manualVal_browse.png)
+
+
+On selecting both the input clone file and the output response file, it will launch
+the validation window as following. It will iterate over all the clones available in the
+clone file for corresponding manual validation response on the clone pairs.
+![Browse](docs/images/valWindow.png)
+
+After manual validation of the clones, the output file (such as `myManualCloneValReport.csv` in this case) can later be
+used for training the machine learning models or any other research purposes.
 
 
 ## 5.0 Bugs/Issues?

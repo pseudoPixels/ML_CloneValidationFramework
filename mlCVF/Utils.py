@@ -12,6 +12,55 @@ class Utils:
         self.nextCloneIndex = 0
         pass
 
+
+
+    def get_total_clone_pair_count(self, cloneFile):
+
+        soup = ''
+        with open(cloneFile) as fp:
+            soup = BeautifulSoup(fp, 'lxml')
+
+        root = soup.find_all('clone')
+
+
+
+        return len(root)
+
+
+    def get_clone_pairs(self, cloneIndex, cloneFile):
+
+        soup = ''
+        with open(cloneFile) as fp:
+            soup = BeautifulSoup(fp, 'lxml')
+
+        root = soup.find_all('clone')
+
+
+
+
+        src = root[cloneIndex].find_all('source')
+
+        fragment_1_file = src[0]['file']
+        fragment_1_strt = src[0]['startline']
+        fragment_1_end = src[0]['endline']
+
+        fragment_2_file = src[1]['file']
+        fragment_2_strt = src[1]['startline']
+        fragment_2_end = src[1]['endline']
+
+
+
+
+        codes = root[cloneIndex].find_all('code')
+
+        fragment_1_code = codes[0].text
+        fragment_2_code = codes[1].text
+
+        return fragment_1_file, fragment_1_strt, \
+               fragment_1_end, fragment_1_code, fragment_2_file, fragment_2_strt, fragment_2_end, \
+               fragment_2_code
+
+
     def get_next_clone_pair_for_validation(self, cloneFile, theValidationFile, validationFileExt='.validated'):
         # getting the example program name
         theCloneFile = cloneFile

@@ -1,0 +1,3508 @@
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java 417 470
+JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java 477 529
+----------------------------------------
+		Component[] allFrames = getAllFrames();
+		// do nothing if no frames to work with
+		if (allFrames.length == 0) {
+			return;
+		}
+
+		manager.setNormalSize();
+
+		int vertFrames = (int)Math.floor(Math.sqrt(allFrames.length));
+		int horFrames = (int)Math.ceil(Math.sqrt(allFrames.length));
+
+		// first arrange the windows that have equal size
+		int frameWidth = getBounds().width / horFrames;
+		int frameHeight = getBounds().height / vertFrames;
+		int x = 0;
+		int y = 0;
+		int frameIdx = 0;
+		for (int horCnt = 0; horCnt < horFrames-1; horCnt++) {
+			y = 0;
+			for (int vertCnt = 0; vertCnt < vertFrames; vertCnt++) {
+				try {
+					((JInternalFrame)allFrames[frameIdx]).setMaximum(false);
+				}
+				catch (PropertyVetoException e) {
+					e.printStackTrace();
+				}
+
+				allFrames[frameIdx].setBounds(x, y, frameWidth, frameHeight);
+				frameIdx++;
+				y = y + frameHeight;
+			}
+			x = x + frameWidth;
+		}
+
+		// the rest of the frames are tiled down on the last column with equal
+		// height
+		frameHeight = getBounds().height / (allFrames.length - frameIdx);
+		y = 0;
+		for (; frameIdx < allFrames.length; frameIdx++)
+		{
+			try {
+				((JInternalFrame)allFrames[frameIdx]).setMaximum(false);
+			}
+			catch (PropertyVetoException e) {
+				e.printStackTrace();
+			}
+
+			allFrames[frameIdx].setBounds(x, y, frameWidth, frameHeight);
+			y = y + frameHeight;
+		}
+
+		checkDesktopSize();
+	}
+----------------------------------------
+		Component[] allFrames = getAllFrames();
+		// do nothing if no frames to work with
+		if (allFrames.length == 0) {
+			return;
+		}
+
+		manager.setNormalSize();
+
+		int vertFrames = (int)Math.ceil(Math.sqrt(allFrames.length));
+		int horFrames = (int)Math.floor(Math.sqrt(allFrames.length));
+
+		// first arrange the windows that have equal size
+		int frameWidth = getBounds().width / horFrames;
+		int frameHeight = getBounds().height / vertFrames;
+		int x = 0;
+		int y = 0;
+		int frameIdx = 0;
+		for (int vertCnt = 0; vertCnt < vertFrames-1; vertCnt++) {
+			x = 0;
+			for (int horCnt = 0; horCnt < horFrames; horCnt++) {
+				try {
+					((JInternalFrame)allFrames[frameIdx]).setMaximum(false);
+				}
+				catch (PropertyVetoException e) {
+					e.printStackTrace();
+				}
+
+				allFrames[frameIdx].setBounds(x, y, frameWidth, frameHeight);
+				frameIdx++;
+				x = x + frameWidth;
+			}
+			y = y + frameHeight;
+		}
+
+		// the rest of the frames are tiled down on the last column with equal
+		// height
+		frameWidth = getBounds().width / (allFrames.length - frameIdx);
+		x = 0;
+		for (; frameIdx < allFrames.length; frameIdx++) {
+			try {
+				((JInternalFrame)allFrames[frameIdx]).setMaximum(false);
+			}
+			catch (PropertyVetoException e) {
+				e.printStackTrace();
+			}
+
+			allFrames[frameIdx].setBounds(x, y, frameWidth, frameHeight);
+			x = x + frameWidth;
+		}
+
+		checkDesktopSize();
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/WindowMenu.java 68 98
+JHotDraw54b1/src/CH/ifa/draw/contrib/CTXWindowMenu.java 138 173
+----------------------------------------
+		ChildMenuItem menu;
+		JInternalFrame[] array = desktop.getAllFrames();
+
+		add(new CommandMenuItem(cascadeCommand));
+		add(new CommandMenuItem(tileCommand));
+		if (array.length > 0) {
+			addSeparator();
+		}
+//		cascade.setEnabled(array.length > 0);
+//		tile.setEnabled(array.length > 0);
+
+		for (int i = 0; i < array.length; i++) {
+			menu = new ChildMenuItem(array[i]);
+			menu.setState(i == 0);
+			menu.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent ae) {
+					JInternalFrame frame = ((ChildMenuItem)ae.getSource()).getFrame();
+					frame.moveToFront();
+					try {
+						frame.setSelected(true);
+					}
+					catch (PropertyVetoException e) {
+						e.printStackTrace();
+					}
+				}
+			});
+			menu.setIcon(array[i].getFrameIcon());
+			add(menu);
+		}
+	}
+----------------------------------------
+		JInternalFrame[] array = desktop.getAllFrames();
+
+		// update window organization commands
+		cascadeCommand.setEnabled(array.length > 0);
+		tileHCommand.setEnabled(array.length > 0);
+		tileVCommand.setEnabled(array.length > 0);
+		arrangeHCommand.setEnabled(array.length > 0);
+		arrangeVCommand.setEnabled(array.length > 0);
+
+		if (array.length == 0) {
+			return;
+		}
+
+		addSeparator();
+
+		for (int i = 0; i < array.length; i++) {
+			ChildMenuItem menu = new ChildMenuItem(array[i]);
+			menu.setState(i == 0);
+			menu.addActionListener(
+				new ActionListener() {
+					public void actionPerformed(ActionEvent ae) {
+						JInternalFrame frame = ((ChildMenuItem)ae.getSource()).getFrame();
+						frame.moveToFront();
+						try {
+							frame.setSelected(true);
+						}
+						catch (PropertyVetoException e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			menu.setIcon(array[i].getFrameIcon());
+			add(menu);
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/figures/TextFigure.java 188 212
+JHotDraw54b1/src/CH/ifa/draw/contrib/TextAreaFigure.java 652 684
+----------------------------------------
+		Font font = getFont();
+		if (attributeConstant.equals(FigureAttributeConstant.FONT_SIZE)) {
+			Integer s = (Integer)value;
+			setFont(new Font(font.getName(), font.getStyle(), s.intValue()) );
+		}
+		else if (attributeConstant.equals(FigureAttributeConstant.FONT_STYLE)) {
+			Integer s = (Integer)value;
+			int style = font.getStyle();
+			if (s.intValue() == Font.PLAIN) {
+				style = font.PLAIN;
+			}
+			else {
+				style = style ^ s.intValue();
+			}
+			setFont(new Font(font.getName(), style, font.getSize()) );
+		}
+		else if (attributeConstant.equals(FigureAttributeConstant.FONT_NAME)) {
+			String n = (String)value;
+			setFont(new Font(n, font.getStyle(), font.getSize()) );
+		}
+		else {
+			super.setAttribute(attributeConstant, value);
+		}
+	}
+----------------------------------------
+		// we need to create a new font if one of the font attributes
+		Font font = getFont();
+		if (name.equals("FontSize")) {
+			Integer s = (Integer)value;
+			setFont(new Font(font.getName(), font.getStyle(), s.intValue()));
+			// store the attribute
+			super.setAttribute(name, value);
+		}
+		else if (name.equals("FontStyle")) {
+			Integer s = (Integer)value;
+			int style = font.getStyle();
+			if (s.intValue() == Font.PLAIN) {
+				style = font.PLAIN;
+			}
+			else {
+				style = style ^ s.intValue();
+			}
+			setFont(new Font(font.getName(), style, font.getSize()));
+			// store the attribute
+			super.setAttribute(name, new Integer(style));
+		}
+		else if (name.equals("FontName")) {
+			String n = (String)value;
+			setFont(new Font(n, font.getStyle(), font.getSize()));
+			// store the attribute
+			super.setAttribute(name, value);
+		}
+		else {
+			// store the attribute
+			super.setAttribute(name, value);
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/TextAreaTool.java 322 348
+JHotDraw54b1/src/CH/ifa/draw/contrib/TextAreaTool.java 359 386
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			getDrawingView().clearSelection();
+
+			if (!isValidText(getOriginalText())) {
+				FigureEnumeration fe = getAffectedFigures();
+				while (fe.hasNextFigure()) {
+					getDrawingView().drawing().orphan(fe.nextFigure());
+				}
+			}
+			// add text figure if it has been removed (no backup text)
+			else if (!isValidText(getBackupText())) {
+				FigureEnumeration fe = getAffectedFigures();
+				while (fe.hasNextFigure()) {
+					getDrawingView().add(fe.nextFigure());
+				}
+				setText(getOriginalText());
+			}
+			else {
+				setText(getOriginalText());
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.redo()) {
+				return false;
+			}
+
+			getDrawingView().clearSelection();
+
+			// the text figure did exist but was remove
+			if (!isValidText(getBackupText())) {
+				FigureEnumeration fe = getAffectedFigures();
+				while (fe.hasNextFigure()) {
+					getDrawingView().drawing().orphan(fe.nextFigure());
+				}
+			}
+			// the text figure didn't exist before
+			else if (!isValidText(getOriginalText())) {
+				FigureEnumeration fe = getAffectedFigures();
+				while (fe.hasNextFigure()) {
+					getDrawingView().drawing().add(fe.nextFigure());
+					setText(getBackupText());
+				}
+			}
+			else {
+				setText(getBackupText());
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/figures/ElbowHandle.java 86 109
+JHotDraw54b1/src/CH/ifa/draw/figures/ElbowHandle.java 111 133
+----------------------------------------
+		LineConnection line = ownerConnection();
+		Figure startFigure = line.getStartConnector().owner();
+		Figure endFigure = line.getEndConnector().owner();
+		Rectangle start = startFigure.displayBox();
+		Rectangle end = endFigure.displayBox();
+		Insets i1 = startFigure.connectionInsets();
+		Insets i2 = endFigure.connectionInsets();
+
+		int r1x, r1width, r2x, r2width;
+		r1x = start.x + i1.left;
+		r1width = start.width - i1.left - i1.right-1;
+
+		r2x = end.x + i2.left;
+		r2width = end.width - i2.left - i2.right-1;
+
+		if (fSegment == 0) {
+			x = Geom.range(r1x, r1x + r1width, x);
+		}
+		if (fSegment == line.pointCount()-2) {
+			x = Geom.range(r2x, r2x + r2width, x);
+		}
+		return x;
+	}
+----------------------------------------
+		LineConnection line = ownerConnection();
+		Figure startFigure = line.getStartConnector().owner();
+		Figure endFigure = line.getEndConnector().owner();
+		Rectangle start = startFigure.displayBox();
+		Rectangle end = endFigure.displayBox();
+		Insets i1 = startFigure.connectionInsets();
+		Insets i2 = endFigure.connectionInsets();
+
+		int r1y, r1height, r2y, r2height;
+		r1y = start.y + i1.top;
+		r1height = start.height - i1.top - i1.bottom-1;
+		r2y = end.y + i2.top;
+		r2height = end.height - i2.top - i2.bottom-1;
+
+		if (fSegment == 0) {
+			y = Geom.range(r1y, r1y + r1height, y);
+		}
+		if (fSegment == line.pointCount()-2) {
+			y = Geom.range(r2y, r2y + r2height, y);
+		}
+		return y;
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java 359 384
+JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java 386 410
+----------------------------------------
+		Component[] allFrames = getAllFrames();
+
+		// do nothing if no frames to work with
+		if (allFrames.length == 0) {
+			return;
+		}
+
+		manager.setNormalSize();
+
+		int frameHeight = getBounds().height/allFrames.length;
+		int y = 0;
+		for (int i = 0; i < allFrames.length; i++) {
+			try {
+				((JInternalFrame)allFrames[i]).setMaximum(false);
+			}
+			catch (PropertyVetoException e) {
+				e.printStackTrace();
+			}
+
+			allFrames[i].setBounds(0, y, getBounds().width,frameHeight);
+			y = y + frameHeight;
+		}
+
+		checkDesktopSize();
+	}
+----------------------------------------
+		Component[] allFrames = getAllFrames();
+
+		// do nothing if no frames to work with
+		if (allFrames.length == 0) {
+			return;
+		}
+		manager.setNormalSize();
+
+		int frameWidth = getBounds().width/allFrames.length;
+		int x = 0;
+		for (int i = 0; i < allFrames.length; i++) {
+			try {
+				((JInternalFrame)allFrames[i]).setMaximum(false);
+			}
+			catch (PropertyVetoException e) {
+				e.printStackTrace();
+			}
+
+			allFrames[i].setBounds(x, 0, frameWidth, getBounds().height);
+			x = x + frameWidth;
+		}
+
+		checkDesktopSize();
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java 201 223
+JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java 230 251
+----------------------------------------
+		if (hasZoomSupport()) {
+			Dimension viewportSize = getViewportSize();
+			// "de"-scale with old scale
+			Dimension userSize = getUserSize();
+			this.scale = getScale() / getZoomSpeed();
+			int xScreen = (int) (x * getScale());
+			int yScreen = (int) (y * getScale());
+			int xOrigin = xScreen - viewportSize.width / 2;
+			int yOrigin = yScreen - viewportSize.height / 2;
+			if (xOrigin < 0) xOrigin = 0;
+			if (yOrigin < 0) yOrigin = 0;
+			// re-scale with new scale
+			setUserSize(userSize);
+			revalidate();
+			setViewPosition(new Point(xOrigin, yOrigin));
+			forceRedraw();
+		}
+		else {
+			throw new RuntimeException
+					("zooming only works if this view is contained in a ScrollPane");
+		}
+	}
+----------------------------------------
+		if (hasZoomSupport()) {
+			JViewport viewport = (JViewport) getParent();
+			Dimension viewportSize = viewport.getSize();
+			Dimension userSize = getUserSize();
+			this.scale = getScale() * getZoomSpeed();
+			int xScreen = (int) (x * getScale());
+			int yScreen = (int) (y * getScale());
+			int xOrigin = xScreen - viewportSize.width / 2;
+			int yOrigin = yScreen - viewportSize.height / 2;
+			if (xOrigin < 0) xOrigin = 0;
+			if (yOrigin < 0) yOrigin = 0;
+			setUserSize(userSize);
+			revalidate();
+			viewport.setViewPosition(new Point(xOrigin, yOrigin));
+			forceRedraw();
+		}
+		else {
+			throw new RuntimeException
+					("zooming only works if this view is contained in a ScrollPane");
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java 230 251
+JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java 257 276
+----------------------------------------
+		if (hasZoomSupport()) {
+			JViewport viewport = (JViewport) getParent();
+			Dimension viewportSize = viewport.getSize();
+			Dimension userSize = getUserSize();
+			this.scale = getScale() * getZoomSpeed();
+			int xScreen = (int) (x * getScale());
+			int yScreen = (int) (y * getScale());
+			int xOrigin = xScreen - viewportSize.width / 2;
+			int yOrigin = yScreen - viewportSize.height / 2;
+			if (xOrigin < 0) xOrigin = 0;
+			if (yOrigin < 0) yOrigin = 0;
+			setUserSize(userSize);
+			revalidate();
+			viewport.setViewPosition(new Point(xOrigin, yOrigin));
+			forceRedraw();
+		}
+		else {
+			throw new RuntimeException
+					("zooming only works if this view is contained in a ScrollPane");
+		}
+	}
+----------------------------------------
+		if (hasZoomSupport()) {
+			Dimension viewportSize = getViewportSize();
+			Dimension userSize = getUserSize();
+			int xOrigin = x - viewportSize.width / 2;
+			int yOrigin = y - viewportSize.height / 2;
+			if (xOrigin < 0) xOrigin = 0;
+			if (yOrigin < 0) yOrigin = 0;
+			this.scale = 1.0;
+			setUserSize(userSize);
+			revalidate();
+			setViewPosition(new Point((int) (xOrigin),
+					(int) (yOrigin)));
+			forceRedraw();
+		}
+		else {
+			throw new RuntimeException
+					("zooming only works if this view is contained in a ScrollPane");
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/samples/javadraw/JavaDrawApp.java 158 174
+JHotDraw54b1/src/CH/ifa/draw/samples/javadraw/JavaDrawApp.java 176 195
+----------------------------------------
+		CommandMenu menu = new CommandMenu("Animation");
+		Command cmd = new AbstractCommand("Start Animation", this) {
+			public void execute() {
+				startAnimation();
+			}
+		};
+		menu.add(cmd);
+
+		cmd = new AbstractCommand("Stop Animation", this) {
+			public void execute() {
+				endAnimation();
+			}
+		};
+		menu.add(cmd);
+		return menu;
+	}
+----------------------------------------
+		CommandMenu menu = new CommandMenu("Window");
+		Command cmd = new AbstractCommand("New View", this) {
+			public void execute() {
+				newView();
+			}
+		};
+		menu.add(cmd);
+
+		cmd = new AbstractCommand("New Window", this, false) {
+			public void execute() {
+				newWindow(createDrawing());
+			}
+		};
+		menu.add(cmd);
+
+		menu.addSeparator();
+		menu.add(new WindowMenu("Window List", (MDIDesktopPane)getDesktop(), this));
+		return menu;
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java 201 223
+JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java 257 276
+----------------------------------------
+		if (hasZoomSupport()) {
+			Dimension viewportSize = getViewportSize();
+			// "de"-scale with old scale
+			Dimension userSize = getUserSize();
+			this.scale = getScale() / getZoomSpeed();
+			int xScreen = (int) (x * getScale());
+			int yScreen = (int) (y * getScale());
+			int xOrigin = xScreen - viewportSize.width / 2;
+			int yOrigin = yScreen - viewportSize.height / 2;
+			if (xOrigin < 0) xOrigin = 0;
+			if (yOrigin < 0) yOrigin = 0;
+			// re-scale with new scale
+			setUserSize(userSize);
+			revalidate();
+			setViewPosition(new Point(xOrigin, yOrigin));
+			forceRedraw();
+		}
+		else {
+			throw new RuntimeException
+					("zooming only works if this view is contained in a ScrollPane");
+		}
+	}
+----------------------------------------
+		if (hasZoomSupport()) {
+			Dimension viewportSize = getViewportSize();
+			Dimension userSize = getUserSize();
+			int xOrigin = x - viewportSize.width / 2;
+			int yOrigin = y - viewportSize.height / 2;
+			if (xOrigin < 0) xOrigin = 0;
+			if (yOrigin < 0) yOrigin = 0;
+			this.scale = 1.0;
+			setUserSize(userSize);
+			revalidate();
+			setViewPosition(new Point((int) (xOrigin),
+					(int) (yOrigin)));
+			forceRedraw();
+		}
+		else {
+			throw new RuntimeException
+					("zooming only works if this view is contained in a ScrollPane");
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/samples/nothing/NothingApp.java 37 63
+JHotDraw54b1/src/CH/ifa/draw/samples/nothing/NothingApplet.java 28 54
+----------------------------------------
+		super.createTools(palette);
+
+		Tool tool = new TextTool(this, new TextFigure());
+		palette.add(createToolButton(IMAGES+"TEXT", "Text Tool", tool));
+
+		tool = new CreationTool(this, new RectangleFigure());
+		palette.add(createToolButton(IMAGES+"RECT", "Rectangle Tool", tool));
+
+		tool = new CreationTool(this, new RoundRectangleFigure());
+		palette.add(createToolButton(IMAGES+"RRECT", "Round Rectangle Tool", tool));
+
+		tool = new CreationTool(this, new EllipseFigure());
+		palette.add(createToolButton(IMAGES+"ELLIPSE", "Ellipse Tool", tool));
+
+		tool = new CreationTool(this, new LineFigure());
+		palette.add(createToolButton(IMAGES+"LINE", "Line Tool", tool));
+
+		tool = new PolygonTool(this);
+		palette.add(createToolButton(IMAGES+"POLYGON", "Polygon Tool", tool));
+
+		tool = new ConnectionTool(this, new LineConnection());
+		palette.add(createToolButton(IMAGES+"CONN", "Connection Tool", tool));
+
+		tool = new ConnectionTool(this, new ElbowConnection());
+		palette.add(createToolButton(IMAGES+"OCONN", "Elbow Connection Tool", tool));
+	}
+----------------------------------------
+		super.createTools(palette);
+
+		Tool tool = new TextTool(this, new TextFigure());
+		palette.add(createToolButton(IMAGES + "TEXT", "Text Tool", tool));
+
+		tool = new CreationTool(this, new RectangleFigure());
+		palette.add(createToolButton(IMAGES + "RECT", "Rectangle Tool", tool));
+
+		tool = new CreationTool(this, new RoundRectangleFigure());
+		palette.add(createToolButton(IMAGES + "RRECT", "Round Rectangle Tool", tool));
+
+		tool = new CreationTool(this, new EllipseFigure());
+		palette.add(createToolButton(IMAGES + "ELLIPSE", "Ellipse Tool", tool));
+
+		tool = new CreationTool(this, new LineFigure());
+		palette.add(createToolButton(IMAGES + "LINE", "Line Tool", tool));
+
+		tool = new PolygonTool(this);
+		palette.add(createToolButton(IMAGES + "POLYGON", "Polygon Tool", tool));
+
+		tool = new ConnectionTool(this, new LineConnection());
+		palette.add(createToolButton(IMAGES + "CONN", "Connection Tool", tool));
+
+		tool = new ConnectionTool(this, new ElbowConnection());
+		palette.add(createToolButton(IMAGES + "OCONN", "Elbow Connection Tool", tool));
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionHandle.java 74 93
+JHotDraw54b1/src/CH/ifa/draw/standard/ChangeConnectionHandle.java 92 111
+----------------------------------------
+		Point p = new Point(x,y);
+		Figure f = findConnectableFigure(x, y, view.drawing());
+		// track the figure containing the mouse
+		if (f != getTargetFigure()) {
+			if (getTargetFigure() != null) {
+				getTargetFigure().connectorVisibility(false, null);
+			}
+			setTargetFigure(f);
+			if (getTargetFigure() != null) {
+				getTargetFigure().connectorVisibility(true, getConnection());
+			}
+		}
+
+		Connector target = findConnectionTarget(p.x, p.y, view.drawing());
+		if (target != null) {
+			p = Geom.center(target.displayBox());
+		}
+		getConnection().endPoint(p.x, p.y);
+	}
+----------------------------------------
+		Point p = new Point(x, y);
+		Figure f = findConnectableFigure(x, y, view.drawing());
+		// track the figure containing the mouse
+		if (f != getTargetFigure()) {
+			if (getTargetFigure() != null) {
+				getTargetFigure().connectorVisibility(false, null);
+			}
+			setTargetFigure(f);
+			if (getTargetFigure() != null) {
+				getTargetFigure().connectorVisibility(true, getConnection());
+			}
+		}
+
+		Connector target = findConnectionTarget(p.x, p.y, view.drawing());
+		if (target != null) {
+			p = Geom.center(target.displayBox());
+		}
+		setPoint(p.x, p.y);
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/samples/javadraw/JavaDrawApp.java 158 174
+JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java 364 381
+----------------------------------------
+		CommandMenu menu = new CommandMenu("Animation");
+		Command cmd = new AbstractCommand("Start Animation", this) {
+			public void execute() {
+				startAnimation();
+			}
+		};
+		menu.add(cmd);
+
+		cmd = new AbstractCommand("Stop Animation", this) {
+			public void execute() {
+				endAnimation();
+			}
+		};
+		menu.add(cmd);
+		return menu;
+	}
+----------------------------------------
+		CommandMenu menu = new CommandMenu("Debug");
+
+		Command cmd = new AbstractCommand("Simple Update", this) {
+			public void execute() {
+				this.view().setDisplayUpdate(new SimpleUpdateStrategy());
+			}
+		};
+		menu.add(cmd);
+
+		cmd = new AbstractCommand("Buffered Update", this) {
+			public void execute() {
+				this.view().setDisplayUpdate(new BufferedUpdateStrategy());
+			}
+		};
+		menu.add(cmd);
+		return menu;
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java 173 191
+JHotDraw54b1/src/CH/ifa/draw/contrib/JPanelDesktop.java 35 51
+----------------------------------------
+		JScrollPane sp = new JScrollPane((Component) dv);
+		sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		sp.setAlignmentX(LEFT_ALIGNMENT);
+
+		String applicationTitle;
+		if (dv.drawing().getTitle() == null) {
+			applicationTitle = getDrawApplication().getApplicationName() + " - " + getDrawApplication().getDefaultDrawingTitle();
+		}
+		else {
+			applicationTitle = getDrawApplication().getApplicationName() + " - " + dv.drawing().getTitle();
+		}
+		JInternalFrame internalFrame = new JInternalFrame(applicationTitle, true, true, true, true);
+		internalFrame.setName(applicationTitle);
+		internalFrame.getContentPane().add(sp);
+		internalFrame.setSize(200,200);
+		return internalFrame;
+	}
+----------------------------------------
+		JScrollPane sp = new JScrollPane((Component)dv);
+		sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		sp.setAlignmentX(LEFT_ALIGNMENT);
+		String applicationTitle;
+		if (dv.drawing().getTitle() == null) {
+			applicationTitle = getDrawApplication().getApplicationName()
+					+ " - " + getDrawApplication().getDefaultDrawingTitle();
+		}
+		else {
+			applicationTitle = getDrawApplication().getApplicationName() + " - " + dv.drawing().getTitle();
+		}
+		// should be setTitle but a JPanelDesktop has no own title bar
+		sp.setName(applicationTitle);
+		return sp;
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 102 124
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 130 151
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+
+				if (currentFigure.getTextHolder() != null) {
+					// the text figure didn't exist before
+					if (!isValidText(getOriginalText())) {
+						currentFigure.getTextHolder().disconnect(getConnectedFigure());
+					}
+					// the text figure did exist but was remove
+					else if (!isValidText(getBackupText())) {
+						currentFigure.getTextHolder().connect(getConnectedFigure());
+					}
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					// the text figure did exist but was remove
+					if (!isValidText(getBackupText())) {
+						currentFigure.getTextHolder().disconnect(getConnectedFigure());
+					}
+					// the text figure didn't exist before
+					else if (!isValidText(getOriginalText())) {
+						currentFigure.getTextHolder().connect(getConnectedFigure());
+					}
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 130 151
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 189 203
+----------------------------------------
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					// the text figure did exist but was remove
+					if (!isValidText(getBackupText())) {
+						currentFigure.getTextHolder().disconnect(getConnectedFigure());
+					}
+					// the text figure didn't exist before
+					else if (!isValidText(getOriginalText())) {
+						currentFigure.getTextHolder().connect(getConnectedFigure());
+					}
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().disconnect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 130 151
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 173 187
+----------------------------------------
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					// the text figure did exist but was remove
+					if (!isValidText(getBackupText())) {
+						currentFigure.getTextHolder().disconnect(getConnectedFigure());
+					}
+					// the text figure didn't exist before
+					else if (!isValidText(getOriginalText())) {
+						currentFigure.getTextHolder().connect(getConnectedFigure());
+					}
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().connect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 102 124
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 189 203
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+
+				if (currentFigure.getTextHolder() != null) {
+					// the text figure didn't exist before
+					if (!isValidText(getOriginalText())) {
+						currentFigure.getTextHolder().disconnect(getConnectedFigure());
+					}
+					// the text figure did exist but was remove
+					else if (!isValidText(getBackupText())) {
+						currentFigure.getTextHolder().connect(getConnectedFigure());
+					}
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().disconnect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 102 124
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 173 187
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+
+				if (currentFigure.getTextHolder() != null) {
+					// the text figure didn't exist before
+					if (!isValidText(getOriginalText())) {
+						currentFigure.getTextHolder().disconnect(getConnectedFigure());
+					}
+					// the text figure did exist but was remove
+					else if (!isValidText(getBackupText())) {
+						currentFigure.getTextHolder().connect(getConnectedFigure());
+					}
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().connect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/NestedCreationTool.java 32 47
+JHotDraw54b1/src/CH/ifa/draw/contrib/CompositeFigureCreationTool.java 34 52
+----------------------------------------
+		Figure figure = drawing().findFigure(e.getX(), e.getY());
+		if (figure != null) {
+			figure = figure.getDecoratedFigure();
+			if (figure instanceof CompositeFigure) {
+				setContainerFigure((CompositeFigure)figure);
+				super.mouseDown(e, x, y);
+			}
+			else {
+				toolDone();
+			}
+		}
+		else {
+			toolDone();
+		}
+	}
+----------------------------------------
+		setView((DrawingView)e.getSource());
+		Figure figure = drawing().findFigure(e.getX(), e.getY());
+		if (figure != null) {
+			figure = figure.getDecoratedFigure();
+			if (figure instanceof CompositeFigure) {
+				setContainerFigure((CompositeFigure)figure);
+				setCreatedFigure(createFigure());
+				setAddedFigure((getContainerFigure().add(getCreatedFigure())));
+				getAddedFigure().displayBox(new Point(x, y), new Point(x, y));
+			}
+			else {
+				toolDone();
+			}
+		}
+		else {
+			toolDone();
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/applet/DrawApplet.java 461 475
+JHotDraw54b1/src/CH/ifa/draw/applet/DrawApplet.java 477 494
+----------------------------------------
+		try {
+			URL url = new URL(getCodeBase(), filename);
+			InputStream stream = url.openStream();
+			StorableInput input = new StorableInput(stream);
+			fDrawing.release();
+
+			fDrawing = (Drawing)input.readStorable();
+			view().setDrawing(fDrawing);
+		}
+		catch (IOException e) {
+			initDrawing();
+			showStatus("Error:" + e);
+		}
+	}
+----------------------------------------
+		try {
+			URL url = new URL(getCodeBase(), filename);
+			InputStream stream = url.openStream();
+			ObjectInput input = new ObjectInputStream(stream);
+			fDrawing.release();
+			fDrawing = (Drawing)input.readObject();
+			view().setDrawing(fDrawing);
+		}
+		catch (IOException e) {
+			initDrawing();
+			showStatus("Error: " + e);
+		}
+		catch (ClassNotFoundException e) {
+			initDrawing();
+			showStatus("Class not found: " + e);
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java 913 926
+JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java 931 947
+----------------------------------------
+		toolDone();
+		JFileChooser openDialog = createOpenFileChooser();
+		getStorageFormatManager().registerFileFilters(openDialog);
+		if (openDialog.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+			StorageFormat foundFormat = getStorageFormatManager().findStorageFormat(openDialog.getFileFilter());
+			if (foundFormat != null) {
+				loadDrawing(foundFormat, openDialog.getSelectedFile().getAbsolutePath());
+			}
+			else {
+				showStatus("Not a valid file format: " + openDialog.getFileFilter().getDescription());
+			}
+		}
+	}
+----------------------------------------
+		if (view() != null) {
+			toolDone();
+			JFileChooser saveDialog = createSaveFileChooser();
+			getStorageFormatManager().registerFileFilters(saveDialog);
+
+			if (saveDialog.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+				StorageFormat foundFormat = getStorageFormatManager().findStorageFormat(saveDialog.getFileFilter());
+				if (foundFormat != null) {
+					saveDrawing(foundFormat, saveDialog.getSelectedFile().getAbsolutePath());
+				}
+				else {
+					showStatus("Not a valid file format: " + saveDialog.getFileFilter().getDescription());
+				}
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java 122 135
+JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java 152 165
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = null;
+		for (int i = listeners.length-2; i >= 0; i -= 2) {
+			if (listeners[i] == DesktopListener.class) {
+				if (dpe == null) {
+					dpe = new DesktopEvent(MDIDesktopPane.this, dv);
+				}
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewAdded(dpe);
+			}
+		}
+	}
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = null;
+		for (int i = listeners.length-2; i >= 0; i -= 2) {
+			if (listeners[i] == DesktopListener.class) {
+				if (dpe == null) {
+					dpe = new DesktopEvent(MDIDesktopPane.this, dv);
+				}
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewSelected(dpe);
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java 137 150
+JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java 152 165
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe= null;
+		for (int i = listeners.length-2; i >= 0; i -= 2) {
+			if (listeners[i] == DesktopListener.class) {
+				if (dpe == null) {
+					dpe = new DesktopEvent(MDIDesktopPane.this, dv);
+				}
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewRemoved(dpe);
+			}
+		}
+	}
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = null;
+		for (int i = listeners.length-2; i >= 0; i -= 2) {
+			if (listeners[i] == DesktopListener.class) {
+				if (dpe == null) {
+					dpe = new DesktopEvent(MDIDesktopPane.this, dv);
+				}
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewSelected(dpe);
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java 122 135
+JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java 137 150
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = null;
+		for (int i = listeners.length-2; i >= 0; i -= 2) {
+			if (listeners[i] == DesktopListener.class) {
+				if (dpe == null) {
+					dpe = new DesktopEvent(MDIDesktopPane.this, dv);
+				}
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewAdded(dpe);
+			}
+		}
+	}
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe= null;
+		for (int i = listeners.length-2; i >= 0; i -= 2) {
+			if (listeners[i] == DesktopListener.class) {
+				if (dpe == null) {
+					dpe = new DesktopEvent(MDIDesktopPane.this, dv);
+				}
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewRemoved(dpe);
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/PolygonScaleHandle.java 87 109
+JHotDraw54b1/src/CH/ifa/draw/contrib/TriangleRotationHandle.java 79 98
+----------------------------------------
+		// find a nice place to put handle
+		// Need to pick a place that will not overlap with point handle
+		// and is internal to polygon
+	
+		// Try for one HANDLESIZE step away from outermost toward center
+	
+		Point outer = ((PolygonFigure)(owner())).outermostPoint();
+		Point ctr = ((PolygonFigure)(owner())).center();
+		double len = Geom.length(outer.x, outer.y, ctr.x, ctr.y);
+		if (len == 0) { // best we can do?
+			return new Point(outer.x - HANDLESIZE/2, outer.y + HANDLESIZE/2);
+		}
+	
+		double u = HANDLESIZE / len;
+		if (u > 1.0) { // best we can do?
+			return new Point((outer.x * 3 + ctr.x)/4, (outer.y * 3 + ctr.y)/4);
+		}
+		else {
+			return new Point((int)(outer.x * (1.0 - u) + ctr.x * u),
+			(int)(outer.y * (1.0 - u) + ctr.y * u));
+		}
+	}
+----------------------------------------
+		// find a nice place to put handle
+		// almost same code as PolygonScaleHandle
+		Polygon p = ((TriangleFigure)(owner())).getPolygon();
+		Point first = new Point(p.xpoints[0], p.ypoints[0]);
+		Point ctr = owner().center();
+		double len = Geom.length(first.x, first.y, ctr.x, ctr.y);
+		if (len == 0) { // best we can do?
+			return new Point(first.x - HANDLESIZE/2, first.y + HANDLESIZE/2);
+		}
+
+		double u = HANDLESIZE / len;
+		if (u > 1.0) { // best we can do?
+			return new Point((first.x * 3 + ctr.x)/4, (first.y * 3 + ctr.y)/4);
+		}
+		else {
+			return new Point((int)(first.x * (1.0 - u) + ctr.x * u),
+							(int)(first.y * (1.0 - u) + ctr.y * u));
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/util/UndoCommand.java 39 58
+JHotDraw54b1/src/CH/ifa/draw/util/RedoCommand.java 33 51
+----------------------------------------
+		super.execute();
+		UndoManager um = getDrawingEditor().getUndoManager();
+
+		if ((um == null) || !um.isUndoable()) {
+			return;
+		}
+		
+		Undoable lastUndoable = um.popUndo();
+		// Execute undo
+		boolean hasBeenUndone = lastUndoable.undo();
+
+		// Add to redo stack
+		if (hasBeenUndone && lastUndoable.isRedoable()) {
+			um.pushRedo(lastUndoable);
+		}
+		lastUndoable.getDrawingView().checkDamage();
+		
+		getDrawingEditor().figureSelectionChanged(lastUndoable.getDrawingView());
+	}
+----------------------------------------
+		super.execute();
+		UndoManager um = getDrawingEditor().getUndoManager();
+		if ((um == null) || !um.isRedoable()) {
+			return;
+		}
+		
+		Undoable lastRedoable = um.popRedo();
+		// Execute redo
+		boolean hasBeenUndone = lastRedoable.redo();
+		// Add to undo stack
+		if (hasBeenUndone && lastRedoable.isUndoable()) {
+			um.pushUndo(lastRedoable);
+		}
+			
+		lastRedoable.getDrawingView().checkDamage();
+
+		getDrawingEditor().figureSelectionChanged(lastRedoable.getDrawingView());
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/html/URLContentProducer.java 66 83
+JHotDraw54b1/src/CH/ifa/draw/contrib/html/ResourceContentProducer.java 62 79
+----------------------------------------
+		try {
+			// if we have our own URL then use it
+			// otherwise use the one supplied
+			URL url = (fURL != null) ? new URL(fURL.toExternalForm()) : new URL(((URL)ctxAttrValue).toExternalForm());
+
+			InputStream reader = url.openStream();
+			int available = reader.available();
+			byte contents[] = new byte[available];
+			reader.read(contents, 0, available);
+			reader.close();
+			return new String(contents);
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			return ex.toString();
+		}
+	}
+----------------------------------------
+		try {
+			// if we have our own resource then use it
+			// otherwise use the one supplied
+			String resourceName = (fResourceName != null) ? fResourceName : (String)ctxAttrValue;
+
+			InputStream reader = this.getClass().getResourceAsStream(resourceName);
+			int available = reader.available();
+			byte contents[] = new byte[available];
+			reader.read(contents, 0, available);
+			reader.close();
+			return new String(contents);
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			return ex.toString();
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/figures/UngroupCommand.java 77 94
+JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionTool.java 396 412
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+			getDrawingView().clearSelection();
+
+			FigureEnumeration groupFigures = getAffectedFigures();
+			while (groupFigures.hasNextFigure()) {
+				Figure groupFigure = groupFigures.nextFigure();
+				// orphan individual figures from the group
+				getDrawingView().drawing().orphanAll(groupFigure.figures());
+
+				Figure figure = getDrawingView().drawing().add(groupFigure);
+				getDrawingView().addToSelection(figure);
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			getConnection().disconnectStart();
+			getConnection().disconnectEnd();
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				getDrawingView().drawing().orphan(fe.nextFigure());
+			}
+
+			getDrawingView().clearSelection();
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java 79 93
+JHotDraw54b1/src/CH/ifa/draw/figures/UngroupCommand.java 77 94
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				if (getOriginalValue(f) != null) {
+					f.setAttribute(getAttribute(), getOriginalValue(f));
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+			getDrawingView().clearSelection();
+
+			FigureEnumeration groupFigures = getAffectedFigures();
+			while (groupFigures.hasNextFigure()) {
+				Figure groupFigure = groupFigures.nextFigure();
+				// orphan individual figures from the group
+				getDrawingView().drawing().orphanAll(groupFigure.figures());
+
+				Figure figure = getDrawingView().drawing().add(groupFigure);
+				getDrawingView().addToSelection(figure);
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/figures/UngroupCommand.java 77 94
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 189 203
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+			getDrawingView().clearSelection();
+
+			FigureEnumeration groupFigures = getAffectedFigures();
+			while (groupFigures.hasNextFigure()) {
+				Figure groupFigure = groupFigures.nextFigure();
+				// orphan individual figures from the group
+				getDrawingView().drawing().orphanAll(groupFigure.figures());
+
+				Figure figure = getDrawingView().drawing().add(groupFigure);
+				getDrawingView().addToSelection(figure);
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().disconnect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/figures/UngroupCommand.java 77 94
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 173 187
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+			getDrawingView().clearSelection();
+
+			FigureEnumeration groupFigures = getAffectedFigures();
+			while (groupFigures.hasNextFigure()) {
+				Figure groupFigure = groupFigures.nextFigure();
+				// orphan individual figures from the group
+				getDrawingView().drawing().orphanAll(groupFigure.figures());
+
+				Figure figure = getDrawingView().drawing().add(groupFigure);
+				getDrawingView().addToSelection(figure);
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().connect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/figures/UngroupCommand.java 77 94
+JHotDraw54b1/src/CH/ifa/draw/standard/AlignCommand.java 161 177
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+			getDrawingView().clearSelection();
+
+			FigureEnumeration groupFigures = getAffectedFigures();
+			while (groupFigures.hasNextFigure()) {
+				Figure groupFigure = groupFigures.nextFigure();
+				// orphan individual figures from the group
+				getDrawingView().drawing().orphanAll(groupFigure.figures());
+
+				Figure figure = getDrawingView().drawing().add(groupFigure);
+				getDrawingView().addToSelection(figure);
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				Point originalPoint = getOriginalPoint(f);
+				Point currentPoint = f.displayBox().getLocation();
+				// substract current lcoation to get to 0,0 and then move to original location
+				f.moveBy(-currentPoint.x + originalPoint.x,
+						 -currentPoint.y + originalPoint.y);
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/figures/UngroupCommand.java 77 94
+JHotDraw54b1/src/CH/ifa/draw/standard/SendToBackCommand.java 64 77
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+			getDrawingView().clearSelection();
+
+			FigureEnumeration groupFigures = getAffectedFigures();
+			while (groupFigures.hasNextFigure()) {
+				Figure groupFigure = groupFigures.nextFigure();
+				// orphan individual figures from the group
+				getDrawingView().drawing().orphanAll(groupFigure.figures());
+
+				Figure figure = getDrawingView().drawing().add(groupFigure);
+				getDrawingView().addToSelection(figure);
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				int currentFigureLayer = getOriginalLayer(currentFigure);
+				getDrawingView().drawing().sendToLayer(currentFigure, currentFigureLayer);
+			}
+			
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java 277 289
+JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java 130 141
+----------------------------------------
+		Component[] comps = getComponents();
+		java.util.ArrayList al = new java.util.ArrayList();
+		for (int x=0; x<comps.length; x++) {
+			DrawingView dv = Helper.getDrawingView(comps[x]);
+			if (dv != null) {
+				al.add(dv);
+			}
+		}
+		DrawingView[] dvs = new DrawingView[al.size()];
+		al.toArray(dvs);
+		return dvs;
+	}
+----------------------------------------
+		List al = CollectionsFactory.current().createList();
+		for (int x = 0; x < comps.length; x++) {
+			DrawingView dv = Helper.getDrawingView(comps[x]);
+			if (dv != null) {
+				al.add(dv);
+			}
+		}
+		DrawingView[] dvs = new DrawingView[al.size()];
+		al.toArray(dvs);
+		return dvs;
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/StandardDrawingView.java 673 686
+JHotDraw54b1/src/CH/ifa/draw/standard/StandardDrawingView.java 694 707
+----------------------------------------
+		boolean isPrinting = g instanceof PrintGraphics;
+		drawBackground(g);
+		if ((fBackgrounds != null) && !isPrinting) {
+			drawPainters(g, fBackgrounds);
+		}
+		drawDrawing(g);
+		if ((fForegrounds != null) && !isPrinting) {
+			drawPainters(g, fForegrounds);
+		}
+		if (!isPrinting) {
+			drawHandles(g);
+		}
+	}
+----------------------------------------
+		boolean isPrinting = g instanceof PrintGraphics;
+		//drawBackground(g);
+		if ((fBackgrounds != null) && !isPrinting) {
+			drawPainters(g, fBackgrounds);
+		}
+		drawing().draw(g, fe);
+		if ((fForegrounds != null) && !isPrinting) {
+			drawPainters(g, fForegrounds);
+		}
+		if (!isPrinting) {
+			drawHandles(g);
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/CompositeFigure.java 469 482
+JHotDraw54b1/src/CH/ifa/draw/standard/CompositeFigure.java 490 504
+----------------------------------------
+		if (without == null) {
+			return findFigure(x, y);
+		}
+
+		FigureEnumeration fe = figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (figure.containsPoint(x, y) && !figure.includes(without)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+----------------------------------------
+		if (without == null) {
+			return findFigure(r);
+		}
+
+		FigureEnumeration fe = figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			Rectangle fr = figure.displayBox();
+			if (r.intersects(fr) && !figure.includes(without)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/PolygonScaleHandle.java 164 176
+JHotDraw54b1/src/CH/ifa/draw/contrib/TriangleRotationHandle.java 143 155
+----------------------------------------
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			PolygonFigure figure = (PolygonFigure)fe.nextFigure();
+			Polygon backupPolygon = figure.getPolygon();
+			figure.willChange();
+			figure.setInternalPolygon(getPolygon());
+			figure.changed();
+			setPolygon(backupPolygon);
+			return true;
+		}
+----------------------------------------
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			TriangleFigure figure = (TriangleFigure)fe.nextFigure();
+			double backupAngle = figure.getRotationAngle();
+			figure.willChange();
+			figure.rotate(getRotationAngle());
+			figure.changed();
+			setRotationAngle(backupAngle);
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/TriangleRotationHandle.java 143 155
+JHotDraw54b1/src/CH/ifa/draw/contrib/PolygonHandle.java 83 96
+----------------------------------------
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			TriangleFigure figure = (TriangleFigure)fe.nextFigure();
+			double backupAngle = figure.getRotationAngle();
+			figure.willChange();
+			figure.rotate(getRotationAngle());
+			figure.changed();
+			setRotationAngle(backupAngle);
+			return true;
+		}
+----------------------------------------
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+
+			PolygonFigure figure = (PolygonFigure)fe.nextFigure();
+			Point backupPoint = figure.pointAt(getPointIndex());
+			figure.setPointAt(getOldPoint(), getPointIndex());
+			figure.smoothPoints();
+			setOldPoint(backupPoint);
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/PasteCommand.java 88 102
+JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionTool.java 396 412
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			DeleteFromDrawingVisitor deleteVisitor = new DeleteFromDrawingVisitor(getDrawingView().drawing());
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+	    		fe.nextFigure().visit(deleteVisitor);
+			}
+
+			getDrawingView().clearSelection();
+
+			return true;
+		}
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			getConnection().disconnectStart();
+			getConnection().disconnectEnd();
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				getDrawingView().drawing().orphan(fe.nextFigure());
+			}
+
+			getDrawingView().clearSelection();
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java 79 93
+JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java 95 109
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				if (getOriginalValue(f) != null) {
+					f.setAttribute(getAttribute(), getOriginalValue(f));
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!isRedoable()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				if (getBackupValue() != null) {
+					f.setAttribute(getAttribute(), getBackupValue());
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java 79 93
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 189 203
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				if (getOriginalValue(f) != null) {
+					f.setAttribute(getAttribute(), getOriginalValue(f));
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().disconnect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java 79 93
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 173 187
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				if (getOriginalValue(f) != null) {
+					f.setAttribute(getAttribute(), getOriginalValue(f));
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().connect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java 79 93
+JHotDraw54b1/src/CH/ifa/draw/standard/AlignCommand.java 161 177
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				if (getOriginalValue(f) != null) {
+					f.setAttribute(getAttribute(), getOriginalValue(f));
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				Point originalPoint = getOriginalPoint(f);
+				Point currentPoint = f.displayBox().getLocation();
+				// substract current lcoation to get to 0,0 and then move to original location
+				f.moveBy(-currentPoint.x + originalPoint.x,
+						 -currentPoint.y + originalPoint.y);
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java 79 93
+JHotDraw54b1/src/CH/ifa/draw/standard/SendToBackCommand.java 64 77
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				if (getOriginalValue(f) != null) {
+					f.setAttribute(getAttribute(), getOriginalValue(f));
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				int currentFigureLayer = getOriginalLayer(currentFigure);
+				getDrawingView().drawing().sendToLayer(currentFigure, currentFigureLayer);
+			}
+			
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java 95 109
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 189 203
+----------------------------------------
+			if (!isRedoable()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				if (getBackupValue() != null) {
+					f.setAttribute(getAttribute(), getBackupValue());
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().disconnect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java 95 109
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 173 187
+----------------------------------------
+			if (!isRedoable()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				if (getBackupValue() != null) {
+					f.setAttribute(getAttribute(), getBackupValue());
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().connect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 173 187
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 189 203
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().connect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().disconnect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/AlignCommand.java 161 177
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 189 203
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				Point originalPoint = getOriginalPoint(f);
+				Point currentPoint = f.displayBox().getLocation();
+				// substract current lcoation to get to 0,0 and then move to original location
+				f.moveBy(-currentPoint.x + originalPoint.x,
+						 -currentPoint.y + originalPoint.y);
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().disconnect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/SendToBackCommand.java 64 77
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 189 203
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				int currentFigureLayer = getOriginalLayer(currentFigure);
+				getDrawingView().drawing().sendToLayer(currentFigure, currentFigureLayer);
+			}
+			
+			return true;
+		}
+----------------------------------------
+			if (!super.redo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().disconnect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/AlignCommand.java 161 177
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 173 187
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				Point originalPoint = getOriginalPoint(f);
+				Point currentPoint = f.displayBox().getLocation();
+				// substract current lcoation to get to 0,0 and then move to original location
+				f.moveBy(-currentPoint.x + originalPoint.x,
+						 -currentPoint.y + originalPoint.y);
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().connect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/SendToBackCommand.java 64 77
+JHotDraw54b1/src/CH/ifa/draw/figures/ConnectedTextTool.java 173 187
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				int currentFigureLayer = getOriginalLayer(currentFigure);
+				getDrawingView().drawing().sendToLayer(currentFigure, currentFigureLayer);
+			}
+			
+			return true;
+		}
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				if (currentFigure.getTextHolder() != null) {
+					currentFigure.getTextHolder().connect(getConnectedFigure().getDecoratedFigure());
+				}
+			}
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/PolygonScaleHandle.java 164 176
+JHotDraw54b1/src/CH/ifa/draw/contrib/PolygonHandle.java 83 96
+----------------------------------------
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			PolygonFigure figure = (PolygonFigure)fe.nextFigure();
+			Polygon backupPolygon = figure.getPolygon();
+			figure.willChange();
+			figure.setInternalPolygon(getPolygon());
+			figure.changed();
+			setPolygon(backupPolygon);
+			return true;
+		}
+----------------------------------------
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+
+			PolygonFigure figure = (PolygonFigure)fe.nextFigure();
+			Point backupPoint = figure.pointAt(getPointIndex());
+			figure.setPointAt(getOldPoint(), getPointIndex());
+			figure.smoothPoints();
+			setOldPoint(backupPoint);
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/figures/RadiusHandle.java 111 121
+JHotDraw54b1/src/CH/ifa/draw/contrib/PolygonScaleHandle.java 164 176
+----------------------------------------
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			RoundRectangleFigure currentFigure = (RoundRectangleFigure)fe.nextFigure();
+			Point figureRadius = currentFigure.getArc();
+			currentFigure.setArc(getOldRadius().x, getOldRadius().y);
+			setOldRadius(figureRadius);
+			return true;
+		}
+----------------------------------------
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			PolygonFigure figure = (PolygonFigure)fe.nextFigure();
+			Polygon backupPolygon = figure.getPolygon();
+			figure.willChange();
+			figure.setInternalPolygon(getPolygon());
+			figure.changed();
+			setPolygon(backupPolygon);
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/AlignCommand.java 161 177
+JHotDraw54b1/src/CH/ifa/draw/standard/SendToBackCommand.java 64 77
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure f = fe.nextFigure();
+				Point originalPoint = getOriginalPoint(f);
+				Point currentPoint = f.displayBox().getLocation();
+				// substract current lcoation to get to 0,0 and then move to original location
+				f.moveBy(-currentPoint.x + originalPoint.x,
+						 -currentPoint.y + originalPoint.y);
+			}
+
+			return true;
+		}
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				int currentFigureLayer = getOriginalLayer(currentFigure);
+				getDrawingView().drawing().sendToLayer(currentFigure, currentFigureLayer);
+			}
+			
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/PasteCommand.java 88 102
+JHotDraw54b1/src/CH/ifa/draw/standard/SendToBackCommand.java 64 77
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			DeleteFromDrawingVisitor deleteVisitor = new DeleteFromDrawingVisitor(getDrawingView().drawing());
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+	    		fe.nextFigure().visit(deleteVisitor);
+			}
+
+			getDrawingView().clearSelection();
+
+			return true;
+		}
+----------------------------------------
+			if (!super.undo()) {
+				return false;
+			}
+
+			FigureEnumeration fe = getAffectedFigures();
+			while (fe.hasNextFigure()) {
+				Figure currentFigure = fe.nextFigure();
+				int currentFigureLayer = getOriginalLayer(currentFigure);
+				getDrawingView().drawing().sendToLayer(currentFigure, currentFigureLayer);
+			}
+			
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionHandle.java 142 152
+JHotDraw54b1/src/CH/ifa/draw/standard/ChangeConnectionHandle.java 174 185
+----------------------------------------
+		FigureEnumeration fe = drawing.figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (!figure.includes(getConnection()) && figure.canConnect() 
+				&& figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+----------------------------------------
+		FigureEnumeration fe = drawing.figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (!figure.includes(getConnection()) && figure.canConnect()) {
+				if (figure.containsPoint(x, y)) {
+					return figure;
+				}
+			}
+		}
+		return null;
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/AbstractTool.java 212 223
+JHotDraw54b1/src/CH/ifa/draw/standard/AbstractTool.java 225 238
+----------------------------------------
+		// perform notification only if the usable state of the tool has changed
+		if (isUsable() != newIsUsable) {
+			myIsUsable = newIsUsable;
+			if (isUsable()) {
+				getEventDispatcher().fireToolUsableEvent();
+			}
+			else {
+				getEventDispatcher().fireToolUnusableEvent();
+			}
+		}
+	}
+----------------------------------------
+		// perform notification only if the usable state of the tool has changed
+		if (isEnabled() != newIsEnabled) {
+			myIsEnabled = newIsEnabled;
+			if (isEnabled()) {
+				getEventDispatcher().fireToolEnabledEvent();
+			}
+			else {
+				getEventDispatcher().fireToolDisabledEvent();
+				setUsable(false);
+				deactivate();
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java 96 106
+JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java 111 121
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(getActiveDrawingView(), dv);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewRemoved(dpe);
+			}
+		}
+	}
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(oldView, newView);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewSelected(dpe);
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java 84 94
+JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java 111 121
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(getActiveDrawingView(), dv);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewAdded(dpe);
+			}
+		}
+	}
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(oldView, newView);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewSelected(dpe);
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java 830 839
+JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java 111 121
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewDestroying( view );
+			}
+		}
+	}
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(oldView, newView);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewSelected(dpe);
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java 819 828
+JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java 111 121
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewCreated(view);
+			}
+		}
+	}
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(oldView, newView);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewSelected(dpe);
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java 84 94
+JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java 96 106
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(getActiveDrawingView(), dv);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewAdded(dpe);
+			}
+		}
+	}
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(getActiveDrawingView(), dv);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewRemoved(dpe);
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java 830 839
+JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java 96 106
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewDestroying( view );
+			}
+		}
+	}
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(getActiveDrawingView(), dv);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewRemoved(dpe);
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java 819 828
+JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java 96 106
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewCreated(view);
+			}
+		}
+	}
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(getActiveDrawingView(), dv);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewRemoved(dpe);
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java 830 839
+JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java 84 94
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewDestroying( view );
+			}
+		}
+	}
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(getActiveDrawingView(), dv);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewAdded(dpe);
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java 819 828
+JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java 84 94
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewCreated(view);
+			}
+		}
+	}
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		DesktopListener dpl;
+		DesktopEvent dpe = createDesktopEvent(getActiveDrawingView(), dv);
+		for (int i = listeners.length-2; i>=0 ; i-=2)	{
+			if (listeners[i] == DesktopListener.class) {
+				dpl = (DesktopListener)listeners[i+1];
+				dpl.drawingViewAdded(dpe);
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/PolygonHandle.java 83 96
+JHotDraw54b1/src/CH/ifa/draw/figures/PolyLineHandle.java 97 108
+----------------------------------------
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+
+			PolygonFigure figure = (PolygonFigure)fe.nextFigure();
+			Point backupPoint = figure.pointAt(getPointIndex());
+			figure.setPointAt(getOldPoint(), getPointIndex());
+			figure.smoothPoints();
+			setOldPoint(backupPoint);
+
+			return true;
+		}
+----------------------------------------
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+
+			PolyLineFigure figure = (PolyLineFigure)fe.nextFigure();
+			Point backupPoint = figure.pointAt(getPointIndex());
+			figure.setPointAt(getOldPoint(), getPointIndex());
+			setOldPoint(backupPoint);
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/figures/RadiusHandle.java 111 121
+JHotDraw54b1/src/CH/ifa/draw/contrib/PolygonHandle.java 83 96
+----------------------------------------
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			RoundRectangleFigure currentFigure = (RoundRectangleFigure)fe.nextFigure();
+			Point figureRadius = currentFigure.getArc();
+			currentFigure.setArc(getOldRadius().x, getOldRadius().y);
+			setOldRadius(figureRadius);
+			return true;
+		}
+----------------------------------------
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+
+			PolygonFigure figure = (PolygonFigure)fe.nextFigure();
+			Point backupPoint = figure.pointAt(getPointIndex());
+			figure.setPointAt(getOldPoint(), getPointIndex());
+			figure.smoothPoints();
+			setOldPoint(backupPoint);
+
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/figures/RadiusHandle.java 111 121
+JHotDraw54b1/src/CH/ifa/draw/figures/PolyLineHandle.java 97 108
+----------------------------------------
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			RoundRectangleFigure currentFigure = (RoundRectangleFigure)fe.nextFigure();
+			Point figureRadius = currentFigure.getArc();
+			currentFigure.setArc(getOldRadius().x, getOldRadius().y);
+			setOldRadius(figureRadius);
+			return true;
+		}
+----------------------------------------
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+
+			PolyLineFigure figure = (PolyLineFigure)fe.nextFigure();
+			Point backupPoint = figure.pointAt(getPointIndex());
+			figure.setPointAt(getOldPoint(), getPointIndex());
+			setOldPoint(backupPoint);
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/samples/pert/PertApplication.java 31 49
+JHotDraw54b1/src/CH/ifa/draw/samples/pert/PertApplet.java 27 41
+----------------------------------------
+		super.createTools(palette);
+
+		Tool tool = new TextTool(this, new TextFigure());
+		palette.add(createToolButton(IMAGES + "TEXT", "Text Tool", tool));
+
+		// the generic but slower version
+		//tool = new CreationTool(new PertFigure());
+		//palette.add(createToolButton(PERTIMAGES + "PERT", "Task Tool", tool));
+
+		tool = new PertFigureCreationTool(this);
+		palette.add(createToolButton(PERTIMAGES + "PERT", "Task Tool", tool));
+
+		tool = new ConnectionTool(this, new PertDependency());
+		palette.add(createToolButton(IMAGES + "CONN", "Dependency Tool", tool));
+
+		tool = new CreationTool(this, new LineFigure());
+		palette.add(createToolButton(IMAGES + "Line", "Line Tool", tool));
+	}
+----------------------------------------
+		super.createTools(palette);
+
+		Tool tool = new TextTool(this, new TextFigure());
+		palette.add(createToolButton(IMAGES+"TEXT", "Text Tool", tool));
+
+		tool = new PertFigureCreationTool(this);
+		palette.add(createToolButton(PERTIMAGES+"PERT", "Task Tool", tool));
+
+		tool = new ConnectionTool(this, new PertDependency());
+		palette.add(createToolButton(IMAGES+"CONN", "Dependency Tool", tool));
+
+		tool = new CreationTool(this, new LineFigure());
+		palette.add(createToolButton(IMAGES+"LINE", "Line Tool", tool));
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/MDIDesktopPane.java 259 268
+JHotDraw54b1/src/CH/ifa/draw/contrib/SplitPaneDesktop.java 105 113
+----------------------------------------
+		Component[] comps = getComponents();
+		for (int x=0; x<comps.length; x++) {
+			if (dv == Helper.getDrawingView(comps[x])) {
+				((JInternalFrame)comps[x]).dispose();
+			    break;
+			}
+		}
+		checkDesktopSize();
+	}
+----------------------------------------
+		Component[] comps = getContainer().getComponents();
+		for (int x = 0; x < comps.length; x++) {
+			if (dv == Helper.getDrawingView(comps[x])) {
+				getContainer().remove(comps[x]);
+			    break;
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/CompositeFigure.java 277 289
+JHotDraw54b1/src/CH/ifa/draw/standard/CompositeFigure.java 291 301
+----------------------------------------
+		// cannot shift figures to a lower layer if the lower bound is
+		// already the first layer.
+		if (upperBound >= fFigures.size()) {
+			upperBound = fFigures.size() - 1;
+		}
+
+		for (int i = upperBound; i >= lowerBound; i--) {
+			Figure currentFigure = (Figure)fFigures.get(i);
+			Figure predecessorFigure = (Figure)fFigures.get(i - 1);
+			currentFigure.setZValue(predecessorFigure.getZValue());
+		}
+	}
+----------------------------------------
+		if (upperBound >= fFigures.size()) {
+			upperBound = fFigures.size() - 1;
+		}
+
+		for (int i = upperBound; i >= lowerBound; i--) {
+			Figure currentFigure = (Figure)fFigures.get(i);
+			Figure successorFigure = (Figure)fFigures.get(i + 1);
+			currentFigure.setZValue(successorFigure.getZValue());
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/CompositeFigure.java 434 443
+JHotDraw54b1/src/CH/ifa/draw/standard/CompositeFigure.java 448 458
+----------------------------------------
+		FigureEnumeration fe = figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+----------------------------------------
+		FigureEnumeration fe = figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			Rectangle fr = figure.displayBox();
+			if (r.intersects(fr)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/ChopBoxConnector.java 41 54
+JHotDraw54b1/src/CH/ifa/draw/standard/ChopBoxConnector.java 56 69
+----------------------------------------
+		Figure startFigure = connection.getStartConnector().owner();
+		Rectangle r2 = connection.getEndConnector().displayBox();
+		Point r2c = null;
+
+		if (connection.pointCount() == 2) {
+			r2c = new Point(r2.x + r2.width/2, r2.y + r2.height/2);
+		 }
+		 else {
+			r2c = connection.pointAt(1);
+		}
+
+		return chop(startFigure, r2c);
+	}
+----------------------------------------
+		Figure endFigure = connection.getEndConnector().owner();
+		Rectangle r1 = connection.getStartConnector().displayBox();
+		Point r1c = null;
+
+		if (connection.pointCount() == 2) {
+			r1c = new Point(r1.x + r1.width/2, r1.y + r1.height/2);
+		}
+		else {
+			r1c = connection.pointAt(connection.pointCount()-2);
+		}
+
+		return chop(endFigure, r1c);
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/PolygonTool.java 61 73
+JHotDraw54b1/src/CH/ifa/draw/figures/ScribbleTool.java 57 68
+----------------------------------------
+		if (fPolygon == null) {
+			fPolygon = new PolygonFigure(x, y);
+			setAddedFigure(view().add(fPolygon));
+			fPolygon.addPoint(x, y);
+		}
+		else if (fLastX != x || fLastY != y) {
+			fPolygon.addPoint(x, y);
+		}
+
+		fLastX = x;
+		fLastY = y;
+	}
+----------------------------------------
+		if (fScribble == null) {
+			fScribble = new PolyLineFigure(x, y);
+			setAddedFigure(view().add(fScribble));
+		}
+		else if (fLastX != x || fLastY != y) {
+			fScribble.addPoint(x, y);
+		}
+
+		fLastX = x;
+		fLastY = y;
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/StandardDrawingView.java 533 544
+JHotDraw54b1/src/CH/ifa/draw/standard/CompositeFigure.java 434 443
+----------------------------------------
+		Handle handle;
+
+		HandleEnumeration he = selectionHandles();
+		while (he.hasNextHandle()) {
+			handle = he.nextHandle();
+			if (handle.containsPoint(x, y)) {
+				return handle;
+			}
+		}
+		return null;
+	}
+----------------------------------------
+		FigureEnumeration fe = figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/BoxHandleKit.java 141 152
+JHotDraw54b1/src/CH/ifa/draw/figures/RadiusHandle.java 111 121
+----------------------------------------
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			Figure currentFigure = fe.nextFigure();
+
+			Rectangle figureDisplayBox = currentFigure.displayBox();
+			currentFigure.displayBox(getOldDisplayBox());
+			setOldDisplayBox(figureDisplayBox);
+			return true;
+		}
+----------------------------------------
+			FigureEnumeration fe = getAffectedFigures();
+			if (!fe.hasNextFigure()) {
+				return false;
+			}
+			RoundRectangleFigure currentFigure = (RoundRectangleFigure)fe.nextFigure();
+			Point figureRadius = currentFigure.getArc();
+			currentFigure.setArc(getOldRadius().x, getOldRadius().y);
+			setOldRadius(figureRadius);
+			return true;
+		}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java 819 828
+JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java 830 839
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewCreated(view);
+			}
+		}
+	}
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewDestroying( view );
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java 808 817
+JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java 830 839
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewSelectionChanged(oldView, newView);
+			}
+		}
+	}
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewDestroying( view );
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java 808 817
+JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java 819 828
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewSelectionChanged(oldView, newView);
+			}
+		}
+	}
+----------------------------------------
+		final Object[] listeners = listenerList.getListenerList();
+		ViewChangeListener vsl = null;
+		for (int i = listeners.length-2; i>=0 ; i-=2) {
+			if (listeners[i] == ViewChangeListener.class) {
+				vsl = (ViewChangeListener)listeners[i+1];
+				vsl.viewCreated(view);
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java 414 423
+JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java 425 434
+----------------------------------------
+		return new StandardDrawingView.DrawingViewMouseListener() {
+			public void mousePressed(MouseEvent e) {
+				super.mousePressed(createScaledEvent(e));
+			}
+			public void mouseReleased(MouseEvent e) {
+				super.mouseReleased(createScaledEvent(e));
+			}
+		};
+	}
+----------------------------------------
+		return new StandardDrawingView.DrawingViewMouseMotionListener() {
+			public void mouseDragged(MouseEvent e) {
+				super.mouseDragged(createScaledEvent(e));
+			}
+			public void mouseMoved(MouseEvent e) {
+				super.mouseMoved(createScaledEvent(e));
+			}
+		};
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionTool.java 223 233
+JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionTool.java 314 324
+----------------------------------------
+		FigureEnumeration fe = drawing.figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			figure = figure.findFigureInside(x, y);
+			if (figure != null && (figure instanceof ConnectionFigure)) {
+				return (ConnectionFigure)figure;
+			}
+		}
+		return null;
+	}
+----------------------------------------
+		FigureEnumeration fe = drawing.figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (!figure.includes(getConnection()) && figure.canConnect()
+				&& figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/util/CommandMenu.java 82 90
+JHotDraw54b1/src/CH/ifa/draw/contrib/CTXCommandMenu.java 116 124
+----------------------------------------
+		for (int i = 0; i < getItemCount(); i++) {
+			JMenuItem item = getItem(i);
+			if (name.equals(item.getLabel())) {
+				item.setEnabled(state);
+				return;
+			}
+		}
+	}
+----------------------------------------
+		for (int i = 0; i < getItemCount(); i++) {
+			JMenuItem item = getItem(i);
+			if (name.equals(item.getLabel())) {
+				item.setEnabled(state);
+				return;
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/SplitPaneDesktop.java 105 113
+JHotDraw54b1/src/CH/ifa/draw/contrib/DesktopEventService.java 62 70
+----------------------------------------
+		Component[] comps = getContainer().getComponents();
+		for (int x = 0; x < comps.length; x++) {
+			if (dv == Helper.getDrawingView(comps[x])) {
+				getContainer().remove(comps[x]);
+			    break;
+			}
+		}
+	}
+----------------------------------------
+		Component[] comps = getContainer().getComponents();
+		for (int x=0; x < comps.length; x++) {
+			if (dv == Helper.getDrawingView(comps[x])) {
+				getContainer().remove(comps[x]);
+			    break;
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java 766 775
+JHotDraw54b1/src/CH/ifa/draw/application/DrawApplication.java 777 785
+----------------------------------------
+		JMenuBar mb = getJMenuBar();
+
+		for (int x = 0; x < mb.getMenuCount(); x++) {
+		    JMenu jm = mb.getMenu(x);
+			if (CommandMenu.class.isInstance(jm)) {
+				checkCommandMenu((CommandMenu)jm);
+			}
+		}
+	}
+----------------------------------------
+		cm.checkEnabled();
+		for (int y = 0; y < cm.getItemCount();y++) {
+			JMenuItem jmi = cm.getItem(y);
+			if (CommandMenu.class.isInstance(jmi)) {
+				checkCommandMenu((CommandMenu)jmi);
+			}
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ScalingGraphics.java 243 252
+JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ScalingGraphics.java 254 263
+----------------------------------------
+							 int nPoints) {
+		int[] realXPoints = new int[nPoints];
+		int[] realYPoints = new int[nPoints];
+		for (int i = 0; i < nPoints; i++) {
+			realXPoints[i] = (int) (xPoints[i] * scale);
+			realYPoints[i] = (int) (yPoints[i] * scale);
+		}
+		real.drawPolyline(realXPoints, realYPoints, nPoints);
+	}
+----------------------------------------
+							int nPoints) {
+		int[] realXPoints = new int[nPoints];
+		int[] realYPoints = new int[nPoints];
+		for (int i = 0; i < nPoints; i++) {
+			realXPoints[i] = (int) (xPoints[i] * scale);
+			realYPoints[i] = (int) (yPoints[i] * scale);
+		}
+		real.drawPolygon(realXPoints, realYPoints, nPoints);
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ScalingGraphics.java 243 252
+JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ScalingGraphics.java 265 274
+----------------------------------------
+							 int nPoints) {
+		int[] realXPoints = new int[nPoints];
+		int[] realYPoints = new int[nPoints];
+		for (int i = 0; i < nPoints; i++) {
+			realXPoints[i] = (int) (xPoints[i] * scale);
+			realYPoints[i] = (int) (yPoints[i] * scale);
+		}
+		real.drawPolyline(realXPoints, realYPoints, nPoints);
+	}
+----------------------------------------
+							int nPoints) {
+		int[] realXPoints = new int[nPoints];
+		int[] realYPoints = new int[nPoints];
+		for (int i = 0; i < nPoints; i++) {
+			realXPoints[i] = (int) (xPoints[i] * scale);
+			realYPoints[i] = (int) (yPoints[i] * scale);
+		}
+		real.fillPolygon(realXPoints, realYPoints, nPoints);
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ScalingGraphics.java 254 263
+JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ScalingGraphics.java 265 274
+----------------------------------------
+							int nPoints) {
+		int[] realXPoints = new int[nPoints];
+		int[] realYPoints = new int[nPoints];
+		for (int i = 0; i < nPoints; i++) {
+			realXPoints[i] = (int) (xPoints[i] * scale);
+			realYPoints[i] = (int) (yPoints[i] * scale);
+		}
+		real.drawPolygon(realXPoints, realYPoints, nPoints);
+	}
+----------------------------------------
+							int nPoints) {
+		int[] realXPoints = new int[nPoints];
+		int[] realYPoints = new int[nPoints];
+		for (int i = 0; i < nPoints; i++) {
+			realXPoints[i] = (int) (xPoints[i] * scale);
+			realYPoints[i] = (int) (yPoints[i] * scale);
+		}
+		real.fillPolygon(realXPoints, realYPoints, nPoints);
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java 43 52
+JHotDraw54b1/src/CH/ifa/draw/standard/SendToBackCommand.java 35 44
+----------------------------------------
+		super.execute();
+		setUndoActivity(createUndoActivity());
+		getUndoActivity().setAffectedFigures(view().selection());
+		FigureEnumeration fe = getUndoActivity().getAffectedFigures();
+		while (fe.hasNextFigure()) {
+			fe.nextFigure().setAttribute(fAttribute, fValue);
+		}
+		view().checkDamage();
+	}
+----------------------------------------
+		super.execute();
+		setUndoActivity(createUndoActivity());
+		getUndoActivity().setAffectedFigures(view().selectionZOrdered());
+		FigureEnumeration fe = getUndoActivity().getAffectedFigures();
+		while (fe.hasNextFigure()) {
+			view().drawing().sendToBack(fe.nextFigure());
+		}
+		view().checkDamage();
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/SendToBackCommand.java 35 44
+JHotDraw54b1/src/CH/ifa/draw/standard/BringToFrontCommand.java 35 44
+----------------------------------------
+		super.execute();
+		setUndoActivity(createUndoActivity());
+		getUndoActivity().setAffectedFigures(view().selectionZOrdered());
+		FigureEnumeration fe = getUndoActivity().getAffectedFigures();
+		while (fe.hasNextFigure()) {
+			view().drawing().sendToBack(fe.nextFigure());
+		}
+		view().checkDamage();
+	}
+----------------------------------------
+		super.execute();
+		setUndoActivity(createUndoActivity());
+		getUndoActivity().setAffectedFigures(view().selection());
+		FigureEnumeration fe = getUndoActivity().getAffectedFigures();
+		while (fe.hasNextFigure()) {
+			view().drawing().bringToFront(fe.nextFigure());
+		}
+		view().checkDamage();
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/ChangeAttributeCommand.java 43 52
+JHotDraw54b1/src/CH/ifa/draw/standard/BringToFrontCommand.java 35 44
+----------------------------------------
+		super.execute();
+		setUndoActivity(createUndoActivity());
+		getUndoActivity().setAffectedFigures(view().selection());
+		FigureEnumeration fe = getUndoActivity().getAffectedFigures();
+		while (fe.hasNextFigure()) {
+			fe.nextFigure().setAttribute(fAttribute, fValue);
+		}
+		view().checkDamage();
+	}
+----------------------------------------
+		super.execute();
+		setUndoActivity(createUndoActivity());
+		getUndoActivity().setAffectedFigures(view().selection());
+		FigureEnumeration fe = getUndoActivity().getAffectedFigures();
+		while (fe.hasNextFigure()) {
+			view().drawing().bringToFront(fe.nextFigure());
+		}
+		view().checkDamage();
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionTool.java 314 324
+JHotDraw54b1/src/CH/ifa/draw/standard/CompositeFigure.java 434 443
+----------------------------------------
+		FigureEnumeration fe = drawing.figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (!figure.includes(getConnection()) && figure.canConnect()
+				&& figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+----------------------------------------
+		FigureEnumeration fe = figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionHandle.java 142 152
+JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionTool.java 314 324
+----------------------------------------
+		FigureEnumeration fe = drawing.figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (!figure.includes(getConnection()) && figure.canConnect() 
+				&& figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+----------------------------------------
+		FigureEnumeration fe = drawing.figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (!figure.includes(getConnection()) && figure.canConnect()
+				&& figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java 385 396
+JHotDraw54b1/src/CH/ifa/draw/standard/StandardDrawingView.java 638 650
+----------------------------------------
+		Rectangle r = e.getInvalidatedRectangle();
+		if (getDamage() == null) {
+			setDamage(r);
+		}
+		else {
+			Rectangle damagedArea = getDamage();
+			damagedArea.add(r);
+			// the returned rectange may be a clone so we better set it again
+			setDamage(damagedArea);
+		}
+	}
+----------------------------------------
+		Rectangle r = e.getInvalidatedRectangle();
+		if (getDamage() == null) {
+			setDamage(r);
+		}
+		else {
+			// don't manipulate rectangle returned by getDamage() directly
+			// because it could be a cloned rectangle.
+			Rectangle damagedR = getDamage();
+			damagedR.add(r);
+			setDamage(damagedR);
+		}
+	}
+----------------------------------------
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+0
+0
+JHotDraw54b1/src/CH/ifa/draw/standard/ConnectionHandle.java 142 152
+JHotDraw54b1/src/CH/ifa/draw/standard/CompositeFigure.java 434 443
+----------------------------------------
+		FigureEnumeration fe = drawing.figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (!figure.includes(getConnection()) && figure.canConnect() 
+				&& figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+----------------------------------------
+		FigureEnumeration fe = figuresReverse();
+		while (fe.hasNextFigure()) {
+			Figure figure = fe.nextFigure();
+			if (figure.containsPoint(x, y)) {
+				return figure;
+			}
+		}
+		return null;
+	}
+----------------------------------------
