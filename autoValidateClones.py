@@ -6,6 +6,7 @@ import argparse
 from mlCVF.MLHelper import MLHelper
 from mlCVF.Utils import Utils
 
+from tqdm import tqdm
 
 mlHelper = MLHelper()
 utils = Utils()
@@ -61,7 +62,7 @@ def run(args):
     totalClonePairs = len(soup.find_all('clone'))
     #print totalClonePairs
 
-    for aCloneIndex in range(mlValidationCount, totalClonePairs):
+    for aCloneIndex in tqdm(range(mlValidationCount, totalClonePairs)):
         fragment_1_path, fragment_1_startline, fragment_1_endline, fragment_1_clone, fragment_2_path, fragment_2_startline, fragment_2_endline,\
         fragment_2_clone, clones_validated, total_clones = utils.get_next_clone_pair_for_validation(
             aCloneFile, mlValidation_output_file)
@@ -69,7 +70,7 @@ def run(args):
 
         true_probability = mlHelper.app_code_clone_getValidationScore(fragment_1_clone, fragment_2_clone, 'java')
         #print true_probability
-        print "Validated : ", aCloneIndex , "/", totalClonePairs, " clones. Last clone prob. : ", true_probability
+        print "  Validated : ", aCloneIndex , "/", totalClonePairs, " clones. Last clone prob. : ", true_probability
 
         with open(mlValidation_output_file, "a") as validationFile:
             if true_probability >= validationThreshold:
