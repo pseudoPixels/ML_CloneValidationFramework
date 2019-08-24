@@ -170,11 +170,11 @@ $python train.py -in 'JHotDraw54b1_clones.xml.clones2' -out 'newlyTrainedModel'
 ```
 
 
-## 5.0 Bugs/Issues?
+## 6.0 Bugs/Issues?
 Please add your issues or bug reports to this git repository. We track the issues for further improvement of the framework. 
 
 
-## 6.0 References
+## 7.0 References
 [1] Mostaeen, G., Svajlenko, J., Roy, B., Roy, C. K., & Schneider, K. (2018, September). On the Use of Machine Learning Techniques Towards the Design of Cloud Based Automatic Code Clone Validation Tools. In Source Code Analysis and Manipulation (SCAM), 2018 IEEE 18th International Working Conference on. IEEE. 
 
 [2] Roy, C. K., & Cordy, J. R. (2008, June). NICAD: Accurate detection of near-miss intentional clones using flexible pretty-printing and code normalization. In Program Comprehension, 2008. ICPC 2008. The 16th IEEE International Conference on (pp. 172-181). IEEE. 

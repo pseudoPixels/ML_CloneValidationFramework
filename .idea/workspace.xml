@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f3379ac3-02ce-4be2-8890-ff9a4c210414" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/autoValidateClones.py" beforeDir="false" afterPath="$PROJECT_DIR$/autoValidateClones.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manual_validator/input_clone_pairs/JHotDraw54b1_clones.xml.clones2" beforeDir="false" afterPath="$PROJECT_DIR$/manual_validator/input_clone_pairs/JHotDraw54b1_clones.xml.clones2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mlCVF/MLHelper.py" beforeDir="false" afterPath="$PROJECT_DIR$/mlCVF/MLHelper.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
