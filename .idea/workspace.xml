@@ -3,10 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="f3379ac3-02ce-4be2-8890-ff9a4c210414" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/autoValidateClones.py" beforeDir="false" afterPath="$PROJECT_DIR$/autoValidateClones.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manual_validator/input_clone_pairs/JHotDraw54b1_clones.xml.clones2" beforeDir="false" afterPath="$PROJECT_DIR$/manual_validator/input_clone_pairs/JHotDraw54b1_clones.xml.clones2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mlCVF/MLHelper.py" beforeDir="false" afterPath="$PROJECT_DIR$/mlCVF/MLHelper.py" afterDir="false" />
     </list>
-    <ignored path="ML_CloneValidationFramework.iws" />
-    <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,77 +19,6 @@
   </component>
   <component name="FavoritesManager">
     <favorites_list name="ML_CloneValidationFramework" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/autoValidateClones.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="72" column="17" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="475">
-                <caret line="76" selection-start-line="76" selection-end-line="76" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/manual_validator/input_clone_pairs/JHotDraw54b1_clones.xml">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/manual_validator/input_clone_pairs/JHotDraw54b1_clones.xml.clones">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/input_clone_pairs/JHotDraw54b1_clones.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="6" column="95" selection-start-line="6" selection-start-column="88" selection-end-line="6" selection-end-column="95" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ml_validated_clone_pairs/__CLONE_VALIDATION_STATS.txt">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ml_validated_clone_pairs/helloWorldClones.xml.mlValidated">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="4" selection-start-line="4" selection-end-line="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ml_validated_clone_pairs/pair1170000.xml.mlValidated">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/out/JHotDraw54b1_clones.xml.xml.mlValidated">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -107,122 +37,35 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/input_clone_pairs/pair1170000.xml" />
-        <option value="$PROJECT_DIR$/out/default.txt" />
-        <option value="$PROJECT_DIR$/tmp_outputs/pair2850000.xml.mlValidated" />
-        <option value="$PROJECT_DIR$/tmp_outputs/pair70000.xml.mlValidated" />
-        <option value="$PROJECT_DIR$/tmp_outputs/__CLONE_VALIDATION_STATS.txt" />
-        <option value="$PROJECT_DIR$/input_clone_pairs/helloWorldClones.xml" />
-        <option value="$PROJECT_DIR$/mlCCV/__init__.py" />
-        <option value="$PROJECT_DIR$/mlCCV/TxlHelper.py" />
-        <option value="$PROJECT_DIR$/mlCCV/MLHelper.py" />
-        <option value="$PROJECT_DIR$/mlCCV/TXLHelper.py" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/mlCCV/Utils.py" />
-        <option value="$PROJECT_DIR$/mlCVF/MLHelper.py" />
-        <option value="$PROJECT_DIR$/input_clone_pairs/JHotDraw54b1_clones.xml.xml" />
-        <option value="$PROJECT_DIR$/prepareClonesForManualVal.py" />
-        <option value="$PROJECT_DIR$/MANUAL_VALIDATOR/prepareClonesForManualVal.py" />
-        <option value="$PROJECT_DIR$/mlCVF/MANUAL_VALIDATOR/prepareClonesForManualVal.py" />
-        <option value="$PROJECT_DIR$/setup.py" />
-        <option value="$PROJECT_DIR$/mlCVF/Utils.py" />
-        <option value="$PROJECT_DIR$/manual_validator/prepareClonesForManualVal.py" />
-        <option value="$PROJECT_DIR$/manual_validator/config.py" />
-        <option value="$PROJECT_DIR$/manual_validator/manualValidate.py" />
-        <option value="$PROJECT_DIR$/manual_validator/Utils.py" />
-        <option value="$PROJECT_DIR$/validateClones.py" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/autoValidateClones.py" />
-      </list>
-    </option>
-  </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="295" />
     <option name="y" value="80" />
     <option name="width" value="1400" />
     <option name="height" value="1000" />
   </component>
+  <component name="ProjectId" id="1Psf9gaNEfSl0UuqGe0dFKQ77OZ" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="ML_CloneValidationFramework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ML_CloneValidationFramework" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ML_CloneValidationFramework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ML_CloneValidationFramework" type="462c0819:PsiDirectoryNode" />
-              <item name="docs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ML_CloneValidationFramework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ML_CloneValidationFramework" type="462c0819:PsiDirectoryNode" />
-              <item name="docs" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ML_CloneValidationFramework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ML_CloneValidationFramework" type="462c0819:PsiDirectoryNode" />
-              <item name="input_clone_pairs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ML_CloneValidationFramework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ML_CloneValidationFramework" type="462c0819:PsiDirectoryNode" />
-              <item name="manual_validator" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ML_CloneValidationFramework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ML_CloneValidationFramework" type="462c0819:PsiDirectoryNode" />
-              <item name="manual_validator" type="462c0819:PsiDirectoryNode" />
-              <item name="input_clone_pairs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ML_CloneValidationFramework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ML_CloneValidationFramework" type="462c0819:PsiDirectoryNode" />
-              <item name="ml_validated_clone_pairs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ML_CloneValidationFramework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ML_CloneValidationFramework" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
-  </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../machine_learning_diary" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/docs/images" />
+      <recent name="$PROJECT_DIR$/MANUAL_VALIDATOR" />
+      <recent name="$PROJECT_DIR$/ml_validated_clone_pairs" />
+      <recent name="$PROJECT_DIR$/input_clone_pairs" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/mlCVF" />
       <recent name="$PROJECT_DIR$/MANUAL_VALIDATOR" />
       <recent name="$PROJECT_DIR$/external_tools" />
       <recent name="$PROJECT_DIR$/docs" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/docs/images" />
-      <recent name="$PROJECT_DIR$/MANUAL_VALIDATOR" />
-      <recent name="$PROJECT_DIR$/ml_validated_clone_pairs" />
-      <recent name="$PROJECT_DIR$/input_clone_pairs" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -237,7 +80,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.prepareClonesForManualVal">
+  <component name="RunManager" selected="Python.train">
     <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -278,6 +121,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="train" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="ML_CloneValidationFramework" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="validateClones" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="ML_CloneValidationFramework" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -301,6 +165,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.train" />
         <item itemvalue="Python.prepareClonesForManualVal" />
         <item itemvalue="Python.validateClones" />
       </list>
@@ -319,28 +184,16 @@
     </task>
     <servers />
   </component>
-  <component name="ToolWindowManager">
-    <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
-    <editor active="true" />
-    <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20655738" />
-      <window_info id="Structure" order="1" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32937366" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.07235421" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.41144708" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -349,189 +202,5 @@
     <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
       <collection />
     </option>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/out/example1.xml.mlValidated" />
-    <entry file="file://$PROJECT_DIR$/out/default.txt" />
-    <entry file="file://$PROJECT_DIR$/tmp_inputs/__CLONE_VALIDATION_STATS.txt" />
-    <entry file="file://$PROJECT_DIR$/tmp_outputs/pair2850000.xml.mlValidated" />
-    <entry file="file://$PROJECT_DIR$/../SciWorCS/app_code_clone/views.py" />
-    <entry file="file://$PROJECT_DIR$/tmp_outputs/__CLONE_VALIDATION_STATS.txt" />
-    <entry file="file://$PROJECT_DIR$/tmp_inputs/pair70000.xml" />
-    <entry file="file://$PROJECT_DIR$/tmp_outputs/pair70000.xml.mlValidated" />
-    <entry file="file://$PROJECT_DIR$/cloneCognition.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="238" lean-forward="true" selection-start-line="238" selection-end-line="238" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/python2.7/lib/python2.7/os.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/python2.7/lib/python2.7/shutil.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4294">
-          <caret line="232" column="4" selection-start-line="232" selection-start-column="4" selection-end-line="232" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/python2.7/lib/python2.7/argparse.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="1266" column="8" selection-start-line="1266" selection-start-column="8" selection-end-line="1266" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="5" selection-start-line="1" selection-end-line="1" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/validated_outputs/pair1170000.xml.mlValidated">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1505" column="71" selection-start-line="1505" selection-start-column="71" selection-end-line="1505" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/out/JHotDraw54b1_clones.xml.mlValidated" />
-    <entry file="file://$PROJECT_DIR$/mlCVF/TXLHelper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-          <folding>
-            <element signature="e#1#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mlCVF/MLHelper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/input_clone_pairs/helloWorldClones.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="703">
-          <caret line="37" column="7" selection-start-line="37" selection-start-column="7" selection-end-line="37" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="108" selection-start-line="108" selection-end-line="108" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="12" lean-forward="true" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/manual_validator/output_clones_for_manual_val/test.clones" />
-    <entry file="file://$PROJECT_DIR$/mlCVF/Utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="557">
-          <caret line="101" column="44" selection-start-line="101" selection-start-column="8" selection-end-line="101" selection-end-column="44" />
-          <folding>
-            <element signature="e#1#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/manual_validator/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="10" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/manual_validator/manualValidate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="16" column="37" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/manual_validator/Utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
-          <folding>
-            <element signature="e#1#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mlCVF/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/input_clone_pairs/JHotDraw54b1_clones.xml.xml" />
-    <entry file="file://$PROJECT_DIR$/manual_validator/input_clone_pairs/JHotDraw54b1_clones.xml.clones2">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/manual_validator/input_clone_pairs/JHotDraw54b1_clones.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/manual_validator/input_clone_pairs/JHotDraw54b1_clones.xml.clones">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/input_clone_pairs/JHotDraw54b1_clones.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="95" selection-start-line="6" selection-start-column="88" selection-end-line="6" selection-end-column="95" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ml_validated_clone_pairs/__CLONE_VALIDATION_STATS.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ml_validated_clone_pairs/helloWorldClones.xml.mlValidated">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ml_validated_clone_pairs/pair1170000.xml.mlValidated">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/out/JHotDraw54b1_clones.xml.xml.mlValidated">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="475">
-            <caret line="76" selection-start-line="76" selection-end-line="76" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/autoValidateClones.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="72" column="17" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
   </component>
 </project>

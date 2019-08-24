@@ -17,6 +17,7 @@ def run(args):
     validationThreshold = float(args.val_threshold)
     inputCloneFile = args.input_clone_file
     outDir = args.output_Dir
+    trainedModel = args.trainedModel
 
     formattedCloneFile = utils.parse_and_format_clone_pairs_from_nicad_clone_file('input_clone_pairs/' + inputCloneFile)
 
@@ -68,7 +69,7 @@ def run(args):
             aCloneFile, mlValidation_output_file)
         OVERALL_CLONE_PAIRS = OVERALL_CLONE_PAIRS + 1
 
-        true_probability = mlHelper.app_code_clone_getValidationScore(fragment_1_clone, fragment_2_clone, 'java')
+        true_probability = mlHelper.app_code_clone_getValidationScore(fragment_1_clone, fragment_2_clone, 'java', )
         #print true_probability
         print "  Validated : ", aCloneIndex , "/", totalClonePairs, " clones. Last clone prob. : ", true_probability
 
@@ -112,6 +113,8 @@ def main():
     parser.add_argument("-in", help="(required) input clone file (i.e., output from NICAD)", dest="input_clone_file", type=str, required=True)
     parser.add_argument("-out", help="(required) target output directory of machine learning validated clones", dest="output_Dir", type=str, required=True)
     parser.add_argument("-t", help="(optional) the threshold for automatic clone validation. Default=0.7", dest="val_threshold", type=float, default=0.7)
+    parser.add_argument("-m", help="(optional) the trained model to use for prediction. Default=trainedNetwork",
+                        dest="trainedModel", type=str, default='trainedNetwork')
     parser.set_defaults(func=run)
     args = parser.parse_args()
     args.func(args)

@@ -161,6 +161,14 @@ clone file for corresponding manual validation response on the clone pairs.
 After manual validation of the clones, the output file (such as `myManualCloneValReport.csv` in this case) can later be
 used for training the machine learning models or any other research purposes.
 
+## 5.0 Train New Model
+You can use the newly validated clone sets (from the previous Section 4.0) to train new custom model. The newly trained
+model can be used for custom validation. Following is an example for starting the training. Here, `-in` specifies the
+manual validated file, and `-out` specifies the name of the newly trained model to save as (all models are saved at 'pybrain/' folder).
+```
+$python train.py -in 'JHotDraw54b1_clones.xml.clones2' -out 'newlyTrainedModel'
+```
+
 
 ## 5.0 Bugs/Issues?
 Please add your issues or bug reports to this git repository. We track the issues for further improvement of the framework. 

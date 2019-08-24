@@ -10,9 +10,9 @@ class MLHelper:
         self.txlHelper = TXLHelper()
 
 
-    def app_code_clone_getValidationScore(self, sourceCode1, sourceCode2, lang='java'):
+    def app_code_clone_getValidationScore(self, sourceCode1, sourceCode2, lang='java', trainedModel='trainedNetwork'):
         # load the trained Neural Net
-        fileObject = open('pybrain/trainedNetwork', 'rb')
+        fileObject = open('pybrain/'+trainedModel, 'rb')
         loaded_fnn = pickle.load(fileObject)
 
         type1sim_by_line, type2sim_by_line, type3sim_by_line = self.txlHelper.app_code_clone_similaritiesNormalizedByLine(sourceCode1,
